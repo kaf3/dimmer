@@ -1,0 +1,512 @@
+*==============================================
+*Misc. Models and Subcircuits
+*Copyright (c) 1997 MicroCode Engineering, Inc.
+*All Rights Reserved
+*==============================================
+
+*Deafult semiconductor capacitor
+.MODEL CAP~ ()
+
+*=======================================================
+*Timer Pinout: Gnd,Trig,Out,Reset,Ctrl,Thresh,Dischg,Vcc
+*=======================================================
+
+*================================================
+*UA555 MCE
+*Sngl Timer (Component Model) pkg:DIP8 1,2,3,4,5,6,7,8
+.SUBCKT UA555  99 32 30 19 23 33 1  21 
+Q4 25 2 3 QP
+Q5 0 6 3 QP
+Q6 6 6 8 QP
+R1 9 21 4.7K
+R2 3 21 830
+R3 8 21 4.7K
+Q7 2 33 5 QN
+Q8 2 5 17 QN
+Q9 6 4 17 QN
+Q10 6 23 4 QN
+Q11 12 20 10 QP
+R4 10 21 1K
+Q12 22 11 12 QP
+Q13 14 13 12 QP
+Q14 0 32 11 QP
+Q15 14 18 13 QP
+R5 14 0 100K
+R6 22 0 100K
+R7 17 0 10K
+Q16 1 15 0 QN
+Q17 15 19 31 QP
+R8 18 23 5K
+R9 18 0 5K
+R10 21 23 5K
+Q18 27 20 21 QP
+Q19 20 20 21 QP
+R11 20 31 5K
+D1 31 24 DA
+Q20 24 25 0 QN
+Q21 25 22 0 QN
+Q22 27 24 0 QN
+R12 25 27 4.7K
+R13 21 29 6.8K
+Q23 21 29 28 QN
+Q24 29 27 16 QN
+Q25 30 26 0 QN
+Q26 21 28 30 QN
+D2 30 29 DA
+R14 16 15 100
+R15 16 26 220
+R16 16 0 4.7K
+R17 28 30 3.9K
+Q3 2 2 9 QP
+.MODEL DA D (RS=40 IS=1.0E-14 CJO=1PF)
+.MODEL QP PNP (BF=20 BR=0.02 RC=4 RB=25 IS=1.0E-14 VA=50 NE=2)  
++ CJE=12.4P VJE=1.1 MJE=.5 CJC=4.02P VJC=.3 MJC=.3 TF=229P TR=159N)
+.MODEL QN NPN (IS=5.07F NF=1 BF=100 VAF=161 IKF=30M ISE=3.9P NE=2       
++ BR=4 NR=1 VAR=16 IKR=45M RE=1.03 RB=4.12 RC=.412 XTB=1.5      
++ CJE=12.4P VJE=1.1 MJE=.5 CJC=4.02P VJC=.3 MJC=.3 TF=229P TR=959P)
+.ENDS UA555
+*
+*================================================
+*UA556 MCE 2-20-96
+*Dual Timer (Component Model) pkg:DIP14 (A:7,6,5,4,3,2,1,14)(B:7,8,9,10,11,12,13,14)
+.SUBCKT UA556 1,2,3,4,5,6,7,8
+X_UA555 1 2 3 4 5 6 7 8 UA555
+.ENDS UA556
+
+*================================================
+*555 MCE
+*Sngl Timer (Macromodel) pkg:DIP8 1,2,3,4,5,6,7,8
+.SUBCKT 555 1 2 3 4 5 6 7 8 
+EREF 15 1 8 1 .5
+GSOURCE 8 3 8 26 12.5E-3
+GSINK 3 1 26 1 67E-3
+VD1 8 27 DC .8
+VD2 28 1 DC .85
+VREF 30 1 DC 1.2
+C1 29 1 700E-15
+RREF2 30 1 100E3
+RREF 15 1 100E3
+ROUT 3 1 100K
+R1 6 1 500E9
+R2 2 1 500E9
+R3 8 5 75E3
+R4 5 9 75E3
+R5 9 1 75E3
+R6 10 11 1E3
+R7 13 14 1E3
+R8 8 12 150E3
+R9 4 8 500E9
+R10 20 19 1E3
+R11 16 17 1E3
+R12 8 18 150E3
+R13 8 21 150E3
+R14 22 23 1E3
+R15 8 26 150E3
+R16 24 25 1E3
+R19 7 1 500E9
+R20 29 26 1E6
+D1 1 11 DMOD
+D2 12 11 DMOD
+D3 12 14 DMOD
+D4 1 14 DMOD
+D5 18 17 DMOD
+D6 1 17 DMOD
+D7 18 19 DMOD
+D8 1 19 DMOD
+D9 21 14 DMOD
+D10 21 25 DMOD
+D11 1 23 DMOD
+D12 18 23 DMOD
+D13 26 25 DMOD
+D14 1 25 DMOD1
+D15 3 27 DMOD
+D16 28 3 DMOD
+E1 10 1 6 5 1000
+E2 13 1 2 9 1000
+E3 16 1 15 12 1000
+E4 22 1 15 21 1000
+E5 24 1 15 18 1000
+E7 20 1 4 30 1000
+M1 7 29 1 1 MOSMOD
+.MODEL MOSMOD NMOS (LEVEL=1 KP=1 VTO=1 RD=5)
+.MODEL DMOD D (RS=1E-6)
+.MODEL DMOD1 D (RS=1E-6 IS=1E-9)
+.ENDS 555
+*
+*================================================
+*556 MCE 2-20-96
+*Dual Timer (Macromodel) pkg:DIP14 (A:7,6,5,4,3,2,1,14)(B:7,8,9,10,11,12,13,14)
+.SUBCKT 556  1,2,3,4,5,6,7,8
+X_555 1 2 3 4 5 6 7 8 555
+.ENDS 556
+
+*================================================
+*Math Functions for Current
+*I-Math1 Pinout: +I -I -O +O
+*================================================
+
+*Absolute value of Current -- pkg:ABS(I)
+.SUBCKT ABSI 1 2 3 4
+VX 1 2 0
+BX 4 3 I=ABS(I(VX))
+.ENDS ABSI
+
+*Arc cosine of Current -- pkg:ACOS(I)
+.SUBCKT ACOSI 1 2 3 4
+VX 1 2 0
+BX 4 3 I=ACOS(I(VX))
+.ENDS ACOSI
+
+*Hyperbolic arc cosine of Current -- pkg:ACOSH(I)
+.SUBCKT ACOSHI 1 2 3 4
+VX 1 2 0
+BX 4 3 I=ACOSH(I(VX))
+.ENDS ACOSHI
+
+*Arc sine of Current -- pkg:ASIN(I)
+.SUBCKT ASINI 1 2 3 4
+VX 1 2 0
+BX 4 3 I=ASIN(I(VX))
+.ENDS ASINI
+
+*Hyperbolic arc sine of Current -- pkg:ASINH(I)
+.SUBCKT ASINHI 1 2 3 4
+VX 1 2 0
+BX 4 3 I=ASINH(I(VX))
+.ENDS ASINHI
+
+*Arc tangent of Current -- pkg:ATAN(I)
+.SUBCKT ATANI 1 2 3 4
+VX 1 2 0
+BX 4 3 I=ATAN(I(VX))
+.ENDS ATANI
+
+*Hyperbolic arc tangent of Current -- pkg:ATANH(I)
+.SUBCKT ATANHI 1 2 3 4
+VX 1 2 0
+BX 4 3 I=ATANH(I(VX))
+.ENDS ATANHI
+
+*Cosine of Current -- pkg:COS(I)
+.SUBCKT COSI 1 2 3 4
+VX 1 2 0
+BX 4 3 I=COS(I(VX))
+.ENDS COSI
+
+*Hyperbolic cosine of Current -- pkg:COSH(I)
+.SUBCKT COSHI 1 2 3 4
+VX 1 2 0
+BX 4 3 I=COSH(I(VX))
+.ENDS COSHI
+
+*Exponential of Current -- pkg:EXP(I)
+.SUBCKT EXPI 1 2 3 4
+VX 1 2 0
+BX 4 3 I=EXP(I(VX))
+.ENDS EXPI
+
+*Natural logarithm of Current -- pkg:LN(I)
+.SUBCKT LNI 1 2 3 4
+VX 1 2 0
+BX 4 3 I=LN(I(VX))
+.ENDS LNI
+
+*Logarithm of Current -- pkg:LOG(I)
+.SUBCKT LOGI 1 2 3 4
+VX 1 2 0
+BX 4 3 I=LOG(I(VX))
+.ENDS LOGI
+
+*Sine of Current -- pkg:SIN(I)
+.SUBCKT SINI 1 2 3 4
+VX 1 2 0
+BX 4 3 I=SIN(I(VX))
+.ENDS SINI
+
+*Hyperbolic sine of Current -- pkg:SINH(I)
+.SUBCKT SINHI 1 2 3 4
+VX 1 2 0
+BX 4 3 I=SINH(I(VX))
+.ENDS SINHI
+
+*Square root of Current -- pkg:SQRT(I)
+.SUBCKT SQRTI 1 2 3 4
+VX 1 2 0
+BX 4 3 I=SQRT(I(VX))
+.ENDS SQRTI
+
+*Tangent of Current -- pkg:TAN(I)
+.SUBCKT TANI 1 2 3 4
+VX 1 2 0
+BX 4 3 I=TAN(I(VX))
+.ENDS TANI
+
+*Unary - of Current -- pkg:-(I)
+.SUBCKT UNARYI 1 2 3 4
+VX 1 2 0
+BX 4 3 I=-(I(VX))
+.ENDS UNARYI
+
+*================================================
+*Math Operations for Current
+*I-Math2 Pinout: A B O
+*================================================
+
+*Add Currents -- pkg:I(A+B)
+.SUBCKT ADDI 1 2 3 4 5 6
+VA 1 2 0
+VB 3 4 0
+BX 6 5 I=I(VA)+I(VB)
+.ENDS ADDI
+
+*Subtract Currents -- pkg:I(A-B)
+.SUBCKT SUBI 1 2 3 4 5 6
+VA 1 2 0
+VB 3 4 0
+BX 6 5 I=I(VA)-I(VB)
+.ENDS SUBI
+
+*Multiply Currents -- pkg:I(A*B)
+.SUBCKT MULTI 1 2 3 4 5 6
+VA 1 2 0
+VB 3 4 0
+BX 6 5 I=I(VA)*I(VB)
+.ENDS MULTI
+
+*Divide Currents -- pkg:I(A/B)
+.SUBCKT DIVI 1 2 3 4 5 6
+VA 1 2 0
+VB 3 4 0
+BX 6 5 I=I(VA)/I(VB)
+.ENDS DIVI
+
+*================================================
+*Math Functions with Ground References
+*V-Math1 Pinout: +I +O
+*================================================
+
+*Absolute value of Voltage -- pkg:ABS(V)
+.SUBCKT ABSV 1 2
+BX 2 0 V=ABS(V(1))
+.ENDS ABSV
+
+*Arc cosine of Voltage -- pkg:ACOS(V)
+.SUBCKT ACOSV 1 2
+BX 2 0 V=ACOS(V(1))
+.ENDS ACOSV
+
+*Hyperbolic arc cosine of Voltage -- pkg:ACOSH(V)
+.SUBCKT ACOSHV 1 2
+BX 2 0 V=ACOSH(V(1))
+.ENDS ACOSHV
+
+*Arc sine of Voltage -- pkg:ASIN(V)
+.SUBCKT ASINV 1 2
+BX 2 0 V=ASIN(V(1))
+.ENDS ASINV
+
+*Hyperbolic arc sine of Voltage -- pkg:ASINH(V)
+.SUBCKT ASINHV 1 2
+BX 2 0 V=ASINH(V(1))
+.ENDS ASINHV
+
+*Arc tangent of Voltage -- pkg:ATAN(V)
+.SUBCKT ATANV 1 2
+BX 2 0 V=ATAN(V(1))
+.ENDS ATANV
+
+*Hyperbolic arc tangent of Voltage -- pkg:ATANH(V)
+.SUBCKT ATANHV 1 2
+BX 2 0 V=ATANH(V(1))
+.ENDS ATANHV
+
+*Cosine of Voltage -- pkg:COS(V)
+.SUBCKT COSV 1 2
+BX 2 0 V=COS(V(1))
+.ENDS COSV
+
+*Hyperbolic cosine of Voltage -- pkg:COSH(V)
+.SUBCKT COSHV 1 2
+BX 2 0 V=COSH(V(1))
+.ENDS COSHV
+
+*Exponential of Voltage -- pkg:EXP(V)
+.SUBCKT EXPV 1 2
+BX 2 0 V=EXP(V(1))
+.ENDS EXPV
+
+*Natural logarithm of Voltage -- pkg:LN(V)
+.SUBCKT LNV 1 2
+BX 2 0 V=LN(V(1))
+.ENDS LNV
+
+*Logarithm of Voltage -- pkg:LOG(V)
+.SUBCKT LOGV 1 2
+BX 2 0 V=LOG(V(1))
+.ENDS LOGV
+
+*Sine of Voltage -- pkg:SIN(V)
+.SUBCKT SINV 1 2
+BX 2 0 V=SIN(V(1))
+.ENDS SINV
+
+*Hyperbolic sine of Voltage -- pkg:SINH(V)
+.SUBCKT SINHV 1 2
+BX 2 0 V=SINH(V(1))
+.ENDS SINHV
+
+*Square root of Voltage -- pkg:SQRT(V)
+.SUBCKT SQRTV 1 2
+BX 2 0 V=SQRT(V(1))
+.ENDS SQRTV
+
+*Tangent of Voltage -- pkg:TAN(V)
+.SUBCKT TANV 1 2
+BX 2 0 V=TAN(V(1))
+.ENDS TANV
+
+*Unary Minus of Voltage -- pkg:-(V)
+.SUBCKT UNARYV 1 2
+BX 2 0 V=-(V(1))
+.ENDS UNARYV
+
+*================================================
+*Math Functions with References
+*V-Math1 Ref Pinout: +I -I -O +O
+*================================================
+
+*Absolute value of Voltage -- pkg:ABS(V)
+.SUBCKT ABSVR 1 2 3 4
+BX 4 3 V=ABS(V(1,2))
+.ENDS ABSVR
+
+*Arc cosine of Voltage -- pkg:ACOS(V)
+.SUBCKT ACOSVR 1 2 3 4
+BX 4 3 V=ACOS(V(1,2))
+.ENDS ACOSVR
+
+*Hyperbolic arc cosine of Voltage -- pkg:ACOSH(V)
+.SUBCKT ACOSHVR 1 2 3 4
+BX 4 3 V=ACOSH(V(1,2))
+.ENDS ACOSHVR
+
+*Arc sine of Voltage -- pkg:ASIN(V)
+.SUBCKT ASINVR 1 2 3 4
+BX 4 3 V=ASIN(V(1,2))
+.ENDS ASINVR
+
+*Hyperbolic arc sine of Voltage -- pkg:ASINH(V)
+.SUBCKT ASINHVR 1 2 3 4
+BX 4 3 V=ASINH(V(1,2))
+.ENDS ASINHVR
+
+*Arc tangent of Voltage -- pkg:ATAN(V)
+.SUBCKT ATANVR 1 2 3 4
+BX 4 3 V=ATAN(V(1,2))
+.ENDS ATANVR
+
+*Hyperbolic arc tangent of Voltage -- pkg:ATANH(V)
+.SUBCKT ATANHVR 1 2 3 4
+BX 4 3 V=ATANH(V(1,2))
+.ENDS ATANHVR
+
+*Cosine of Voltage -- pkg:COS(V)
+.SUBCKT COSVR 1 2 3 4
+BX 4 3 V=COS(V(1,2))
+.ENDS COSVR
+
+*Hyperbolic cosine of Voltage -- pkg:COSH(V)
+.SUBCKT COSHVR 1 2 3 4
+BX 4 3 V=COSH(V(1,2))
+.ENDS COSHVR
+
+*Exponential of Voltage -- pkg:EXP(V)
+.SUBCKT EXPVR 1 2 3 4
+BX 4 3 V=EXP(V(1,2))
+.ENDS EXPVR
+
+*Natural logarithm of Voltage -- pkg:LN(V)
+.SUBCKT LNVR 1 2 3 4
+BX 4 3 V=LN(V(1,2))
+.ENDS LNVR
+
+*Logarithm of Voltage -- pkg:LOG(V)
+.SUBCKT LOGVR 1 2 3 4
+BX 4 3 V=LOG(V(1,2))
+.ENDS LOGVR
+
+*Sine of Voltage -- pkg:SIN(V)
+.SUBCKT SINVR 1 2 3 4
+BX 4 3 V=SIN(V(1,2))
+.ENDS SINVR
+
+*Hyperbolic sine of Voltage -- pkg:SINH(V)
+.SUBCKT SINHVR 1 2 3 4
+BX 4 3 V=SINH(V(1,2))
+.ENDS SINHVR
+
+*Square root of Voltage -- pkg:SQRT(V)
+.SUBCKT SQRTVR 1 2 3 4
+BX 4 3 V=SQRT(V(1,2))
+.ENDS SQRTVR
+
+*Tangent of Voltage -- pkg:TAN(V)
+.SUBCKT TANVR 1 2 3 4
+BX 4 3 V=TAN(V(1,2))
+.ENDS TANVR
+
+*Unary - of Voltage -- pkg:-(V)
+.SUBCKT UNARYVR 1 2 3 4
+BX 4 3 V=-(V(1,2))
+.ENDS UNARYVR
+
+*================================================
+*Math Operations for Voltage
+*V-Math2 Pinout: A B O
+*================================================
+
+*Add Voltages -- pkg:V(A+B)
+.SUBCKT ADDV 1 2 3
+BX 3 0 V=V(1)+V(2)
+.ENDS ADDV
+
+*Subrtact Voltages -- pkg:V(A-B)
+.SUBCKT SUBV 1 2 3
+BX 3 0 V=V(1)-V(2)
+.ENDS SUBV
+
+*Multiply Voltages -- pkg:V(A*B)
+.SUBCKT MULTV 1 2 3
+BX 3 0 V=V(1)*V(2)
+.ENDS MULTV
+
+*Divide Voltages -- pkg:V(A/B)
+.SUBCKT DIVV 1 2 3
+BX 3 0 V=V(1)/V(2)
+.ENDS DIVV
+
+*================================================
+*Math Operations for Voltage
+*V-Math2 Ref Pinout: +A -A +B -B -O +O
+*================================================
+
+*Add Voltages -- pkg:V(A+B)
+.SUBCKT ADDVR 1 2 3 4 5 6
+BX 6 5 V=V(1,2)+V(3,4)
+.ENDS ADDVR
+
+*Subrtact Voltages -- pkg:V(A-B)
+.SUBCKT SUBVR 1 2 3 4 5 6
+BX 6 5 V=V(1,2)-V(3,4)
+.ENDS SUBVR
+
+*Multiply Voltages -- pkg:V(A*B)
+.SUBCKT MULTVR 1 2 3 4 5 6
+BX 6 5 V=V(1,2)*V(3,4)
+.ENDS MULTVR
+
+*Divide Voltages -- pkg:V(A/B)
+.SUBCKT DIVVR 1 2 3 4 5 6
+BX 6 5 V=V(1,2)/V(3,4)
+.ENDS DIVVR
+

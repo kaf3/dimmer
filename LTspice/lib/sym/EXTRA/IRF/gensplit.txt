@@ -1,0 +1,59 @@
+
+
+set DIO=diode.irf
+if not exist %DIO% goto :no_dio
+if exist IRF-DIODE-*.log del /q IRF-DIODE-*.log
+
+set DIO=..\..\..\cmp\standard.dio
+if not exist %DIO% goto :no_dio
+
+copy %DIO% %DIO%.bak
+gawk -f irfrm.awk <%DIO% >%DIO%.new
+echo>>%DIO%.new ***** IRF *****
+type>>%DIO%.new diode.irf
+echo>>%DIO%.new ***** IRF *****
+copy %DIO%.new %DIO%
+del /s /q %DIO%.new
+
+goto :eof
+
+:no_dio
+echo cannot find file %DIO%
+goto :eof
+
+if exist diode.irf del /q diode.irf
+
+:t
+if "%2" == "unknown" goto :unknown
+if "%3" == "unknown" goto :unknown
+if "%4" == "unknown" goto :unknown
+
+set FILENAME=%1
+set KIND=%2
+set MODEL=%3
+set TYPE=%4
+if "%KIND%" == "NMOS" set KIND=NMOSFET
+if "%KIND%" == "PMOS" set KIND=PMOSFET
+
+if not exist %KIND% mkdir %KIND%
+
+if not "%TYPE%" == "SUBCKT" goto :model
+gawk -f gensplit.awk -v KIND=%KIND% -v FILENAME=%FILENAME% -v MODEL=%MODEL%  0<%KIND%.txt 1>%KIND%\%MODEL%.asy
+
+goto :eof
+
+:model
+if "%KIND%" == "D" goto :diode_model
+goto :unknown
+
+:diode_model
+if exist IRF-DIODE-%MODEL%.log goto :eof
+echo>IRF-DIODE-%MODEL%.log xxx
+echo>>diode.irf *LIB\%FILENAME%
+type>>diode.irf LIB\%FILENAME%
+goto :eof
+
+
+:unknown
+echo Do not know what to do with "%1 %2 %3 %4"
+goto :eof
