@@ -56,23 +56,6 @@ GenerateClassCluster=0
 DocumentUniqueId=AGAKVMMG
 
 [Document2]
-DocumentPath=..\..\libraries\Project Outputs for diplom\diplom.IntLib
-AnnotationEnabled=1
-AnnotateStartValue=1
-AnnotationIndexControlEnabled=0
-AnnotateSuffix=
-AnnotateScope=All
-AnnotateOrder=-1
-DoLibraryUpdate=1
-DoDatabaseUpdate=1
-ClassGenCCAutoEnabled=1
-ClassGenCCAutoRoomEnabled=1
-ClassGenNCAutoScope=None
-DItemRevisionGUID=
-GenerateClassCluster=0
-DocumentUniqueId=
-
-[Document3]
 DocumentPath=PCB1.PcbDoc
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -89,7 +72,7 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=WIIOEBYL
 
-[Document4]
+[Document3]
 DocumentPath=PCB2.PcbDoc
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -106,11 +89,32 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=IKGTUXLN
 
+[Document4]
+DocumentPath=PCB3.PcbDoc
+AnnotationEnabled=1
+AnnotateStartValue=1
+AnnotationIndexControlEnabled=0
+AnnotateSuffix=
+AnnotateScope=All
+AnnotateOrder=-1
+DoLibraryUpdate=1
+DoDatabaseUpdate=1
+ClassGenCCAutoEnabled=1
+ClassGenCCAutoRoomEnabled=1
+ClassGenNCAutoScope=None
+DItemRevisionGUID=
+GenerateClassCluster=0
+DocumentUniqueId=GUWCXSBD
+
 [GeneratedDocument1]
 DocumentPath=Project Outputs for Smart Dimmer\Design Rule Check - PCB2.html
 DItemRevisionGUID=
 
 [GeneratedDocument2]
+DocumentPath=Project Outputs for Smart Dimmer\Design Rule Check - PCB3.html
+DItemRevisionGUID=
+
+[GeneratedDocument3]
 DocumentPath=Project Outputs for Smart Dimmer\Smart Dimmer.nsx
 DItemRevisionGUID=
 

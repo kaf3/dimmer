@@ -1,0 +1,744 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html">
+<style type="text/css">
+		h1, h2, h3, h4, h5, h6 {
+			font-family : segoe ui;
+			color : black;
+			background-color : #EDE7D9;
+			padding: 0.3em;
+		}
+
+		h1 {
+			font-size: 1.2em;
+		}		
+
+		h2 {
+			font-size: 1.2em;
+		}
+
+		body {
+			font-family : segoe ui;
+		}
+
+		td, th {
+			padding: 0.5em;
+			text-align : left;
+			width: 10em;
+		}
+		th {
+			background-color : #EEEEEE;
+
+		}
+		th.column1, td.column1 {
+			text-align: left;
+			width : auto;
+		}
+		table {
+			width : 100%;
+			font-size: 0.9em;
+		}
+
+		.DRC_summary_header {
+			padding-bottom : 0.1em;
+			border : 0px solid black;
+			width: 100%;
+			align: left;
+		}
+
+		.DRC_summary_header_col1,
+		.DRC_summary_header_col2, 
+		.DRC_summary_header_col3 {
+			color : black;
+			font-size:100%;
+			padding : 0em;
+			padding-top : 0.2em;
+			padding-bottom 0.2em;
+			border : 0px solid black;
+			vertical-align: top;
+			text-align: left;
+		}
+
+		.DRC_summary_header_col1 {
+			font-weight: bold;
+			width: 8em;
+		}
+
+		.DRC_summary_header_col2 {
+			width: 0.1em;
+		
+		}
+
+		.DRC_summary_header_col3 {
+			width : auto;
+		}
+
+		.header_holder {
+		    Width = 100%;
+		    border = 0px solid green;
+		    padding = 0;
+		}
+
+
+		.front_matter, .front_matter_column1, .front_matter_column2, .front_matter_column3
+		{
+			left : 0;
+			top : 0;
+			padding: 0em;
+			padding-top : 0.1em;
+			border : 0px solid black;
+			width : 100%;
+			vertical-align: top;
+			text-align: left;
+		}
+
+		.front_matter_column1 {
+			width : 8em;
+			font-weight: bold;
+		}
+
+		.front_matter_column2 {
+			width: 0.1em;
+		}
+
+		.front_matter_column3 {
+			width : auto;
+		}
+
+		.total_column1, .total_column {
+			font-weight : bold;
+		}
+		.total_column1 {
+			text-align : left;
+		}
+		.warning, .error {
+			color : red;
+			font-weight : bold;
+		}
+		tr.onmouseout_odd {
+			background-color : #white;
+		}
+		tr.onmouseout_even { 
+			background-color : #FAFAFA;
+		}
+		tr.onmouseover_odd, tr.onmouseover_even { 
+			background-color : #EEEEEE;
+		} 
+		a:link, a:visited, .q a:link,.q a:active,.q {
+			color: #21489e; 
+		}
+		a:link.callback, a:visited.callback { 
+			color: #21489e;
+		}
+		a:link.customize, a:visited.customize {
+			color: #C0C0C0;
+			position: absolute; 
+			right: 10px;
+		}	
+		p.contents_level1 {
+			font-weight : bold;
+			font-size : 110%;
+			margin : 0.5em;
+		}
+		p.contents_level2 {
+			position : relative;
+			left : 20px;
+			margin : 0.5em;
+		}
+	</style><script type="text/javascript">
+		function coordToMils(coord) {
+			var number = coord / 10000;
+			
+			if (number != number.toFixed(3))
+				number = number.toFixed(3);
+
+			return number + 'mil'
+		}
+
+		function coordToMM(coord) {
+			var number = 0.0254 * coord / 10000;
+			
+			if (number != number.toFixed(4))
+				number = number.toFixed(4);
+			
+			return number + 'mm'
+		}
+	
+		function convertCoord(coordNode, units) {
+			for (var i = 0; i < coordNode.childNodes.length; i++) {
+				coordNode.removeChild(coordNode.childNodes[i]);
+			}
+
+			var coord = coordNode.getAttribute('value');
+			if (coord != null) {
+				if (units == 'mm') {
+					textNode = document.createTextNode(coordToMM(coord));
+					coordNode.appendChild(textNode);
+				} else if (units == 'mil') {
+					textNode = document.createTextNode(coordToMils(coord));		
+					coordNode.appendChild(textNode);	
+				}
+			}
+		}
+	
+		function convertUnits(unitNode, units) {
+			for (var i = 0; i < unitNode.childNodes.length; i++) {
+				unitNode.removeChild(unitNode.childNodes[i]);		
+			}
+		
+			textNode = document.createTextNode(units); 
+			unitNode.appendChild(textNode);
+		}
+	
+		function changeUnits(radio_input, units) {
+			if (radio_input.checked) {
+			
+				var elements = document.getElementsByName('coordinate');
+				if (elements) {
+					for (var i = 0; i < elements.length; i++) {
+						convertCoord(elements[i], units);
+					}
+				}
+	
+				var elements = document.getElementsByName('units');
+				if (elements) {
+					for (var i = 0; i < elements.length; i++) {
+						convertUnits(elements[i], units);
+					}
+				}
+			}
+		}
+	</script><title>Design Rule Verification Report</title>
+</head>
+<body onload=""><img ALT="Altium" src="
+			file://C:\Users\Public\Documents\Altium\AD16\Templates\AD_logo.png
+		"><h1>Design Rule Verification Report</h1>
+<table class="header_holder">
+<td class="column1">
+<table class="front_matter">
+<tr class="front_matter">
+<td class="front_matter_column1">Date:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3">01.10.2020</td>
+</tr>
+<tr class="front_matter">
+<td class="front_matter_column1">Time:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3">0:24:57</td>
+</tr>
+<tr class="front_matter">
+<td class="front_matter_column1">Elapsed Time:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3">00:00:00</td>
+</tr>
+<tr class="front_matter">
+<td class="front_matter_column1">Filename:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3"><a href="file:///C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc" class="file"><acronym title="C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc">C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc</acronym></a></td>
+</tr>
+</table>
+</td>
+<td class="column2">
+<table class="DRC_summary_header">
+<tr>
+<td class="DRC_summary_header_col1">Warnings:</td>
+<td class="DRC_summary_header_col2"></td>
+<td class="DRC_summary_header_col3">0</td></tr>
+<tr>
+<td class="DRC_summary_header_col1">Rule Violations:</td>
+<td class="DRC_summary_header_col2"></td>
+<td class="DRC_summary_header_col3" style="color : red">132</td></tr>
+</table>
+</td>
+</table><a name="IDG1WS0TOXVUIFEMNYK0ZL50MD3IQLIAXYNAX3DQCJVVQ0GJ2IFKFE"><h2>Summary</h2></a><table>
+<tr>
+<th class="column1">Warnings</th>
+<th class="column2">Count</th>
+</tr>
+<tr>
+<td style="font-weight : bold; text-align : right" class="column1">Total</td>
+<td style="font-weight : bold" class="column2">0</td>
+</tr>
+</table><br><table>
+<tr>
+<th class="column1">Rule Violations</th>
+<th class="column2">Count</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDJXXFOOSYS2K4OX1LZYW4ORS5YDJ1DNUJIIDZXJECIBIZPPNEZ3ZD">Clearance Constraint (Gap=0.254mm) (All),(All)</a></td>
+<td class="column2">5</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#ID0SQGRBXUSBGWOGQD1HTREJINJOXIPZSZBX0AILG02MNZ12FIZHRL">Short-Circuit Constraint (Allowed=No) (All),(All)</a></td>
+<td class="column2">3</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDZUA2YDR5ZYCDLE2KZL3PVOWQNG4CRM31Y5BX1PABZLMBC4V4RXE">Un-Routed Net Constraint ( (All) )</a></td>
+<td class="column2">88</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDQLVQF1OTZ2IWF3WWUOESTSWD4PX11MJ4VCIEAFGH4XENSHFN0EPD">Power Plane Connect Rule(Relief Connect )(Expansion=0.508mm) (Conductor Width=0.254mm) (Air Gap=0.254mm) (Entries=4) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#ID4UYFV2TN2P1QQ10NCTCM0WYNEM3WWMLNYRB3FEHDOOUJWS2ZSSP">Width Constraint (Min=0.254mm) (Max=0.254mm) (Preferred=0.254mm) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDKEKSIRFANV53CODWIBCQEUGGYFH4YYNMVDZUQCO51FX3LLKTQ1KJ">Height Constraint (Min=0mm) (Max=25.4mm) (Prefered=12.7mm) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDP5MQICA0EASQISTSVJQ4IOBDUWTX3DN3I44CZIMBPDU3FGV0A4I">Hole Size Constraint (Min=0.025mm) (Max=2.54mm) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDTVBNVGNTEBZ0GHGCOEH2TQY4CB3WRDGQZNZV0RO4AZH3XTZNBVOJ">Hole To Hole Clearance (Gap=0.254mm) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#ID02NYXYGGXM4MPO5JQV5CNBA20PQKI02FWLWFYKJNS32BLNJRDV0O">Minimum Solder Mask Sliver (Gap=0.254mm) (All),(All)</a></td>
+<td class="column2">2</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#ID3RAFHABR2COZFYMIK1P0ZWVF1K32IW3L10HSRLJZMCOIGS2Z51BO">Silk To Solder Mask (Clearance=0.254mm) (IsPad),(All)</a></td>
+<td class="column2">30</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDNDMTJOYESFAYDZTENMIWNN2AIJXCJBQXUMJ5SNBBUBACWIO0DLCK">Silk to Silk (Clearance=0.254mm) (All),(All)</a></td>
+<td class="column2">4</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDTCKEWXKTE1DXO5D44DZ4MC0O4DZFJPOFLRYLDBB52ATILM42DPAM">Net Antennae (Tolerance=0mm) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDZOUPJMJDSUIELR4V3WSURYLHXP2MDNJPES3ZW3PQWMN03L1ODYEF">Modified Polygon (Allow modified: No), (Allow shelved: No)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr>
+<td style="font-weight : bold; text-align : right" class="column1">Total</td>
+<td style="font-weight : bold" class="column2">132</td>
+</tr>
+</table><br><a name="IDJXXFOOSYS2K4OX1LZYW4ORS5YDJ1DNUJIIDZXJECIBIZPPNEZ3ZD"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Clearance Constraint (Gap=0.254mm) (All),(All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2283.568mil|Location2.X=2291.235mil|Location1.Y=1452.86mil|Location2.Y=1460.526mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2283.568mil|Location2.X=2291.235mil|Location1.Y=1452.86mil|Location2.Y=1460.526mil|Absolute=True">Clearance Constraint: (Collision &lt; 0.254mm) Between Track (28.1mm,3.604mm)(28.1mm,7mm) on Bottom Layer And Pad IN220-1(28.1mm,7mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2480.419mil|Location2.X=2488.085mil|Location1.Y=1452.86mil|Location2.Y=1460.526mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2480.419mil|Location2.X=2488.085mil|Location1.Y=1452.86mil|Location2.Y=1460.526mil|Absolute=True">Clearance Constraint: (Collision &lt; 0.254mm) Between Track (33.1mm,7mm)(33.1mm,7.8mm) on Top Layer And Pad IN220-2(33.1mm,7mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2589.847mil|Location2.X=2601.097mil|Location1.Y=1872.328mil|Location2.Y=1883.578mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2589.847mil|Location2.X=2601.097mil|Location1.Y=1872.328mil|Location2.Y=1883.578mil|Absolute=True">Clearance Constraint: (0.25mm &lt; 0.254mm) Between Pad IC2-2(36.4mm,18.2mm) on Bottom Layer And Pad IC2-1(35.45mm,18.2mm) on Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2627.249mil|Location2.X=2638.499mil|Location1.Y=1872.328mil|Location2.Y=1883.578mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2627.249mil|Location2.X=2638.499mil|Location1.Y=1872.328mil|Location2.Y=1883.578mil|Absolute=True">Clearance Constraint: (0.25mm &lt; 0.254mm) Between Pad IC2-3(37.35mm,18.2mm) on Bottom Layer And Pad IC2-2(36.4mm,18.2mm) on Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2283.568mil|Location2.X=2291.235mil|Location1.Y=1319.167mil|Location2.Y=1326.833mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2283.568mil|Location2.X=2291.235mil|Location1.Y=1319.167mil|Location2.Y=1326.833mil|Absolute=True">Clearance Constraint: (Collision &lt; 0.254mm) Between Track (28.1mm,3.604mm)(28.1mm,7mm) on Bottom Layer And Pad R5-1(28.104mm,3.6mm) on Bottom Layer </acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br><a name="ID0SQGRBXUSBGWOGQD1HTREJINJOXIPZSZBX0AILG02MNZ12FIZHRL"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Short-Circuit Constraint (Allowed=No) (All),(All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2263.031mil|Location2.X=2311.772mil|Location1.Y=1415.126mil|Location2.Y=1463.866mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2263.031mil|Location2.X=2311.772mil|Location1.Y=1415.126mil|Location2.Y=1463.866mil|Absolute=True">Short-Circuit Constraint: Between Track (28.1mm,3.604mm)(28.1mm,7mm) on Bottom Layer And Pad IN220-1(28.1mm,7mm) on Multi-Layer Location : [X = 58.1mm][Y = 36.563mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2461.292mil|Location2.X=2507.212mil|Location1.Y=1449.481mil|Location2.Y=1495.401mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2461.292mil|Location2.X=2507.212mil|Location1.Y=1449.481mil|Location2.Y=1495.401mil|Absolute=True">Short-Circuit Constraint: Between Track (33.1mm,7mm)(33.1mm,7.8mm) on Top Layer And Pad IN220-2(33.1mm,7mm) on Multi-Layer Location : [X = 63.1mm][Y = 37.4mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2265.052mil|Location2.X=2309.751mil|Location1.Y=1315.769mil|Location2.Y=1360.467mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2265.052mil|Location2.X=2309.751mil|Location1.Y=1315.769mil|Location2.Y=1360.467mil|Absolute=True">Short-Circuit Constraint: Between Track (28.1mm,3.604mm)(28.1mm,7mm) on Bottom Layer And Pad R5-1(28.104mm,3.6mm) on Bottom Layer Location : [X = 58.1mm][Y = 33.988mm]</acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br><a name="IDZUA2YDR5ZYCDLE2KZL3PVOWQNG4CRM31Y5BX1PABZLMBC4V4RXE"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Un-Routed Net Constraint ( (All) )</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7417.457mil|Location2.X=9806.276mil|Location1.Y=2969.756mil|Location2.Y=4669.158mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7417.457mil|Location2.X=9806.276mil|Location1.Y=2969.756mil|Location2.Y=4669.158mil|Absolute=True">Un-Routed Net Constraint: Net BTN_DEC Between Pad DEC-1(159.405mm,87.595mm) on Multi-Layer And Pad IC1-5(218.278mm,45.833mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7909.583mil|Location2.X=9806.276mil|Location1.Y=3048.496mil|Location2.Y=4669.158mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7909.583mil|Location2.X=9806.276mil|Location1.Y=3048.496mil|Location2.Y=4669.158mil|Absolute=True">Un-Routed Net Constraint: Net BTN_INC Between Pad INC-1(171.905mm,87.595mm) on Multi-Layer And Pad IC1-6(218.278mm,47.833mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7712.733mil|Location2.X=9806.276mil|Location1.Y=3127.236mil|Location2.Y=4669.158mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7712.733mil|Location2.X=9806.276mil|Location1.Y=3127.236mil|Location2.Y=4669.158mil|Absolute=True">Un-Routed Net Constraint: Net BTN_ON Between Pad ON-1(166.905mm,87.595mm) on Multi-Layer And Pad IC1-7(218.278mm,49.833mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7110.37mil|Location2.X=8869.449mil|Location1.Y=2181.575mil|Location2.Y=4629.787mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7110.37mil|Location2.X=8869.449mil|Location1.Y=2181.575mil|Location2.Y=4629.787mil|Absolute=True">Un-Routed Net Constraint: Net DETECT_L Between Pad PLS1-1(151.605mm,86.595mm) on Multi-Layer And Pad CR1-3(195mm,26.041mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7110.37mil|Location2.X=7196.221mil|Location1.Y=2239mil|Location2.Y=4729.787mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7110.37mil|Location2.X=7196.221mil|Location1.Y=2239mil|Location2.Y=4729.787mil|Absolute=True">Un-Routed Net Constraint: Net DETECT_N Between Pad PLS1-2(151.605mm,89.135mm) on Multi-Layer And Pad CR2-3(152.5mm,27.5mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7618.181mil|Location2.X=8598.492mil|Location1.Y=2084.575mil|Location2.Y=2226.209mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7618.181mil|Location2.X=8598.492mil|Location1.Y=2084.575mil|Location2.Y=2226.209mil|Absolute=True">Un-Routed Net Constraint: Net DETECT_NULL Between Pad U1-6(163.73mm,25.942mm) on Top Layer And Pad R2-1(187.5mm,23.504mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8527.492mil|Location2.X=9165.276mil|Location1.Y=2084.575mil|Location2.Y=2922.638mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8527.492mil|Location2.X=9165.276mil|Location1.Y=2084.575mil|Location2.Y=2922.638mil|Absolute=True">Un-Routed Net Constraint: Net DETECT_NULL Between Pad R2-1(187.5mm,23.504mm) on Top Layer And Pad IC1-13(201.996mm,43.833mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2039.307mil|Location2.X=2218.173mil|Location1.Y=3035.37mil|Location2.Y=3114.236mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2039.307mil|Location2.X=2218.173mil|Location1.Y=3035.37mil|Location2.Y=3114.236mil|Absolute=True">Un-Routed Net Constraint: Net GNDA Between Pad PBS2-3(22.8mm,48.1mm) on Multi-Layer And Pad PBS2-2(25.34mm,48.1mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2139.307mil|Location2.X=2318.173mil|Location1.Y=3035.37mil|Location2.Y=3114.236mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2139.307mil|Location2.X=2318.173mil|Location1.Y=3035.37mil|Location2.Y=3114.236mil|Absolute=True">Un-Routed Net Constraint: Net GNDA Between Pad PBS2-2(25.34mm,48.1mm) on Multi-Layer And Pad PBS2-1(27.88mm,48.1mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2600.394mil|Location2.X=2665.354mil|Location1.Y=1775.591mil|Location2.Y=1917.323mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2600.394mil|Location2.X=2665.354mil|Location1.Y=1775.591mil|Location2.Y=1917.323mil|Absolute=True">Un-Routed Net Constraint: Net GNDA Between Pad IC2-2(36.4mm,18.2mm) on Bottom Layer And Pad IC2-4(37.35mm,15.6mm) on Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2637.795mil|Location2.X=2751.162mil|Location1.Y=1642.539mil|Location2.Y=1814.961mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2637.795mil|Location2.X=2751.162mil|Location1.Y=1642.539mil|Location2.Y=1814.961mil|Absolute=True">Un-Routed Net Constraint: Net GNDA Between Pad IC2-4(37.35mm,15.6mm) on Bottom Layer And Pad Q1-2(38.8mm,12.8mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1969.311mil|Location2.X=2751.162mil|Location1.Y=1634.665mil|Location2.Y=1727.539mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1969.311mil|Location2.X=2751.162mil|Location1.Y=1634.665mil|Location2.Y=1727.539mil|Absolute=True">Un-Routed Net Constraint: Net GNDA Between Pad Q3-2(21.1mm,12.6mm) on Multi-Layer And Pad Q1-2(38.8mm,12.8mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1370.016mil|Location2.X=2054.311mil|Location1.Y=1634.665mil|Location2.Y=1846.52mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1370.016mil|Location2.X=2054.311mil|Location1.Y=1634.665mil|Location2.Y=1846.52mil|Absolute=True">Un-Routed Net Constraint: Net GNDA Between Pad PS1-4(5.9mm,15.8mm) on Multi-Layer And Pad Q3-2(21.1mm,12.6mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1969.311mil|Location2.X=2118.173mil|Location1.Y=1634.665mil|Location2.Y=3114.236mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1969.311mil|Location2.X=2118.173mil|Location1.Y=1634.665mil|Location2.Y=3114.236mil|Absolute=True">Un-Routed Net Constraint: Net GNDA Between Pad Q3-2(21.1mm,12.6mm) on Multi-Layer And Pad PBS2-3(22.8mm,48.1mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7954.323mil|Location2.X=7998.102mil|Location1.Y=3747.965mil|Location2.Y=3909.63mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7954.323mil|Location2.X=7998.102mil|Location1.Y=3747.965mil|Location2.Y=3909.63mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad C5-1(172.596mm,66.1mm) on Top Layer And Pad IC3-2(172.6mm,68.608mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9925.135mil|Location2.X=10004.001mil|Location1.Y=3005.449mil|Location2.Y=3184.315mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9925.135mil|Location2.X=10004.001mil|Location1.Y=3005.449mil|Location2.Y=3184.315mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad Cntrl-2(223.1mm,47.34mm) on Multi-Layer And Pad Cntrl-3(223.1mm,49.88mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9035.37mil|Location2.X=9114.236mil|Location1.Y=4592.85mil|Location2.Y=4771.717mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9035.37mil|Location2.X=9114.236mil|Location1.Y=4592.85mil|Location2.Y=4771.717mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad PLS2-1(200.5mm,87.66mm) on Multi-Layer And Pad PLS2-2(200.5mm,90.2mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9035.37mil|Location2.X=9114.236mil|Location1.Y=4692.85mil|Location2.Y=4871.717mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9035.37mil|Location2.X=9114.236mil|Location1.Y=4692.85mil|Location2.Y=4871.717mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad PLS2-2(200.5mm,90.2mm) on Multi-Layer And Pad PLS2-3(200.5mm,92.74mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9889.697mil|Location2.X=10157.548mil|Location1.Y=3651.504mil|Location2.Y=3695.284mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9889.697mil|Location2.X=10157.548mil|Location1.Y=3651.504mil|Location2.Y=3695.284mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad C7-1(222.1mm,63.304mm) on Top Layer And Pad R15-1(227.1mm,63.304mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7712.733mil|Location2.X=7988.449mil|Location1.Y=4790.292mil|Location2.Y=4869.158mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7712.733mil|Location2.X=7988.449mil|Location1.Y=4790.292mil|Location2.Y=4869.158mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad ON-3(166.905mm,92.675mm) on Multi-Layer And Pad INC-3(171.905mm,92.675mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7954.323mil|Location2.X=8173.295mil|Location1.Y=3722.37mil|Location2.Y=3818.965mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7954.323mil|Location2.X=8173.295mil|Location1.Y=3722.37mil|Location2.Y=3818.965mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad C5-1(172.596mm,66.1mm) on Top Layer And Pad C6-1(176.7mm,65.104mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7417.457mil|Location2.X=7791.599mil|Location1.Y=4790.292mil|Location2.Y=4869.158mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7417.457mil|Location2.X=7791.599mil|Location1.Y=4790.292mil|Location2.Y=4869.158mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad DEC-3(159.405mm,92.675mm) on Multi-Layer And Pad ON-3(166.905mm,92.675mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8681.04mil|Location2.X=9114.236mil|Location1.Y=4531.433mil|Location2.Y=4671.717mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8681.04mil|Location2.X=9114.236mil|Location1.Y=4531.433mil|Location2.Y=4671.717mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad UART-1(191.5mm,86.1mm) on Multi-Layer And Pad PLS2-1(200.5mm,87.66mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9102.158mil|Location2.X=10004.001mil|Location1.Y=3105.449mil|Location2.Y=3237.583mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9102.158mil|Location2.X=10004.001mil|Location1.Y=3105.449mil|Location2.Y=3237.583mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad IC1-9(201.996mm,51.833mm) on Top Layer And Pad Cntrl-3(223.1mm,49.88mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7718.181mil|Location2.X=7998.102mil|Location1.Y=2178.65mil|Location2.Y=3818.965mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7718.181mil|Location2.X=7998.102mil|Location1.Y=2178.65mil|Location2.Y=3818.965mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad U1-4(166.27mm,25.942mm) on Top Layer And Pad C5-1(172.596mm,66.1mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9889.697mil|Location2.X=10004.001mil|Location1.Y=3105.449mil|Location2.Y=3695.284mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9889.697mil|Location2.X=10004.001mil|Location1.Y=3105.449mil|Location2.Y=3695.284mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad C7-1(222.1mm,63.304mm) on Top Layer And Pad Cntrl-3(223.1mm,49.88mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7909.583mil|Location2.X=7988.449mil|Location1.Y=3854.756mil|Location2.Y=4869.158mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7909.583mil|Location2.X=7988.449mil|Location1.Y=3854.756mil|Location2.Y=4869.158mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad INC-3(171.905mm,92.675mm) on Multi-Layer And Pad IC3-2(172.6mm,68.608mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7909.583mil|Location2.X=8759.906mil|Location1.Y=4531.433mil|Location2.Y=4869.158mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7909.583mil|Location2.X=8759.906mil|Location1.Y=4531.433mil|Location2.Y=4869.158mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad INC-3(171.905mm,92.675mm) on Multi-Layer And Pad UART-1(191.5mm,86.1mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9035.37mil|Location2.X=9165.276mil|Location1.Y=3205.961mil|Location2.Y=4671.717mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9035.37mil|Location2.X=9165.276mil|Location1.Y=3205.961mil|Location2.Y=4671.717mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad PLS2-1(200.5mm,87.66mm) on Multi-Layer And Pad IC1-9(201.996mm,51.833mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2440.882mil|Location2.X=2632.126mil|Location1.Y=1283.398mil|Location2.Y=1500.063mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2440.882mil|Location2.X=2632.126mil|Location1.Y=1283.398mil|Location2.Y=1500.063mil|Absolute=True">Un-Routed Net Constraint: Net L_IN Between Pad IN220-2(33.1mm,7mm) on Multi-Layer And Pad R1-1(36.3mm,3.5mm) on Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1964.315mil|Location2.X=2358.331mil|Location1.Y=1744.087mil|Location2.Y=1870.087mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1964.315mil|Location2.X=2358.331mil|Location1.Y=1744.087mil|Location2.Y=1870.087mil|Absolute=True">Un-Routed Net Constraint: Net L_IN Between Pad R8-2(20.4mm,15.9mm) on Bottom Layer And Pad PS1-1(29mm,15.7mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2440.882mil|Location2.X=2966.122mil|Location1.Y=1413.323mil|Location2.Y=1727.539mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2440.882mil|Location2.X=2966.122mil|Location1.Y=1413.323mil|Location2.Y=1727.539mil|Absolute=True">Un-Routed Net Constraint: Net L_IN Between Pad IN220-2(33.1mm,7mm) on Multi-Layer And Pad Q1-3(44.26mm,12.8mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2232.22mil|Location2.X=2527.622mil|Location1.Y=1413.323mil|Location2.Y=1850.457mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2232.22mil|Location2.X=2527.622mil|Location1.Y=1413.323mil|Location2.Y=1850.457mil|Absolute=True">Un-Routed Net Constraint: Net L_IN Between Pad PS1-1(29mm,15.7mm) on Multi-Layer And Pad IN220-2(33.1mm,7mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1754.35mil|Location2.X=1854.394mil|Location1.Y=1413.323mil|Location2.Y=1719.665mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1754.35mil|Location2.X=1854.394mil|Location1.Y=1413.323mil|Location2.Y=1719.665mil|Absolute=True">Un-Routed Net Constraint: Net L_OUT Between Pad Q3-3(15.64mm,12.6mm) on Multi-Layer And Pad OUT220-1(16mm,7mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1331.331mil|Location2.X=1839.35mil|Location1.Y=1634.665mil|Location2.Y=1719.665mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1331.331mil|Location2.X=1839.35mil|Location1.Y=1634.665mil|Location2.Y=1719.665mil|Absolute=True">Un-Routed Net Constraint: Net L_OUT Between Pad C2-1(4.4mm,12.7mm) on Multi-Layer And Pad Q3-3(15.64mm,12.6mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7110.37mil|Location2.X=9806.276mil|Location1.Y=2891.016mil|Location2.Y=4829.787mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7110.37mil|Location2.X=9806.276mil|Location1.Y=2891.016mil|Location2.Y=4829.787mil|Absolute=True">Un-Routed Net Constraint: Net LOAD_CNTRL Between Pad PLS1-3(151.605mm,91.675mm) on Multi-Layer And Pad IC1-4(218.278mm,43.833mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8681.04mil|Location2.X=9165.276mil|Location1.Y=2812.276mil|Location2.Y=4910.299mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8681.04mil|Location2.X=9165.276mil|Location1.Y=2812.276mil|Location2.Y=4910.299mil|Absolute=True">Un-Routed Net Constraint: Net MODE Between Pad UART-4(191.5mm,93.72mm) on Multi-Layer And Pad IC1-14(201.996mm,41.833mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2244.032mil|Location2.X=2330.772mil|Location1.Y=1287.335mil|Location2.Y=1500.063mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2244.032mil|Location2.X=2330.772mil|Location1.Y=1287.335mil|Location2.Y=1500.063mil|Absolute=True">Un-Routed Net Constraint: Net N_IN Between Pad IN220-1(28.1mm,7mm) on Multi-Layer And Pad R5-1(28.104mm,3.6mm) on Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1964.504mil|Location2.X=2330.772mil|Location1.Y=1413.323mil|Location2.Y=1500.063mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1964.504mil|Location2.X=2330.772mil|Location1.Y=1413.323mil|Location2.Y=1500.063mil|Absolute=True">Un-Routed Net Constraint: Net N_IN Between Pad OUT220-2(21mm,7mm) on Multi-Layer And Pad IN220-1(28.1mm,7mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1964.504mil|Location2.X=2212.662mil|Location1.Y=1413.323mil|Location2.Y=1850.457mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1964.504mil|Location2.X=2212.662mil|Location1.Y=1413.323mil|Location2.Y=1850.457mil|Absolute=True">Un-Routed Net Constraint: Net N_IN Between Pad OUT220-2(21mm,7mm) on Multi-Layer And Pad PS1-2(23.9mm,15.7mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8097.268mil|Location2.X=8303.217mil|Location1.Y=2084.575mil|Location2.Y=2136.354mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8097.268mil|Location2.X=8303.217mil|Location1.Y=2084.575mil|Location2.Y=2136.354mil|Absolute=True">Un-Routed Net Constraint: Net NetC1_1 Between Pad D3-2(175.95mm,23.806mm) on Top Layer And Pad R3-1(180mm,23.504mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7136.457mil|Location2.X=7417.39mil|Location1.Y=2084.575mil|Location2.Y=2206.559mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7136.457mil|Location2.X=7417.39mil|Location1.Y=2084.575mil|Location2.Y=2206.559mil|Absolute=True">Un-Routed Net Constraint: Net NetC1_1 Between Pad CR2-1(151.55mm,25.417mm) on Top Layer And Pad C1-1(157.5mm,23.504mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7346.39mil|Location2.X=7736.15mil|Location1.Y=1907.65mil|Location2.Y=2128.354mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7346.39mil|Location2.X=7736.15mil|Location1.Y=1907.65mil|Location2.Y=2128.354mil|Absolute=True">Un-Routed Net Constraint: Net NetC1_1 Between Pad C1-1(157.5mm,23.504mm) on Top Layer And Pad U1-3(166.27mm,19.058mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8232.217mil|Location2.X=8832.048mil|Location1.Y=2084.575mil|Location2.Y=2149.134mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8232.217mil|Location2.X=8832.048mil|Location1.Y=2084.575mil|Location2.Y=2149.134mil|Absolute=True">Un-Routed Net Constraint: Net NetC1_1 Between Pad R3-1(180mm,23.504mm) on Top Layer And Pad CR1-1(194.05mm,23.959mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7718.181mil|Location2.X=8119.268mil|Location1.Y=1907.65mil|Location2.Y=2136.354mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7718.181mil|Location2.X=8119.268mil|Location1.Y=1907.65mil|Location2.Y=2136.354mil|Absolute=True">Un-Routed Net Constraint: Net NetC1_1 Between Pad U1-3(166.27mm,19.058mm) on Top Layer And Pad D3-2(175.95mm,23.806mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8370.012mil|Location2.X=9029.618mil|Location1.Y=1769.614mil|Location2.Y=2270.78mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8370.012mil|Location2.X=9029.618mil|Location1.Y=1769.614mil|Location2.Y=2270.78mil|Absolute=True">Un-Routed Net Constraint: Net NetC1_2 Between Pad R4-1(183.5mm,15.504mm) on Top Layer And Pad D2-1(199.151mm,27.5mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7346.39mil|Location2.X=8441.012mil|Location1.Y=1769.614mil|Location2.Y=2246.134mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7346.39mil|Location2.X=8441.012mil|Location1.Y=1769.614mil|Location2.Y=2246.134mil|Absolute=True">Un-Routed Net Constraint: Net NetC1_2 Between Pad C1-2(157.5mm,26.496mm) on Top Layer And Pad R4-1(183.5mm,15.504mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1626.606mil|Location2.X=1776.315mil|Location1.Y=1658.102mil|Location2.Y=1870.087mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1626.606mil|Location2.X=1776.315mil|Location1.Y=1658.102mil|Location2.Y=1870.087mil|Absolute=True">Un-Routed Net Constraint: Net NetC2_2 Between Pad C2-2(11.9mm,12.7mm) on Multi-Layer And Pad R8-1(14.612mm,15.9mm) on Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9743.158mil|Location2.X=10004.001mil|Location1.Y=2654.795mil|Location2.Y=2984.315mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9743.158mil|Location2.X=10004.001mil|Location1.Y=2654.795mil|Location2.Y=2984.315mil|Absolute=True">Un-Routed Net Constraint: Net NetCntrl_1 Between Pad IC1-1(218.278mm,37.833mm) on Top Layer And Pad Cntrl-1(223.1mm,44.8mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8452.69mil|Location2.X=10004.001mil|Location1.Y=2905.449mil|Location2.Y=3104.732mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8452.69mil|Location2.X=10004.001mil|Location1.Y=2905.449mil|Location2.Y=3104.732mil|Absolute=True">Un-Routed Net Constraint: Net NetCntrl_1 Between Pad R12-1(185.6mm,48.304mm) on Top Layer And Pad Cntrl-1(223.1mm,44.8mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8649.54mil|Location2.X=9165.276mil|Location1.Y=2969.756mil|Location2.Y=3104.732mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8649.54mil|Location2.X=9165.276mil|Location1.Y=2969.756mil|Location2.Y=3104.732mil|Absolute=True">Un-Routed Net Constraint: Net NetCntrl_4 Between Pad R13-1(190.6mm,48.304mm) on Top Layer And Pad IC1-12(201.996mm,45.833mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9102.158mil|Location2.X=10004.001mil|Location1.Y=2969.756mil|Location2.Y=3284.315mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9102.158mil|Location2.X=10004.001mil|Location1.Y=2969.756mil|Location2.Y=3284.315mil|Absolute=True">Un-Routed Net Constraint: Net NetCntrl_4 Between Pad IC1-12(201.996mm,45.833mm) on Top Layer And Pad Cntrl-4(223.1mm,52.42mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8059.866mil|Location2.X=8303.217mil|Location1.Y=2194.354mil|Location2.Y=2246.134mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8059.866mil|Location2.X=8303.217mil|Location1.Y=2194.354mil|Location2.Y=2246.134mil|Absolute=True">Un-Routed Net Constraint: Net NetCR1_2 Between Pad D3-3(175mm,26.194mm) on Top Layer And Pad R3-2(180mm,26.496mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7825.835mil|Location2.X=8081.866mil|Location1.Y=2102.575mil|Location2.Y=2230.354mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7825.835mil|Location2.X=8081.866mil|Location1.Y=2102.575mil|Location2.Y=2230.354mil|Absolute=True">Un-Routed Net Constraint: Net NetCR1_2 Between Pad Q2-1(169.048mm,23.984mm) on Top Layer And Pad D3-3(175mm,26.194mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8884.488mil|Location2.X=9096.492mil|Location1.Y=2099.575mil|Location2.Y=2270.78mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8884.488mil|Location2.X=9096.492mil|Location1.Y=2099.575mil|Location2.Y=2270.78mil|Absolute=True">Un-Routed Net Constraint: Net NetCR1_2 Between Pad CR1-2(195.95mm,23.959mm) on Top Layer And Pad D2-2(200.849mm,27.5mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7211.26mil|Location2.X=7847.197mil|Location1.Y=2102.575mil|Location2.Y=2206.559mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7211.26mil|Location2.X=7847.197mil|Location1.Y=2102.575mil|Location2.Y=2206.559mil|Absolute=True">Un-Routed Net Constraint: Net NetCR1_2 Between Pad CR2-2(153.45mm,25.417mm) on Top Layer And Pad Q2-1(169.048mm,23.984mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8232.217mil|Location2.X=8906.851mil|Location1.Y=2099.575mil|Location2.Y=2246.134mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8232.217mil|Location2.X=8906.851mil|Location1.Y=2099.575mil|Location2.Y=2246.134mil|Absolute=True">Un-Routed Net Constraint: Net NetCR1_2 Between Pad R3-2(180mm,26.496mm) on Top Layer And Pad CR1-2(195.95mm,23.959mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8255.839mil|Location2.X=9806.276mil|Location1.Y=2812.276mil|Location2.Y=3104.732mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8255.839mil|Location2.X=9806.276mil|Location1.Y=2812.276mil|Location2.Y=3104.732mil|Absolute=True">Un-Routed Net Constraint: Net NetIC1_3 Between Pad R11-1(180.6mm,48.304mm) on Top Layer And Pad IC1-3(218.278mm,41.833mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9102.158mil|Location2.X=10157.548mil|Location1.Y=3127.236mil|Location2.Y=3813.063mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9102.158mil|Location2.X=10157.548mil|Location1.Y=3127.236mil|Location2.Y=3813.063mil|Absolute=True">Un-Routed Net Constraint: Net NetIC1_10 Between Pad IC1-10(201.996mm,49.833mm) on Top Layer And Pad R15-2(227.1mm,66.296mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8944.816mil|Location2.X=9165.276mil|Location1.Y=3048.496mil|Location2.Y=3104.732mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8944.816mil|Location2.X=9165.276mil|Location1.Y=3048.496mil|Location2.Y=3104.732mil|Absolute=True">Un-Routed Net Constraint: Net NetIC1_11 Between Pad R14-1(198.1mm,48.304mm) on Top Layer And Pad IC1-11(201.996mm,47.833mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2451.201mil|Location2.X=2590.551mil|Location1.Y=1642.539mil|Location2.Y=1814.961mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2451.201mil|Location2.X=2590.551mil|Location1.Y=1642.539mil|Location2.Y=1814.961mil|Absolute=True">Un-Routed Net Constraint: Net NetIC2_5 Between Pad Q1-1(33.34mm,12.8mm) on Multi-Layer And Pad IC2-5(35.45mm,15.6mm) on Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2184.272mil|Location2.X=2536.201mil|Location1.Y=1634.665mil|Location2.Y=1727.539mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2184.272mil|Location2.X=2536.201mil|Location1.Y=1634.665mil|Location2.Y=1727.539mil|Absolute=True">Un-Routed Net Constraint: Net NetIC2_5 Between Pad Q3-1(26.56mm,12.6mm) on Multi-Layer And Pad Q1-1(33.34mm,12.8mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2470.567mil|Location2.X=3137.858mil|Location1.Y=1283.398mil|Location2.Y=1878.803mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2470.567mil|Location2.X=3137.858mil|Location1.Y=1283.398mil|Location2.Y=1878.803mil|Absolute=True">Un-Routed Net Constraint: Net NetPBS1_1 Between Pad R1-2(33.308mm,3.5mm) on Bottom Layer And Pad PBS1-1(48.7mm,16.72mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2383.457mil|Location2.X=3137.858mil|Location1.Y=1287.335mil|Location2.Y=1978.803mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2383.457mil|Location2.X=3137.858mil|Location1.Y=1287.335mil|Location2.Y=1978.803mil|Absolute=True">Un-Routed Net Constraint: Net NetPBS1_2 Between Pad R5-2(31.096mm,3.6mm) on Bottom Layer And Pad PBS1-2(48.7mm,19.26mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7900.835mil|Location2.X=8441.012mil|Location1.Y=1887.394mil|Location2.Y=2148.134mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7900.835mil|Location2.X=8441.012mil|Location1.Y=1887.394mil|Location2.Y=2148.134mil|Absolute=True">Un-Routed Net Constraint: Net NetQ2_2 Between Pad Q2-2(170.953mm,23.984mm) on Top Layer And Pad R4-2(183.5mm,18.496mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7618.181mil|Location2.X=7884.697mil|Location1.Y=1907.65mil|Location2.Y=2228.134mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7618.181mil|Location2.X=7884.697mil|Location1.Y=1907.65mil|Location2.Y=2228.134mil|Absolute=True">Un-Routed Net Constraint: Net NetQ2_3 Between Pad U1-1(163.73mm,19.058mm) on Top Layer And Pad Q2-3(170mm,26.016mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8681.04mil|Location2.X=9165.276mil|Location1.Y=2733.536mil|Location2.Y=4710.299mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8681.04mil|Location2.X=9165.276mil|Location1.Y=2733.536mil|Location2.Y=4710.299mil|Absolute=True">Un-Routed Net Constraint: Net RX Between Pad UART-2(191.5mm,88.64mm) on Multi-Layer And Pad IC1-15(201.996mm,39.833mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8681.04mil|Location2.X=9165.276mil|Location1.Y=2654.795mil|Location2.Y=4810.299mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8681.04mil|Location2.X=9165.276mil|Location1.Y=2654.795mil|Location2.Y=4810.299mil|Absolute=True">Un-Routed Net Constraint: Net TX Between Pad UART-3(191.5mm,91.18mm) on Multi-Layer And Pad IC1-16(201.996mm,37.833mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7836.543mil|Location2.X=7924.067mil|Location1.Y=3747.965mil|Location2.Y=3909.63mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7836.543mil|Location2.X=7924.067mil|Location1.Y=3747.965mil|Location2.Y=3909.63mil|Absolute=True">Un-Routed Net Constraint: Net VCC3.3 Between Pad C5-2(169.604mm,66.1mm) on Top Layer And Pad IC3-1(171.03mm,68.608mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7712.733mil|Location2.X=7988.449mil|Location1.Y=4690.292mil|Location2.Y=4769.158mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7712.733mil|Location2.X=7988.449mil|Location1.Y=4690.292mil|Location2.Y=4769.158mil|Absolute=True">Un-Routed Net Constraint: Net VCC3.3 Between Pad ON-2(166.905mm,90.135mm) on Multi-Layer And Pad INC-2(171.905mm,90.135mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8255.839mil|Location2.X=8523.69mil|Location1.Y=3178.733mil|Location2.Y=3222.512mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8255.839mil|Location2.X=8523.69mil|Location1.Y=3178.733mil|Location2.Y=3222.512mil|Absolute=True">Un-Routed Net Constraint: Net VCC3.3 Between Pad R11-2(180.6mm,51.296mm) on Top Layer And Pad R12-2(185.6mm,51.296mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8452.69mil|Location2.X=8720.54mil|Location1.Y=3178.733mil|Location2.Y=3222.512mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8452.69mil|Location2.X=8720.54mil|Location1.Y=3178.733mil|Location2.Y=3222.512mil|Absolute=True">Un-Routed Net Constraint: Net VCC3.3 Between Pad R12-2(185.6mm,51.296mm) on Top Layer And Pad R13-2(190.6mm,51.296mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8649.54mil|Location2.X=9015.816mil|Location1.Y=3178.733mil|Location2.Y=3222.512mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8649.54mil|Location2.X=9015.816mil|Location1.Y=3178.733mil|Location2.Y=3222.512mil|Absolute=True">Un-Routed Net Constraint: Net VCC3.3 Between Pad R13-2(190.6mm,51.296mm) on Top Layer And Pad R14-2(198.1mm,51.296mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7417.457mil|Location2.X=7791.599mil|Location1.Y=4690.292mil|Location2.Y=4769.158mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7417.457mil|Location2.X=7791.599mil|Location1.Y=4690.292mil|Location2.Y=4769.158mil|Absolute=True">Un-Routed Net Constraint: Net VCC3.3 Between Pad DEC-2(159.405mm,90.135mm) on Multi-Layer And Pad ON-2(166.905mm,90.135mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9743.158mil|Location2.X=9960.697mil|Location1.Y=3205.961mil|Location2.Y=3813.063mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9743.158mil|Location2.X=9960.697mil|Location1.Y=3205.961mil|Location2.Y=3813.063mil|Absolute=True">Un-Routed Net Constraint: Net VCC3.3 Between Pad IC1-8(218.278mm,51.833mm) on Top Layer And Pad C7-2(222.1mm,66.296mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8452.69mil|Location2.X=8598.492mil|Location1.Y=2202.354mil|Location2.Y=3222.512mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8452.69mil|Location2.X=8598.492mil|Location1.Y=2202.354mil|Location2.Y=3222.512mil|Absolute=True">Un-Routed Net Constraint: Net VCC3.3 Between Pad R12-2(185.6mm,51.296mm) on Top Layer And Pad R2-2(187.5mm,26.496mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8944.816mil|Location2.X=9806.276mil|Location1.Y=3178.733mil|Location2.Y=3237.583mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8944.816mil|Location2.X=9806.276mil|Location1.Y=3178.733mil|Location2.Y=3237.583mil|Absolute=True">Un-Routed Net Constraint: Net VCC3.3 Between Pad R14-2(198.1mm,51.296mm) on Top Layer And Pad IC1-8(218.278mm,51.833mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7905.067mil|Location2.X=7988.449mil|Location1.Y=3854.756mil|Location2.Y=4769.158mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7905.067mil|Location2.X=7988.449mil|Location1.Y=3854.756mil|Location2.Y=4769.158mil|Absolute=True">Un-Routed Net Constraint: Net VCC3.3 Between Pad IC3-1(171.03mm,68.608mm) on Top Layer And Pad INC-2(171.905mm,90.135mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7836.543mil|Location2.X=8326.839mil|Location1.Y=3178.733mil|Location2.Y=3818.965mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7836.543mil|Location2.X=8326.839mil|Location1.Y=3178.733mil|Location2.Y=3818.965mil|Absolute=True">Un-Routed Net Constraint: Net VCC3.3 Between Pad C5-2(169.604mm,66.1mm) on Top Layer And Pad R11-2(180.6mm,51.296mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8236.354mil|Location2.X=8315.22mil|Location1.Y=4631.236mil|Location2.Y=4810.102mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8236.354mil|Location2.X=8315.22mil|Location1.Y=4631.236mil|Location2.Y=4810.102mil|Absolute=True">Un-Routed Net Constraint: Net VCC12 Between Pad PLS3-2(180.205mm,88.635mm) on Multi-Layer And Pad PLS3-3(180.205mm,91.175mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8236.354mil|Location2.X=8315.22mil|Location1.Y=4531.236mil|Location2.Y=4710.102mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8236.354mil|Location2.X=8315.22mil|Location1.Y=4531.236mil|Location2.Y=4710.102mil|Absolute=True">Un-Routed Net Constraint: Net VCC12 Between Pad PLS3-1(180.205mm,86.095mm) on Multi-Layer And Pad PLS3-2(180.205mm,88.635mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8028.689mil|Location2.X=8173.295mil|Location1.Y=3840.15mil|Location2.Y=3909.63mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8028.689mil|Location2.X=8173.295mil|Location1.Y=3840.15mil|Location2.Y=3909.63mil|Absolute=True">Un-Routed Net Constraint: Net VCC12 Between Pad IC3-3(174.17mm,68.608mm) on Top Layer And Pad C6-2(176.7mm,68.096mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8102.295mil|Location2.X=8315.22mil|Location1.Y=3840.15mil|Location2.Y=4610.102mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8102.295mil|Location2.X=8315.22mil|Location1.Y=3840.15mil|Location2.Y=4610.102mil|Absolute=True">Un-Routed Net Constraint: Net VCC12 Between Pad C6-2(176.7mm,68.096mm) on Top Layer And Pad PLS3-1(180.205mm,86.095mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1224.347mil|Location2.X=1303.213mil|Location1.Y=2084.977mil|Location2.Y=2263.843mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1224.347mil|Location2.X=1303.213mil|Location1.Y=2084.977mil|Location2.Y=2263.843mil|Absolute=True">Un-Routed Net Constraint: Net VCCA12 Between Pad PBS3-1(2.1mm,23.96mm) on Multi-Layer And Pad PBS3-2(2.1mm,26.5mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1224.347mil|Location2.X=1303.213mil|Location1.Y=2184.977mil|Location2.Y=2363.843mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1224.347mil|Location2.X=1303.213mil|Location1.Y=2184.977mil|Location2.Y=2363.843mil|Absolute=True">Un-Routed Net Constraint: Net VCCA12 Between Pad PBS3-2(2.1mm,26.5mm) on Multi-Layer And Pad PBS3-3(2.1mm,29.04mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1224.347mil|Location2.X=1555.181mil|Location1.Y=1759.78mil|Location2.Y=2163.843mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1224.347mil|Location2.X=1555.181mil|Location1.Y=1759.78mil|Location2.Y=2163.843mil|Absolute=True">Un-Routed Net Constraint: Net VCCA12 Between Pad PBS3-1(2.1mm,23.96mm) on Multi-Layer And Pad PS1-3(8.4mm,15.8mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1468.441mil|Location2.X=2590.551mil|Location1.Y=1759.78mil|Location2.Y=1917.323mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1468.441mil|Location2.X=2590.551mil|Location1.Y=1759.78mil|Location2.Y=1917.323mil|Absolute=True">Un-Routed Net Constraint: Net VCCA12 Between Pad PS1-3(8.4mm,15.8mm) on Multi-Layer And Pad IC2-1(35.45mm,18.2mm) on Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2637.795mil|Location2.X=3137.858mil|Location1.Y=1877.953mil|Location2.Y=2078.803mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2637.795mil|Location2.X=3137.858mil|Location1.Y=1877.953mil|Location2.Y=2078.803mil|Absolute=True">Un-Routed Net Constraint: Net LOAD_CNTRLA Between Pad IC2-3(37.35mm,18.2mm) on Bottom Layer And Pad PBS1-3(48.7mm,21.8mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br><a name="ID02NYXYGGXM4MPO5JQV5CNBA20PQKI02FWLWFYKJNS32BLNJRDV0O"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Minimum Solder Mask Sliver (Gap=0.254mm) (All),(All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2589.847mil|Location2.X=2601.097mil|Location1.Y=1872.328mil|Location2.Y=1883.578mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2589.847mil|Location2.X=2601.097mil|Location1.Y=1872.328mil|Location2.Y=1883.578mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.25mm &lt; 0.254mm) Between Pad IC2-2(36.4mm,18.2mm) on Bottom Layer And Pad IC2-1(35.45mm,18.2mm) on Bottom Layer [Bottom Solder] Mask Sliver [0.25mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2627.249mil|Location2.X=2638.499mil|Location1.Y=1872.328mil|Location2.Y=1883.578mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2627.249mil|Location2.X=2638.499mil|Location1.Y=1872.328mil|Location2.Y=1883.578mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.25mm &lt; 0.254mm) Between Pad IC2-3(37.35mm,18.2mm) on Bottom Layer And Pad IC2-2(36.4mm,18.2mm) on Bottom Layer [Bottom Solder] Mask Sliver [0.25mm]</acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br><a name="ID3RAFHABR2COZFYMIK1P0ZWVF1K32IW3L10HSRLJZMCOIGS2Z51BO"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Silk To Solder Mask (Clearance=0.254mm) (IsPad),(All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1389.635mil|Location2.X=1397.302mil|Location1.Y=1800.269mil|Location2.Y=1807.936mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1389.635mil|Location2.X=1397.302mil|Location1.Y=1800.269mil|Location2.Y=1807.936mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 0.254mm) Between Arc (5.394mm,12.7mm) on Bottom Overlay And Pad PS1-4(5.9mm,15.8mm) on Multi-Layer [Bottom Overlay] to [Bottom Solder] clearance [0mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9015.734mil|Location2.X=9023.4mil|Location1.Y=2258.315mil|Location2.Y=2265.981mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9015.734mil|Location2.X=9023.4mil|Location1.Y=2258.315mil|Location2.Y=2265.981mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 0.254mm) Between Text "*" (198.251mm,26.865mm) on Top Overlay And Pad D2-1(199.151mm,27.5mm) on Top Layer [Top Overlay] to [Top Solder] clearance [0mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9133.962mil|Location2.X=9141.629mil|Location1.Y=2733.702mil|Location2.Y=2741.369mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9133.962mil|Location2.X=9141.629mil|Location1.Y=2733.702mil|Location2.Y=2741.369mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 0.254mm) Between Track (202.1mm,31.5mm)(202.1mm,53.55mm) on Top Overlay And Pad IC1-15(201.996mm,39.833mm) on Top Layer [Top Overlay] to [Top Solder] clearance [0mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9133.962mil|Location2.X=9141.629mil|Location1.Y=2812.442mil|Location2.Y=2820.109mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9133.962mil|Location2.X=9141.629mil|Location1.Y=2812.442mil|Location2.Y=2820.109mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 0.254mm) Between Track (202.1mm,31.5mm)(202.1mm,53.55mm) on Top Overlay And Pad IC1-14(201.996mm,41.833mm) on Top Layer [Top Overlay] to [Top Solder] clearance [0mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9133.962mil|Location2.X=9141.629mil|Location1.Y=2891.183mil|Location2.Y=2898.849mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9133.962mil|Location2.X=9141.629mil|Location1.Y=2891.183mil|Location2.Y=2898.849mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 0.254mm) Between Track (202.1mm,31.5mm)(202.1mm,53.55mm) on Top Overlay And Pad IC1-13(201.996mm,43.833mm) on Top Layer [Top Overlay] to [Top Solder] clearance [0mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9133.962mil|Location2.X=9141.629mil|Location1.Y=2969.923mil|Location2.Y=2977.589mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9133.962mil|Location2.X=9141.629mil|Location1.Y=2969.923mil|Location2.Y=2977.589mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 0.254mm) Between Track (202.1mm,31.5mm)(202.1mm,53.55mm) on Top Overlay And Pad IC1-12(201.996mm,45.833mm) on Top Layer [Top Overlay] to [Top Solder] clearance [0mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9133.962mil|Location2.X=9141.629mil|Location1.Y=3048.663mil|Location2.Y=3056.329mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9133.962mil|Location2.X=9141.629mil|Location1.Y=3048.663mil|Location2.Y=3056.329mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 0.254mm) Between Track (202.1mm,31.5mm)(202.1mm,53.55mm) on Top Overlay And Pad IC1-11(201.996mm,47.833mm) on Top Layer [Top Overlay] to [Top Solder] clearance [0mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9133.962mil|Location2.X=9141.629mil|Location1.Y=3127.403mil|Location2.Y=3135.07mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9133.962mil|Location2.X=9141.629mil|Location1.Y=3127.403mil|Location2.Y=3135.07mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 0.254mm) Between Track (202.1mm,31.5mm)(202.1mm,53.55mm) on Top Overlay And Pad IC1-10(201.996mm,49.833mm) on Top Layer [Top Overlay] to [Top Solder] clearance [0mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9132.171mil|Location2.X=9143.421mil|Location1.Y=3151.529mil|Location2.Y=3162.779mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9132.171mil|Location2.X=9143.421mil|Location1.Y=3151.529mil|Location2.Y=3162.779mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.117mm &lt; 0.254mm) Between Track (202.1mm,50.3mm)(217.998mm,50.3mm) on Top Overlay And Pad IC1-10(201.996mm,49.833mm) on Top Layer [Top Overlay] to [Top Solder] clearance [0.117mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9763.884mil|Location2.X=9771.55mil|Location1.Y=2654.962mil|Location2.Y=2662.629mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9763.884mil|Location2.X=9771.55mil|Location1.Y=2654.962mil|Location2.Y=2662.629mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 0.254mm) Between Track (218.1mm,31.5mm)(218.1mm,53.55mm) on Top Overlay And Pad IC1-1(218.278mm,37.833mm) on Top Layer [Top Overlay] to [Top Solder] clearance [0mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9741.533mil|Location2.X=9752.783mil|Location1.Y=2651.529mil|Location2.Y=2662.779mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9741.533mil|Location2.X=9752.783mil|Location1.Y=2651.529mil|Location2.Y=2662.779mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.083mm &lt; 0.254mm) Between Track (202.1mm,37.4mm)(218.1mm,37.4mm) on Top Overlay And Pad IC1-1(218.278mm,37.833mm) on Top Layer [Top Overlay] to [Top Solder] clearance [0.083mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9763.884mil|Location2.X=9771.55mil|Location1.Y=2733.702mil|Location2.Y=2741.369mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9763.884mil|Location2.X=9771.55mil|Location1.Y=2733.702mil|Location2.Y=2741.369mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 0.254mm) Between Track (218.1mm,31.5mm)(218.1mm,53.55mm) on Top Overlay And Pad IC1-2(218.278mm,39.833mm) on Top Layer [Top Overlay] to [Top Solder] clearance [0mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9763.884mil|Location2.X=9771.55mil|Location1.Y=2812.442mil|Location2.Y=2820.109mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9763.884mil|Location2.X=9771.55mil|Location1.Y=2812.442mil|Location2.Y=2820.109mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 0.254mm) Between Track (218.1mm,31.5mm)(218.1mm,53.55mm) on Top Overlay And Pad IC1-3(218.278mm,41.833mm) on Top Layer [Top Overlay] to [Top Solder] clearance [0mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9763.884mil|Location2.X=9771.55mil|Location1.Y=2891.183mil|Location2.Y=2898.849mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9763.884mil|Location2.X=9771.55mil|Location1.Y=2891.183mil|Location2.Y=2898.849mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 0.254mm) Between Track (218.1mm,31.5mm)(218.1mm,53.55mm) on Top Overlay And Pad IC1-4(218.278mm,43.833mm) on Top Layer [Top Overlay] to [Top Solder] clearance [0mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9763.884mil|Location2.X=9771.55mil|Location1.Y=2969.923mil|Location2.Y=2977.589mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9763.884mil|Location2.X=9771.55mil|Location1.Y=2969.923mil|Location2.Y=2977.589mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 0.254mm) Between Track (218.1mm,31.5mm)(218.1mm,53.55mm) on Top Overlay And Pad IC1-5(218.278mm,45.833mm) on Top Layer [Top Overlay] to [Top Solder] clearance [0mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9763.884mil|Location2.X=9771.55mil|Location1.Y=3048.663mil|Location2.Y=3056.329mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9763.884mil|Location2.X=9771.55mil|Location1.Y=3048.663mil|Location2.Y=3056.329mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 0.254mm) Between Track (218.1mm,31.5mm)(218.1mm,53.55mm) on Top Overlay And Pad IC1-6(218.278mm,47.833mm) on Top Layer [Top Overlay] to [Top Solder] clearance [0mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9763.884mil|Location2.X=9771.55mil|Location1.Y=3127.403mil|Location2.Y=3135.07mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9763.884mil|Location2.X=9771.55mil|Location1.Y=3127.403mil|Location2.Y=3135.07mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 0.254mm) Between Track (218.1mm,31.5mm)(218.1mm,53.55mm) on Top Overlay And Pad IC1-7(218.278mm,49.833mm) on Top Layer [Top Overlay] to [Top Solder] clearance [0mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9741.533mil|Location2.X=9752.783mil|Location1.Y=3151.529mil|Location2.Y=3162.779mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9741.533mil|Location2.X=9752.783mil|Location1.Y=3151.529mil|Location2.Y=3162.779mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.117mm &lt; 0.254mm) Between Track (202.1mm,50.3mm)(217.998mm,50.3mm) on Top Overlay And Pad IC1-7(218.278mm,49.833mm) on Top Layer [Top Overlay] to [Top Solder] clearance [0.117mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9133.962mil|Location2.X=9141.629mil|Location1.Y=2654.962mil|Location2.Y=2662.629mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9133.962mil|Location2.X=9141.629mil|Location1.Y=2654.962mil|Location2.Y=2662.629mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 0.254mm) Between Track (202.1mm,31.5mm)(202.1mm,53.55mm) on Top Overlay And Pad IC1-16(201.996mm,37.833mm) on Top Layer [Top Overlay] to [Top Solder] clearance [0mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9132.171mil|Location2.X=9143.421mil|Location1.Y=2651.529mil|Location2.Y=2662.779mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9132.171mil|Location2.X=9143.421mil|Location1.Y=2651.529mil|Location2.Y=2662.779mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.083mm &lt; 0.254mm) Between Track (202.1mm,37.4mm)(218.1mm,37.4mm) on Top Overlay And Pad IC1-16(201.996mm,37.833mm) on Top Layer [Top Overlay] to [Top Solder] clearance [0.083mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9133.962mil|Location2.X=9141.629mil|Location1.Y=3206.127mil|Location2.Y=3213.794mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9133.962mil|Location2.X=9141.629mil|Location1.Y=3206.127mil|Location2.Y=3213.794mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 0.254mm) Between Track (202.1mm,31.5mm)(202.1mm,53.55mm) on Top Overlay And Pad IC1-9(201.996mm,51.833mm) on Top Layer [Top Overlay] to [Top Solder] clearance [0mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9762.092mil|Location2.X=9773.342mil|Location1.Y=3229.06mil|Location2.Y=3240.31mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9762.092mil|Location2.X=9773.342mil|Location1.Y=3229.06mil|Location2.Y=3240.31mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.056mm &lt; 0.254mm) Between Track (218.1mm,52.239mm)(218.151mm,52.29mm) on Top Overlay And Pad IC1-8(218.278mm,51.833mm) on Top Layer [Top Overlay] to [Top Solder] clearance [0.056mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9763.884mil|Location2.X=9771.55mil|Location1.Y=3206.127mil|Location2.Y=3213.794mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9763.884mil|Location2.X=9771.55mil|Location1.Y=3206.127mil|Location2.Y=3213.794mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 0.254mm) Between Track (218.1mm,31.5mm)(218.1mm,53.55mm) on Top Overlay And Pad IC1-8(218.278mm,51.833mm) on Top Layer [Top Overlay] to [Top Solder] clearance [0mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2084.926mil|Location2.X=2096.176mil|Location1.Y=1845.753mil|Location2.Y=1857.003mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2084.926mil|Location2.X=2096.176mil|Location1.Y=1845.753mil|Location2.Y=1857.003mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.25mm &lt; 0.254mm) Between Track (4.3mm,17.4mm)(30.3mm,17.4mm) on Top Overlay And Pad PS1-2(23.9mm,15.7mm) on Multi-Layer [Top Overlay] to [Top Solder] clearance [0.25mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2086.718mil|Location2.X=2094.385mil|Location1.Y=1790.749mil|Location2.Y=1798.415mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2086.718mil|Location2.X=2094.385mil|Location1.Y=1790.749mil|Location2.Y=1798.415mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 0.254mm) Between Text "R8" (22.04mm,14.186mm) on Bottom Overlay And Pad PS1-2(23.9mm,15.7mm) on Multi-Layer [Bottom Overlay] to [Bottom Solder] clearance [0mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2230.595mil|Location2.X=2241.845mil|Location1.Y=1845.753mil|Location2.Y=1857.003mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2230.595mil|Location2.X=2241.845mil|Location1.Y=1845.753mil|Location2.Y=1857.003mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.25mm &lt; 0.254mm) Between Track (4.3mm,17.4mm)(30.3mm,17.4mm) on Top Overlay And Pad PS1-1(29mm,15.7mm) on Multi-Layer [Top Overlay] to [Top Solder] clearance [0.25mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1483.361mil|Location2.X=1491.027mil|Location1.Y=1800.269mil|Location2.Y=1807.936mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1483.361mil|Location2.X=1491.027mil|Location1.Y=1800.269mil|Location2.Y=1807.936mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 0.254mm) Between Track (5.394mm,15.824mm)(10.906mm,15.824mm) on Bottom Overlay And Pad PS1-3(8.4mm,15.8mm) on Multi-Layer [Bottom Overlay] to [Bottom Solder] clearance [0mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1389.635mil|Location2.X=1397.302mil|Location1.Y=1800.269mil|Location2.Y=1807.936mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1389.635mil|Location2.X=1397.302mil|Location1.Y=1800.269mil|Location2.Y=1807.936mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 0.254mm) Between Track (5.394mm,15.824mm)(10.906mm,15.824mm) on Bottom Overlay And Pad PS1-4(5.9mm,15.8mm) on Multi-Layer [Bottom Overlay] to [Bottom Solder] clearance [0mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2321.2mil|Location2.X=2332.45mil|Location1.Y=1457.332mil|Location2.Y=1468.582mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2321.2mil|Location2.X=2332.45mil|Location1.Y=1457.332mil|Location2.Y=1468.582mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.022mm &lt; 0.254mm) Between Text "R5" (31.789mm,5.638mm) on Bottom Overlay And Pad IN220-1(28.1mm,7mm) on Multi-Layer [Bottom Overlay] to [Bottom Solder] clearance [0.022mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2435.772mil|Location2.X=2447.022mil|Location1.Y=1451.068mil|Location2.Y=1462.318mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2435.772mil|Location2.X=2447.022mil|Location1.Y=1451.068mil|Location2.Y=1462.318mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.171mm &lt; 0.254mm) Between Text "R5" (31.789mm,5.638mm) on Bottom Overlay And Pad IN220-2(33.1mm,7mm) on Multi-Layer [Bottom Overlay] to [Bottom Solder] clearance [0.171mm]</acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br><a name="IDNDMTJOYESFAYDZTENMIWNN2AIJXCJBQXUMJ5SNBBUBACWIO0DLCK"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Silk to Silk (Clearance=0.254mm) (All),(All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9016.083mil|Location2.X=9028.189mil|Location1.Y=2277.151mil|Location2.Y=2288.401mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9016.083mil|Location2.X=9028.189mil|Location1.Y=2277.151mil|Location2.Y=2288.401mil|Absolute=True">Silk To Silk Clearance Constraint: (0.079mm &lt; 0.254mm) Between Text "*" (198.251mm,26.865mm) on Top Overlay And Track (199.225mm,28.072mm)(200.775mm,28.072mm) on Top Overlay Silk Text to Silk Clearance [0.079mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9016.081mil|Location2.X=9027.331mil|Location1.Y=2239.148mil|Location2.Y=2250.398mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9016.081mil|Location2.X=9027.331mil|Location1.Y=2239.148mil|Location2.Y=2250.398mil|Absolute=True">Silk To Silk Clearance Constraint: (0.079mm &lt; 0.254mm) Between Text "*" (198.251mm,26.865mm) on Top Overlay And Track (199.225mm,26.929mm)(200.775mm,26.929mm) on Top Overlay Silk Text to Silk Clearance [0.079mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2952.533mil|Location2.X=2960.2mil|Location1.Y=1902.706mil|Location2.Y=1910.373mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2952.533mil|Location2.X=2960.2mil|Location1.Y=1902.706mil|Location2.Y=1910.373mil|Absolute=True">Silk To Silk Clearance Constraint: (Collision &lt; 0.254mm) Between Text "PBS1" (45mm,20.56mm) on Top Overlay And Track (30.736mm,18.426mm)(46.865mm,18.426mm) on Top Overlay Silk Text to Silk Clearance [0mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3015.03mil|Location2.X=3026.28mil|Location1.Y=1954.936mil|Location2.Y=1966.186mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3015.03mil|Location2.X=3026.28mil|Location1.Y=1954.936mil|Location2.Y=1966.186mil|Absolute=True">Silk To Silk Clearance Constraint: (0.127mm &lt; 0.254mm) Between Text "PBS1" (45mm,20.56mm) on Top Overlay And Track (46.865mm,18.426mm)(46.865mm,39.381mm) on Top Overlay Silk Text to Silk Clearance [0.127mm]</acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br></body>
+</html>

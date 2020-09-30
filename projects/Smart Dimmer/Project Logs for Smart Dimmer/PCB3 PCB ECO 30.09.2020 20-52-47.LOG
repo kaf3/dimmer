@@ -1,0 +1,5 @@
+Removed Pin From Net: NetName=N_IN Pin=OUT220-1
+Removed Pin From Net: NetName=L_OUT Pin=OUT220-2
+Added Pin To Net: NetName=L_OUT Pin=OUT220-1
+Added Pin To Net: NetName=N_IN Pin=OUT220-2
+Added Room: Name=dimmer
