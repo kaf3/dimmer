@@ -1,0 +1,15 @@
+Removed Pin From Net: NetName=L_IN Pin=PS1-1
+Removed Pin From Net: NetName=N_IN Pin=PS1-2
+Removed Pin From Net: NetName=VCCA12 Pin=PS1-3
+Removed Pin From Net: NetName=GNDA Pin=PS1-4
+Removed Pin From Net: NetName=NetC1_2 Pin=R4-1
+Removed Pin From Net: NetName=NetQ2_2 Pin=R4-2
+Change Component Comment : Designator=C6 Old Comment=C-1206 New Comment=C-1206 0.33u
+Added Component: Designator=PS1(220to12)
+Added Component: Designator=R4(RES2512_TL_TYCO_TYC)
+Added Pin To Net: NetName=L_IN Pin=PS1-1
+Added Pin To Net: NetName=N_IN Pin=PS1-2
+Added Pin To Net: NetName=VCCA12 Pin=PS1-3
+Added Pin To Net: NetName=GNDA Pin=PS1-4
+Added Pin To Net: NetName=NetC1_2 Pin=R4-1
+Added Pin To Net: NetName=NetQ2_2 Pin=R4-2

@@ -56,7 +56,7 @@ GenerateClassCluster=0
 DocumentUniqueId=AGAKVMMG
 
 [Document2]
-DocumentPath=PCB1.PcbDoc
+DocumentPath=PCB5.PcbDoc
 AnnotationEnabled=1
 AnnotateStartValue=1
 AnnotationIndexControlEnabled=0
@@ -70,10 +70,10 @@ ClassGenCCAutoRoomEnabled=1
 ClassGenNCAutoScope=None
 DItemRevisionGUID=
 GenerateClassCluster=0
-DocumentUniqueId=WIIOEBYL
+DocumentUniqueId=GUWCXSBD
 
 [Document3]
-DocumentPath=PCB2.PcbDoc
+DocumentPath=PCB4.PcbDoc
 AnnotationEnabled=1
 AnnotateStartValue=1
 AnnotationIndexControlEnabled=0
@@ -87,7 +87,7 @@ ClassGenCCAutoRoomEnabled=1
 ClassGenNCAutoScope=None
 DItemRevisionGUID=
 GenerateClassCluster=0
-DocumentUniqueId=IKGTUXLN
+DocumentUniqueId=EOFOYARQ
 
 [Document4]
 DocumentPath=PCB3.PcbDoc
@@ -104,7 +104,7 @@ ClassGenCCAutoRoomEnabled=1
 ClassGenNCAutoScope=None
 DItemRevisionGUID=
 GenerateClassCluster=0
-DocumentUniqueId=GUWCXSBD
+DocumentUniqueId=TRDQAUBI
 
 [GeneratedDocument1]
 DocumentPath=Project Outputs for Smart Dimmer\Design Rule Check - PCB2.html
