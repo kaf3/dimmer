@@ -1,0 +1,6 @@
+Removed Pin From Net: NetName=VCCA12 Pin=PBS3-1
+Removed Pin From Net: NetName=VCCA12 Pin=PBS3-2
+Removed Pin From Net: NetName=VCCA12 Pin=PBS3-3
+Added Pin To Net: NetName=VCCA3.3 Pin=PBS3-1
+Added Pin To Net: NetName=VCCA3.3 Pin=PBS3-2
+Added Pin To Net: NetName=VCCA3.3 Pin=PBS3-3

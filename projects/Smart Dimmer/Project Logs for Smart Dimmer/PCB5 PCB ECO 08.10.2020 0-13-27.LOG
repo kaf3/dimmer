@@ -1,0 +1,6 @@
+Added Pin To Net: NetName=VCC12 Pin=IC2-1
+Added Pin To Net: NetName=VCC12 Pin=PBS3-1
+Added Pin To Net: NetName=VCC12 Pin=PBS3-2
+Added Pin To Net: NetName=VCC12 Pin=PBS3-3
+Added Pin To Net: NetName=VCC12 Pin=PS1-3
+Change Net Name : Old Net Name=VCC12 New Net Name=VCCA12

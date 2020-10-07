@@ -1,0 +1,32 @@
+Removed Pin From Net: NetName=GND Pin=C5-1
+Removed Pin From Net: NetName=VCC3.3 Pin=C5-2
+Removed Pin From Net: NetName=GND Pin=C6-1
+Removed Pin From Net: NetName=VCCA12 Pin=IC2-1
+Removed Pin From Net: NetName=VCC3.3 Pin=IC3-1
+Removed Pin From Net: NetName=GND Pin=IC3-2
+Removed Pin From Net: NetName=VCC12 Pin=PLS3-1
+Removed Pin From Net: NetName=VCC12 Pin=PLS3-2
+Removed Pin From Net: NetName=VCC12 Pin=PLS3-3
+Removed Pin From Net: NetName=L_IN Pin=PS1-1
+Removed Pin From Net: NetName=N_IN Pin=PS1-2
+Removed Pin From Net: NetName=VCCA12 Pin=PS1-3
+Removed Pin From Net: NetName=GNDA Pin=PS1-4
+Added Component: Designator=PS1(220to12)
+Added Pin To Net: NetName=GNDA Pin=C5-1
+Added Pin To Net: NetName=VCCA12 Pin=C5-2
+Added Pin To Net: NetName=GNDA Pin=C6-1
+Added Pin To Net: NetName=VCC12 Pin=IC2-1
+Added Pin To Net: NetName=VCCA12 Pin=IC3-1
+Added Pin To Net: NetName=GNDA Pin=IC3-2
+Added Pin To Net: NetName=VCC3.3 Pin=PLS3-1
+Added Pin To Net: NetName=VCC3.3 Pin=PLS3-2
+Added Pin To Net: NetName=VCC3.3 Pin=PLS3-3
+Added Pin To Net: NetName=L_IN Pin=PS1-1
+Added Pin To Net: NetName=N_IN Pin=PS1-2
+Added Pin To Net: NetName=VCC12 Pin=PS1-3
+Added Pin To Net: NetName=GNDA Pin=PS1-4
+Change Net Name : Old Net Name=VCC12 New Net Name=VCCA12
+Change Net Name : Old Net Name=VCCA12 New Net Name=VCCA3.3
+Added Member To Class: ClassName=dimmer Member=Component PS1 220to12
+Added Member To Class: ClassName=dimmer Member=Component R4 R-2512 220
+Added Room: Name=dimmer
