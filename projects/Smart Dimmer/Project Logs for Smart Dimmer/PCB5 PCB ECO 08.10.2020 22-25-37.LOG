@@ -1,0 +1,11 @@
+Removed Pin From Net: NetName=L_IN Pin=PS1-1
+Removed Pin From Net: NetName=N_IN Pin=PS1-2
+Removed Pin From Net: NetName=VCCA12 Pin=PS1-3
+Removed Pin From Net: NetName=GNDA Pin=PS1-4
+Added Component: Designator=PS1(220to12)
+Added Pin To Net: NetName=L_IN Pin=PS1-1
+Added Pin To Net: NetName=N_IN Pin=PS1-2
+Added Pin To Net: NetName=VCCA12 Pin=PS1-3
+Added Pin To Net: NetName=GNDA Pin=PS1-4
+Added Member To Class: ClassName=dimmer Member=Component PS1 220to12
+Added Member To Class: ClassName=dimmer Member=Component R4 R-2512 220

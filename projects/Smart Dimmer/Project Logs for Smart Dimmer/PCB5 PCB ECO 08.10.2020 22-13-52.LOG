@@ -1,0 +1,2 @@
+Removed Pin From Net: NetName=VCCA3.3 Pin=PBS3-3
+Added Pin To Net: NetName=LOAD_CNTRLA Pin=PBS3-3

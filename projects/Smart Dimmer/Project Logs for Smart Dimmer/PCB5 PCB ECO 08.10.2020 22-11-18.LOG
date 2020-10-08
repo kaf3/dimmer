@@ -1,0 +1,2 @@
+Removed Pin From Net: NetName=LOAD_CNTRL Pin=PLS1-3
+Added Pin To Net: NetName=GND Pin=PLS1-3

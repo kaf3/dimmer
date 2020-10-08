@@ -1,0 +1,2 @@
+Removed Pin From Net: NetName=BTN_INC Pin=INC-1
+Added Pin To Net: NetName=VCC3.3 Pin=INC-1

@@ -1,0 +1,2 @@
+Removed Pin From Net: NetName=VCC3.3 Pin=PLS3-3
+Added Pin To Net: NetName=LOAD_CNTRL Pin=PLS3-3

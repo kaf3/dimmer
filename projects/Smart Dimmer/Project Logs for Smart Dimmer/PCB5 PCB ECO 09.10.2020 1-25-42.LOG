@@ -1,0 +1,5 @@
+Removed Pin From Net: NetName=BTN_DEC Pin=DEC-1
+Removed Pin From Net: NetName=BTN_ON Pin=ON-1
+Added Pin To Net: NetName=VCC3.3 Pin=DEC-1
+Added Pin To Net: NetName=VCC3.3 Pin=ON-1
+Added Member To Class: ClassName=dimmer Member=Component PS1 220to12
