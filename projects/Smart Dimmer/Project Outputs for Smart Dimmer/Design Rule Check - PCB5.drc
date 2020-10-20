@@ -1,0 +1,75 @@
+Protel Design System Design Rule Check
+PCB File : C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB5.PcbDoc
+Date     : 19.10.2020
+Time     : 18:47:09
+
+Processing Rule : Clearance Constraint (Gap=0.25mm) (InPadClass('IC2 Pads')),(All)
+Rule Violations :0
+
+Processing Rule : Width Constraint (Min=0.7mm) (Max=1.4mm) (Preferred=1mm) (InNetClass('Middle Nets'))
+Rule Violations :0
+
+Processing Rule : Width Constraint (Min=1mm) (Max=4mm) (Preferred=2mm) (InNetClass('Power_Nets'))
+Rule Violations :0
+
+Processing Rule : Clearance Constraint (Gap=0.254mm) (All),(All)
+Rule Violations :0
+
+Processing Rule : Short-Circuit Constraint (Allowed=No) (All),(All)
+Rule Violations :0
+
+Processing Rule : Un-Routed Net Constraint ( (All) )
+Rule Violations :0
+
+Processing Rule : Power Plane Connect Rule(Relief Connect )(Expansion=0.508mm) (Conductor Width=0.254mm) (Air Gap=0.254mm) (Entries=4) (All)
+Rule Violations :0
+
+Processing Rule : Width Constraint (Min=0.254mm) (Max=1mm) (Preferred=0.5mm) (All)
+Rule Violations :0
+
+Processing Rule : Height Constraint (Min=0mm) (Max=25.4mm) (Prefered=12.7mm) (All)
+Rule Violations :0
+
+Processing Rule : Hole Size Constraint (Min=0.025mm) (Max=2.54mm) (All)
+Rule Violations :0
+
+Processing Rule : Hole To Hole Clearance (Gap=0.254mm) (All),(All)
+Rule Violations :0
+
+Processing Rule : Minimum Solder Mask Sliver (Gap=0.15mm) (All),(All)
+Rule Violations :0
+
+Processing Rule : Silk To Solder Mask (Clearance=-1mm) (IsPad),(All)
+Rule Violations :0
+
+Processing Rule : Silk to Silk (Clearance=0.254mm) (All),(All)
+   Violation between Silk To Silk Clearance Constraint: (Collision < 0.254mm) Between Text "Q1" (71.1mm,49.3mm) on Bottom Overlay And Arc (70.403mm,50mm) on Bottom Overlay Silk Text to Silk Clearance [0mm]
+   Violation between Silk To Silk Clearance Constraint: (0.213mm < 0.254mm) Between Text "DEC" (17.4mm,6.6mm) on Top Overlay And Track (16.975mm,5.895mm)(16.975mm,8.895mm) on Top Overlay Silk Text to Silk Clearance [0.213mm]
+   Violation between Silk To Silk Clearance Constraint: (0.148mm < 0.254mm) Between Text "INC" (13.818mm,10.272mm) on Top Overlay And Track (13.458mm,9.572mm)(13.458mm,12.572mm) on Top Overlay Silk Text to Silk Clearance [0.148mm]
+   Violation between Silk To Silk Clearance Constraint: (0.048mm < 0.254mm) Between Text "ON" (10.135mm,13.995mm) on Top Overlay And Track (9.875mm,13.195mm)(9.875mm,16.195mm) on Top Overlay Silk Text to Silk Clearance [0.048mm]
+   Violation between Silk To Silk Clearance Constraint: (0.235mm < 0.254mm) Between Text "IC1" (9.1mm,38.4mm) on Top Overlay And Track (8.678mm,40.433mm)(8.678mm,18.383mm) on Top Overlay Silk Text to Silk Clearance [0.235mm]
+   Violation between Silk To Silk Clearance Constraint: (0.112mm < 0.254mm) Between Text "OUT220" (72.21mm,41.082mm) on Top Overlay And Track (63.2mm,37.8mm)(63.2mm,47.8mm) on Top Overlay Silk Text to Silk Clearance [0.112mm]
+   Violation between Silk To Silk Clearance Constraint: (0.096mm < 0.254mm) Between Text "D3" (41.7mm,40.3mm) on Top Overlay And Track (43.025mm,38.375mm)(44.575mm,38.375mm) on Top Overlay Silk Text to Silk Clearance [0.096mm]
+   Violation between Silk To Silk Clearance Constraint: (0.211mm < 0.254mm) Between Text "D3" (41.7mm,40.3mm) on Top Overlay And Track (43.025mm,37.412mm)(43.025mm,38.375mm) on Top Overlay Silk Text to Silk Clearance [0.211mm]
+   Violation between Silk To Silk Clearance Constraint: (0.079mm < 0.254mm) Between Text "*" (35.251mm,34.165mm) on Top Overlay And Track (36.225mm,35.371mm)(37.775mm,35.371mm) on Top Overlay Silk Text to Silk Clearance [0.079mm]
+   Violation between Silk To Silk Clearance Constraint: (0.079mm < 0.254mm) Between Text "*" (35.251mm,34.165mm) on Top Overlay And Track (36.225mm,34.228mm)(37.775mm,34.228mm) on Top Overlay Silk Text to Silk Clearance [0.079mm]
+   Violation between Silk To Silk Clearance Constraint: (0.202mm < 0.254mm) Between Text "R13" (32.3mm,45.6mm) on Top Overlay And Text "R2" (34.3mm,45.6mm) on Top Overlay Silk Text to Silk Clearance [0.202mm]
+   Violation between Silk To Silk Clearance Constraint: (Collision < 0.254mm) Between Text ".Designator" (6.976mm,39.633mm) on Top Overlay And Text "R12" (3.7mm,37.5mm) on Top Overlay Silk Text to Silk Clearance [0mm]
+   Violation between Silk To Silk Clearance Constraint: (0.202mm < 0.254mm) Between Text "R14" (30.3mm,45.6mm) on Top Overlay And Text "R13" (32.3mm,45.6mm) on Top Overlay Silk Text to Silk Clearance [0.202mm]
+Rule Violations :13
+
+Processing Rule : Net Antennae (Tolerance=0mm) (All)
+Rule Violations :0
+
+Processing Rule : Modified Polygon (Allow modified: No), (Allow shelved: No)
+Rule Violations :0
+
+Processing Rule : Clearance Constraint (Gap=0.7mm) (InNetClass('Power_Nets')),(All)
+Rule Violations :0
+
+Processing Rule : Clearance Constraint (Gap=0.254mm) (InPadClass('PS1 Pads')),(All)
+Rule Violations :0
+
+
+Violations Detected : 13
+Time Elapsed        : 00:00:02
