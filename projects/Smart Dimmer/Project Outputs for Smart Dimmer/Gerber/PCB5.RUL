@@ -1,0 +1,10 @@
+DRC Rules Export File for PCB: C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB5.PcbDoc
+RuleKind=Clearance|RuleName=Clearance_PS1 pads 0.254|Scope=Board|Minimum=10.00
+RuleKind=Clearance|RuleName=Clearance_Power_Nets_0.7mm|Scope=Board|Minimum=27.56
+RuleKind=SolderMaskExpansion|RuleName=SolderMaskExpansion|Scope=Board|Minimum=-39.37
+RuleKind=Width|RuleName=Width|Scope=Board|Minimum=10.00
+RuleKind=ShortCircuit|RuleName=ShortCircuit|Scope=Board|Allowed=0
+RuleKind=Clearance|RuleName=Clearance|Scope=Board|Minimum=10.00
+RuleKind=Width|RuleName=Width_2mm|Scope=Board|Minimum=39.37
+RuleKind=Width|RuleName=Width_1mm|Scope=Board|Minimum=27.56
+RuleKind=Clearance|RuleName=Clearance_0.25|Scope=Board|Minimum=9.84
