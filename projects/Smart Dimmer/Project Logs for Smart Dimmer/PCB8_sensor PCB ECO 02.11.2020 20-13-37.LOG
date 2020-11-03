@@ -1,0 +1,5 @@
+Added Component: Designator=IC4(SOP64P600X175-16N)
+Added Member To Class: ClassName=dimmer Member=Component C1 1206 0.47u
+Added Member To Class: ClassName=dimmer Member=Component CR2 BAV99LT1G
+Added Member To Class: ClassName=dimmer Member=Component IC4 TTP224B-BSBN
+Added Member To Class: ClassName=dimmer Member=Component PS1 220to12

@@ -1,0 +1,12 @@
+Removed Pin From Net: NetName=VCC3.3 Pin=DEC-1
+Removed Pin From Net: NetName=BTN_DEC Pin=DEC-2
+Removed Pin From Net: NetName=GND Pin=DEC-3
+Removed Pin From Net: NetName=VCC3.3 Pin=INC-1
+Removed Pin From Net: NetName=BTN_INC Pin=INC-2
+Removed Pin From Net: NetName=GND Pin=INC-3
+Removed Pin From Net: NetName=VCC3.3 Pin=ON-1
+Removed Pin From Net: NetName=BTN_ON Pin=ON-2
+Removed Pin From Net: NetName=GND Pin=ON-3
+Removed Member From Class: ClassName=dimmer Member=DEC
+Removed Member From Class: ClassName=dimmer Member=INC
+Removed Member From Class: ClassName=dimmer Member=ON

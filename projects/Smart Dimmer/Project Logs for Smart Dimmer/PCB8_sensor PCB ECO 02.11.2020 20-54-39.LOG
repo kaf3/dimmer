@@ -1,0 +1,4 @@
+Added Pin To Net: NetName=MODE Pin=IC4-13
+Added Pin To Net: NetName=BTN_INC Pin=IC4-14
+Added Pin To Net: NetName=BTN_ON Pin=IC4-15
+Added Pin To Net: NetName=BTN_DEC Pin=IC4-16

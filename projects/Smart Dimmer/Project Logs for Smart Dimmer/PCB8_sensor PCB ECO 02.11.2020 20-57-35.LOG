@@ -1,0 +1,2 @@
+Removed Pin From Net: NetName=MODE Pin=UART-4
+Added Pin To Net: NetName=VCC3.3 Pin=UART-4
