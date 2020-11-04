@@ -1,0 +1,5 @@
+Removed Pin From Net: NetName=RX Pin=UART-3
+Removed Pin From Net: NetName=VCC3.3 Pin=UART-4
+Added Pin To Net: NetName=VCC3.3 Pin=UART-3
+Added Pin To Net: NetName=RX Pin=UART-4
+Added Member To Class: ClassName=dimmer Member=Component PLS1 PLS-3

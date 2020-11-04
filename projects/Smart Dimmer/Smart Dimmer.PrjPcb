@@ -73,7 +73,7 @@ GenerateClassCluster=0
 DocumentUniqueId=
 
 [Document3]
-DocumentPath=PCB8_sensor.PcbDoc
+DocumentPath=PCB10_sensor.PcbDoc
 AnnotationEnabled=1
 AnnotateStartValue=1
 AnnotationIndexControlEnabled=0
