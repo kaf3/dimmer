@@ -1,0 +1,3 @@
+Removed Pin From Net: NetName=DETECT_NULL Pin=R2-1
+Removed Pin From Net: NetName=VCC3.3 Pin=R2-2
+Removed Member From Class: ClassName=dimmer Member=R2

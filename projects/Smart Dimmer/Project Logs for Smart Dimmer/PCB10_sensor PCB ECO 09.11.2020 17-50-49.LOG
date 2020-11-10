@@ -1,0 +1,5 @@
+Removed Pin From Net: NetName=MODE Pin=IC4-13
+Added Component: Designator=Mode(PLS-2)
+Added Pin To Net: NetName=GND Pin=Mode-1
+Added Pin To Net: NetName=MODE Pin=Mode-2
+Added Member To Class: ClassName=dimmer Member=Component Mode PLS-2
