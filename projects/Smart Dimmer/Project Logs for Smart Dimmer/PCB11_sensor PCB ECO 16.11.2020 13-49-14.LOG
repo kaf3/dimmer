@@ -1,0 +1,17 @@
+Removed Pin From Net: NetName=NetIC1_3 Pin=R11-1
+Removed Pin From Net: NetName=VCC3.3 Pin=R11-2
+Removed Pin From Net: NetName=RST Pin=R12-1
+Removed Pin From Net: NetName=VCC3.3 Pin=R12-2
+Removed Pin From Net: NetName=NetCntrl_4 Pin=R13-1
+Removed Pin From Net: NetName=VCC3.3 Pin=R13-2
+Removed Pin From Net: NetName=VCC3.3 Pin=R14-2
+Change Component DesignItemId : Designator=R12 Old DesignItemId=R-1206 New DesignItemId=R0805
+Change Component DesignItemId : Designator=R13 Old DesignItemId=R-1206 New DesignItemId=R0805
+Change Component DesignItemId : Designator=R14 Old DesignItemId=R-1206 New DesignItemId=R0805
+Change Component Footprint: Designator=R12 Old Footprint=CAP_X7R_1206_AVX New Footprint=0805
+Change Component Footprint: Designator=R13 Old Footprint=CAP_X7R_1206_AVX New Footprint=0805
+Change Component Footprint: Designator=R14 Old Footprint=CAP_X7R_1206_AVX New Footprint=0805
+Added Component: Designator=R11(0805)
+Added Pin To Net: NetName=NetIC1_3 Pin=R11-1
+Added Pin To Net: NetName=VCC3.3 Pin=R11-2
+Added Member To Class: ClassName=dimmer Member=Component R4 0805 220

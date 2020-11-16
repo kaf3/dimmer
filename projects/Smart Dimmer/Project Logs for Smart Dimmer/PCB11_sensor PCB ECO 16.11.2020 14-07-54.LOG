@@ -1,0 +1,13 @@
+Removed Pin From Net: NetName=DETECT_LA Pin=PBS1-1
+Removed Pin From Net: NetName=DETECT_NA Pin=PBS1-2
+Removed Pin From Net: NetName=GND Pin=U1-4
+Removed Pin From Net: NetName=DETECT_NULL Pin=U1-6
+Added Pin To Net: NetName=DETECT_LA Pin=CR1-3
+Added Pin To Net: NetName=DETECT_NA Pin=CR2-3
+Added Pin To Net: NetName=GNDA Pin=PBS1-2
+Added Pin To Net: NetName=DETECT_NULL Pin=PLS1-1
+Added Pin To Net: NetName=GND Pin=PLS1-2
+Added Pin To Net: NetName=GNDA Pin=U1-4
+Added Pin To Net: NetName=DETECT_NULLA Pin=PBS1-1
+Added Pin To Net: NetName=DETECT_NULLA Pin=U1-6
+Added Net: Name=DETECT_NULLA

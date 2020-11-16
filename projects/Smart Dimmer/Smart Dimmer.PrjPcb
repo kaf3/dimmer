@@ -73,7 +73,7 @@ GenerateClassCluster=0
 DocumentUniqueId=
 
 [Document3]
-DocumentPath=PCB10_sensor.PcbDoc
+DocumentPath=PCB12_sensor.PcbDoc
 AnnotationEnabled=1
 AnnotateStartValue=1
 AnnotationIndexControlEnabled=0
@@ -208,6 +208,23 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=
 
+[Document11]
+DocumentPath=PCB11_sensor.PcbDoc
+AnnotationEnabled=1
+AnnotateStartValue=1
+AnnotationIndexControlEnabled=0
+AnnotateSuffix=
+AnnotateScope=All
+AnnotateOrder=-1
+DoLibraryUpdate=1
+DoDatabaseUpdate=1
+ClassGenCCAutoEnabled=1
+ClassGenCCAutoRoomEnabled=1
+ClassGenNCAutoScope=None
+DItemRevisionGUID=
+GenerateClassCluster=0
+DocumentUniqueId=
+
 [GeneratedDocument1]
 DocumentPath=Project Outputs for Smart Dimmer\Design Rule Check - PCB2.html
 DItemRevisionGUID=
@@ -225,6 +242,10 @@ DocumentPath=Project Outputs for Smart Dimmer\Design Rule Check - PCB10_sensor.h
 DItemRevisionGUID=
 
 [GeneratedDocument5]
+DocumentPath=Project Outputs for Smart Dimmer\Design Rule Check - PCB11_sensor.html
+DItemRevisionGUID=
+
+[GeneratedDocument6]
 DocumentPath=Project Outputs for Smart Dimmer\Smart Dimmer.nsx
 DItemRevisionGUID=
 

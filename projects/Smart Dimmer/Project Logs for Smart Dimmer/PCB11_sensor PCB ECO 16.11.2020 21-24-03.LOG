@@ -1,0 +1,8 @@
+Removed Pin From Net: NetName=GNDA Pin=PBS1-1
+Removed Pin From Net: NetName=GNDA Pin=PBS1-2
+Removed Pin From Net: NetName=GNDA Pin=PBS1-3
+Removed Pin From Net: NetName=GND Pin=PLS1-1
+Removed Pin From Net: NetName=GND Pin=PLS1-2
+Removed Pin From Net: NetName=GND Pin=PLS1-3
+Removed Member From Class: ClassName=dimmer Member=PBS1
+Removed Member From Class: ClassName=dimmer Member=PLS1

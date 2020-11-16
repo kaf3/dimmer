@@ -1,0 +1,10 @@
+Removed Pin From Net: NetName=GND Pin=INSTALL-1
+Removed Member From Class: ClassName=dimmer Member=INSTALL
+Added Component: Designator=PROG(PLS-2)
+Added Pin To Net: NetName=GND Pin=PROG-1
+Added Pin To Net: NetName=PROG Pin=IC1-12
+Added Pin To Net: NetName=PROG Pin=PROG-2
+Added Pin To Net: NetName=PROG Pin=R13-1
+Added Net: Name=PROG
+Added Member To Class: ClassName=dimmer Member=Component IC1 ESP8266 ESP-07
+Added Member To Class: ClassName=dimmer Member=Component PROG PLS-2

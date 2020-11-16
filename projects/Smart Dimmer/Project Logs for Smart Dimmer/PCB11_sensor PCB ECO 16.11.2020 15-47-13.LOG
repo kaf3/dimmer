@@ -1,0 +1,9 @@
+Removed Pin From Net: NetName=DETECT_NULLA Pin=PBS1-1
+Removed Pin From Net: NetName=GNDA Pin=PBS2-1
+Removed Pin From Net: NetName=DETECT_NULL Pin=PLS1-1
+Removed Pin From Net: NetName=GND Pin=PLS2-1
+Added Pin To Net: NetName=GNDA Pin=PBS1-1
+Added Pin To Net: NetName=DETECT_NULLA Pin=PBS2-1
+Added Pin To Net: NetName=GND Pin=PLS1-1
+Added Pin To Net: NetName=DETECT_NULL Pin=PLS2-1
+Added Member To Class: ClassName=dimmer Member=Component Q3 IRFP460APBF

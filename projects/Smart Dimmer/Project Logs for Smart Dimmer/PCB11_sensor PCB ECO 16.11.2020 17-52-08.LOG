@@ -1,0 +1,17 @@
+Removed Pin From Net: NetName=RST Pin=Cntrl-1
+Removed Pin From Net: NetName=GND Pin=Cntrl-2
+Removed Pin From Net: NetName=GND Pin=Cntrl-3
+Removed Pin From Net: NetName=MODE Pin=Mode-2
+Change Component Designator: OldDesignator=Mode NewDesignator=RST
+Added Component: Designator=INSTALL(PLS-2)
+Added Component: Designator=MODE(PLS-2)
+Added Pin To Net: NetName=GND Pin=INSTALL-1
+Added Pin To Net: NetName=GND Pin=MODE-1
+Added Pin To Net: NetName=MODE Pin=MODE-2
+Added Pin To Net: NetName=RST Pin=RST-2
+Added Pin To Net: NetName=INSTALL Pin=IC1-12
+Added Pin To Net: NetName=INSTALL Pin=INSTALL-2
+Added Pin To Net: NetName=INSTALL Pin=R13-1
+Added Net: Name=INSTALL
+Added Member To Class: ClassName=dimmer Member=Component INSTALL PLS-2
+Added Member To Class: ClassName=dimmer Member=Component RST PLS-2
