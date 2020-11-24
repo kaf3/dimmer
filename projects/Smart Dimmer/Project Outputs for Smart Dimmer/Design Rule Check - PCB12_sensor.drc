@@ -1,7 +1,7 @@
 Protel Design System Design Rule Check
 PCB File : C:\Users\User\Documents\Altium\projects\Smart Dimmer\PCB12_sensor.PcbDoc
-Date     : 18.11.2020
-Time     : 0:11:01
+Date     : 23.11.2020
+Time     : 14:32:26
 
 Processing Rule : Clearance Constraint (Gap=0.175mm) (InPadClass('IC4 Pads')Or InNetClass('IC4 Nets')),(All)
 Rule Violations :0

@@ -1,0 +1,7 @@
+Button KEYWORD1
+button KEYWORD1
+
+read KEYWORD2
+watch KEYWORD2
+onClick KEYWORD2
+onLongClick KEYWORD2

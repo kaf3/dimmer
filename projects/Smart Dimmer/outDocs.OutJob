@@ -21,7 +21,7 @@ TargetOutputMedium=Folder Structure
 VariantName=[No Variations]
 VariantScope=1
 CurrentConfigurationName=
-TargetPrinter=OneNote for Windows 10
+TargetPrinter=Microsoft Print to PDF
 PrinterOptions=Record=PrinterOptions|Copies=1|Duplex=1|TrueTypeOptions=3|Collate=1|PrintJobKind=1|PrintWhat=1
 OutputMedium1=Print
 OutputMedium1_Type=Publish
@@ -56,7 +56,7 @@ Configuration1_Item1=Record=SchPrintView|ShowNoERC=True|ShowParamSet=True|ShowPr
 OutputType2=Gerber
 OutputName2=Gerber Files
 OutputCategory2=Fabrication
-OutputDocumentPath2=PCB10_sensor.PcbDoc
+OutputDocumentPath2=PCB12_sensor.PcbDoc
 OutputVariantName2=
 OutputEnabled2=1
 OutputEnabled2_OutputMedium1=0
@@ -71,7 +71,7 @@ Configuration2_Item1=AddToAllLayerClasses.Set= |AddToAllPlots.Set=SerializeLayer
 OutputType3=NC Drill
 OutputName3=NC Drill Files
 OutputCategory3=Fabrication
-OutputDocumentPath3=PCB10_sensor.PcbDoc
+OutputDocumentPath3=PCB12_sensor.PcbDoc
 OutputVariantName3=
 OutputEnabled3=1
 OutputEnabled3_OutputMedium1=0

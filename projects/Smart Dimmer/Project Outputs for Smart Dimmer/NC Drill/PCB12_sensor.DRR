@@ -1,0 +1,21 @@
+----------------------------------------------------------------------------------------------------------------------------------
+NCDrill File Report For: PCB12_sensor.PcbDoc   23.11.2020  18:19:55
+----------------------------------------------------------------------------------------------------------------------------------
+
+Layer Pair : Top Layer to Bottom Layer
+ASCII RoundHoles File : PCB12_sensor.TXT
+
+Tool       Hole Size               Hole Tolerance               Hole Type       Hole Count   Plated         Tool Travel
+----------------------------------------------------------------------------------------------------------------------------------
+T1      0.3mm (12mil)                                             Round             10        PTH        32.24mm (1.27inch)
+T2      0.4mm (16mil)                                             Round             38        PTH        226.43mm (8.91inch)
+T3      0.66mm (26mil)                                            Round             2         PTH        7.50mm (0.30inch)
+T4      0.711mm (28mil)                                           Round             1         PTH        0.00mm (0.00inch)
+T5      0.762mm (30mil)                                           Round             2         PTH        8.21mm (0.32inch)
+T6      1mm (39mil)                                               Round             3         PTH        21.81mm (0.86inch)
+T7      1.2mm (47mil)                                             Round             28        PTH        243.72mm (9.60inch)
+T8      1.651mm (65mil)                                           Round             6         PTH        25.16mm (0.99inch)
+----------------------------------------------------------------------------------------------------------------------------------
+Totals                                                                              90
+
+Total Processing Time (hh:mm:ss) : 00:00:00
