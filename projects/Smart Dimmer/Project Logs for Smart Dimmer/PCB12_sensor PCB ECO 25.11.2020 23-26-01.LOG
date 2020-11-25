@@ -1,0 +1,15 @@
+Removed Pin From Net: NetName=NetC1_2 Pin=R4-1
+Removed Pin From Net: NetName=NetQ2_2 Pin=R4-2
+Removed Pin From Net: NetName=NetIC1_3 Pin=R11-1
+Removed Pin From Net: NetName=VCC3.3 Pin=R11-2
+Removed Pin From Net: NetName=RST Pin=R12-1
+Removed Pin From Net: NetName=VCC3.3 Pin=R12-2
+Added Component: Designator=R4(G-21_MUR)
+Added Component: Designator=R11(G-21_MUR)
+Added Component: Designator=R12(G-21_MUR)
+Added Pin To Net: NetName=NetC1_2 Pin=R4-1
+Added Pin To Net: NetName=NetQ2_2 Pin=R4-2
+Added Pin To Net: NetName=NetIC1_3 Pin=R11-1
+Added Pin To Net: NetName=VCC3.3 Pin=R11-2
+Added Pin To Net: NetName=RST Pin=R12-1
+Added Pin To Net: NetName=VCC3.3 Pin=R12-2

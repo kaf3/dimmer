@@ -39,23 +39,6 @@ PrefsVaultGUID=
 PrefsRevisionGUID=
 
 [Document1]
-DocumentPath=..\..\libraries\Project Outputs for diplom\diplom.IntLib
-AnnotationEnabled=1
-AnnotateStartValue=1
-AnnotationIndexControlEnabled=0
-AnnotateSuffix=
-AnnotateScope=All
-AnnotateOrder=-1
-DoLibraryUpdate=1
-DoDatabaseUpdate=1
-ClassGenCCAutoEnabled=1
-ClassGenCCAutoRoomEnabled=1
-ClassGenNCAutoScope=None
-DItemRevisionGUID=
-GenerateClassCluster=0
-DocumentUniqueId=
-
-[Document2]
 DocumentPath=outDocs.OutJob
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -72,7 +55,7 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=
 
-[Document3]
+[Document2]
 DocumentPath=PCB12_sensor.PcbDoc
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -89,7 +72,7 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=CIEHQDDY
 
-[Document4]
+[Document3]
 DocumentPath=PCB9.PcbDoc
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -106,7 +89,7 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=GRRCQRKS
 
-[Document5]
+[Document4]
 DocumentPath=dimmer.SchDoc
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -123,7 +106,7 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=JAPIVURL
 
-[Document6]
+[Document5]
 DocumentPath=PCB5.PcbDoc
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -139,6 +122,23 @@ ClassGenNCAutoScope=None
 DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=XPLTMGRY
+
+[Document6]
+DocumentPath=..\..\libraries\Project Outputs for diplom\diplom.IntLib
+AnnotationEnabled=1
+AnnotateStartValue=1
+AnnotationIndexControlEnabled=0
+AnnotateSuffix=
+AnnotateScope=All
+AnnotateOrder=-1
+DoLibraryUpdate=1
+DoDatabaseUpdate=1
+ClassGenCCAutoEnabled=1
+ClassGenCCAutoRoomEnabled=1
+ClassGenNCAutoScope=None
+DItemRevisionGUID=
+GenerateClassCluster=0
+DocumentUniqueId=
 
 [Document7]
 DocumentPath=..\..\libraries\SamacSys.PcbLib
@@ -189,7 +189,7 @@ ClassGenCCAutoRoomEnabled=1
 ClassGenNCAutoScope=None
 DItemRevisionGUID=
 GenerateClassCluster=0
-DocumentUniqueId=
+DocumentUniqueId=NFPXFMPO
 
 [Document10]
 DocumentPath=..\..\libraries\test_lib.SchLib
@@ -250,6 +250,58 @@ DocumentPath=Project Outputs for Smart Dimmer\Design Rule Check - PCB12_sensor.h
 DItemRevisionGUID=
 
 [GeneratedDocument7]
+DocumentPath=Project Outputs for Smart Dimmer\NC Drill\PCB12_sensor.DRR
+DItemRevisionGUID=
+
+[GeneratedDocument8]
+DocumentPath=Project Outputs for Smart Dimmer\Gerber\PCB12_sensor.EXTREP
+DItemRevisionGUID=
+
+[GeneratedDocument9]
+DocumentPath=Project Outputs for Smart Dimmer\Gerber\PCB12_sensor.GBL
+DItemRevisionGUID=
+
+[GeneratedDocument10]
+DocumentPath=Project Outputs for Smart Dimmer\Gerber\PCB12_sensor.GBO
+DItemRevisionGUID=
+
+[GeneratedDocument11]
+DocumentPath=Project Outputs for Smart Dimmer\Gerber\PCB12_sensor.GBS
+DItemRevisionGUID=
+
+[GeneratedDocument12]
+DocumentPath=Project Outputs for Smart Dimmer\Gerber\PCB12_sensor.GKO
+DItemRevisionGUID=
+
+[GeneratedDocument13]
+DocumentPath=Project Outputs for Smart Dimmer\Gerber\PCB12_sensor.GTL
+DItemRevisionGUID=
+
+[GeneratedDocument14]
+DocumentPath=Project Outputs for Smart Dimmer\Gerber\PCB12_sensor.GTO
+DItemRevisionGUID=
+
+[GeneratedDocument15]
+DocumentPath=Project Outputs for Smart Dimmer\Gerber\PCB12_sensor.GTS
+DItemRevisionGUID=
+
+[GeneratedDocument16]
+DocumentPath=Project Outputs for Smart Dimmer\NC Drill\PCB12_sensor.LDP
+DItemRevisionGUID=
+
+[GeneratedDocument17]
+DocumentPath=Project Outputs for Smart Dimmer\Gerber\PCB12_sensor.REP
+DItemRevisionGUID=
+
+[GeneratedDocument18]
+DocumentPath=Project Outputs for Smart Dimmer\Gerber\PCB12_sensor.RUL
+DItemRevisionGUID=
+
+[GeneratedDocument19]
+DocumentPath=Project Outputs for Smart Dimmer\NC Drill\PCB12_sensor.TXT
+DItemRevisionGUID=
+
+[GeneratedDocument20]
 DocumentPath=Project Outputs for Smart Dimmer\Smart Dimmer.nsx
 DItemRevisionGUID=
 

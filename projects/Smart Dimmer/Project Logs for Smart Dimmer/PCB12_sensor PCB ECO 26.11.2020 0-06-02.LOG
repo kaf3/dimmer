@@ -1,0 +1,29 @@
+Removed Pin From Net: NetName=GND Pin=C3-1
+Removed Pin From Net: NetName=VCC3.3 Pin=C3-2
+Removed Pin From Net: NetName=GND Pin=C4-1
+Removed Pin From Net: NetName=VCC3.3 Pin=C4-2
+Removed Pin From Net: NetName=GND Pin=C9-1
+Removed Pin From Net: NetName=NetC9_2 Pin=C9-2
+Removed Pin From Net: NetName=GND Pin=C10-2
+Removed Pin From Net: NetName=GND Pin=C11-1
+Removed Pin From Net: NetName=NetC11_2 Pin=C11-2
+Added Component: Designator=C3(G-21_MUR)
+Added Component: Designator=C4(G-21_MUR)
+Added Component: Designator=C9(G-21_MUR)
+Added Component: Designator=C10(G-21_MUR)
+Added Component: Designator=C11(G-21_MUR)
+Added Pin To Net: NetName=GND Pin=C3-1
+Added Pin To Net: NetName=VCC3.3 Pin=C3-2
+Added Pin To Net: NetName=GND Pin=C4-1
+Added Pin To Net: NetName=VCC3.3 Pin=C4-2
+Added Pin To Net: NetName=GND Pin=C9-1
+Added Pin To Net: NetName=NetC9_2 Pin=C9-2
+Added Pin To Net: NetName=GND Pin=C10-1
+Added Pin To Net: NetName=GND Pin=C11-1
+Added Pin To Net: NetName=NetC11_2 Pin=C11-2
+Added Pin To Net: NetName=NetC10_2 Pin=C10-2
+Added Pin To Net: NetName=NetC10_2 Pin=IC4-2
+Added Net: Name=NetC10_2
+Added Member To Class: ClassName=dimmer Member=Component R16 220
+Added Member To Class: ClassName=dimmer Member=Component R17 100
+Added Member To Class: ClassName=dimmer Member=Component R18 10k
