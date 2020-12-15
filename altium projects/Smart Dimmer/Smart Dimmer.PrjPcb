@@ -348,15 +348,12 @@ CurrentRevision=
 Variant=[No Variations]
 OutputJobsCount=0
 
-[Generic_EDE]
-OutputDir=Project Outputs for Smart Dimmer
-
 [Generic_SmartPDF]
 AutoOpenFile=-1
 AutoOpenOutJob=-1
 
 [Generic_SmartPDFSettings]
-ProjectMode=-1
+ProjectMode=0
 ZoomPrecision=50
 AddNetsInformation=-1
 AddNetPins=-1
@@ -364,8 +361,8 @@ AddNetNetLabels=-1
 AddNetPorts=-1
 ShowComponentParameters=-1
 GlobalBookmarks=0
-ExportBOM=-1
-TemplateFilename=Board Stack Report.XLT
+ExportBOM=0
+TemplateFilename=Ведомость.xlt
 TemplateStoreRelative=-1
 PCB_PrintColor=1
 SCH_PrintColor=0
@@ -386,6 +383,9 @@ SCH_ExpandSheetNumber=0
 SCH_ExpandDocumentNumber=0
 SCH_HasExpandLogicalToPhysicalSheets=-1
 SaveSettingsToOutJob=0
+
+[Generic_EDE]
+OutputDir=Project Outputs for Smart Dimmer
 
 [OutputGroup1]
 Name=Netlist Outputs
