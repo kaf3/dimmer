@@ -1,0 +1,15 @@
+Dimmer	KEYWORD1
+dimmer	KEYWORD1
+watch	KEYWORD2
+interrupt	KEYWORD2
+increase	KEYWORD2
+decrease	KEYWORD2
+on	KEYWORD2
+off	KEYWORD2
+isOn	KEYWORD2
+toggle	KEYWORD2
+getLevel	KEYWORD2
+getMicrosLevel	KEYWORD2
+setLevel	KEYWORD2
+
+
