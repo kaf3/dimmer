@@ -51,4 +51,4 @@ void Button::_process() {
     return;
 }
 
-unsigned long Button::interval = 5000;
+unsigned long Button::interval = 2000;
