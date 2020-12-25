@@ -1,0 +1,15 @@
+SoftAp	KEYWORD1
+softAp	KEYWORD1
+watch	KEYWORD2
+needCredentials	KEYWORD2
+setSoftAp	KEYWORD2
+resetSoftAp	KEYWORD2
+isSoftAp	KEYWORD2
+handleRoot	KEYWORD2
+handleCredentials	KEYWORD2
+handleNotFound	KEYWORD2
+getLevel	KEYWORD2
+getMicrosLevel	KEYWORD2
+setLevel	KEYWORD2
+
+
