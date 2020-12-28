@@ -1,17 +1,22 @@
+#include <FbClient.h>
+#include <credentials.h>
 #include <ESP8266WiFi.h>
 #include <WiFiClient.h>
 #include <ESP8266WebServer.h>
-
 #include <photo.h>
 #include <dimmer.h>
 #include <string.h>
 #include <button.h>
 #include <softAp.h>
 
+#define FIREBASE_HOST "https://home-for-u.firebaseio.com"
+#define API_KEY "AIzaSyDgXyRA4x6CWoNjpMY2wfxV6OX95QKWGK0"
+
+Credentials credentials;
 Dimmer dimmer(16, 4);
 ESP8266WebServer server(80);
-
-SoftAp softAp(server);
+FbClient client(credentials);
+SoftAp softAp(server, credentials);
 
 void handleRoot() {
     softAp.handleRoot();
@@ -19,6 +24,9 @@ void handleRoot() {
 
 void handleCredentials() {
     softAp.handleCredentials();
+
+    Serial.print("ssid from crdentials ");
+    Serial.println(credentials.ssid);
 }
 
 void handleNotFound() {
@@ -45,12 +53,20 @@ void onDecrease() {
 Photo photo(A0, onIncrease, onDecrease);
 
 void onIncreaseClick() {
-    onIncrease();
+    if (softAp.isSoftAp()) {
+        softAp.end();
+        client.begin();
+    } else {
+        onIncrease();
+    }
 }
 
 void onDecreaseClick() {
-    onDecrease();
-    photo.resetAutoMode();
+    if (photo.isAutoMode()) {
+        photo.resetAutoMode(); 
+    } else {
+        onDecrease();
+    }
 }
 
 void onIncreaseLongClick() {
@@ -59,9 +75,13 @@ void onIncreaseLongClick() {
 }
 
 void onDecreaseLongClick() {
-    softAp.setSoftAp();
-    server.begin();
+    softAp.begin();
     Serial.println(" decrease long click");
+}
+
+void onValueReceived(String value) {
+    Serial.print("on value received callback, value = ");
+    Serial.println(value);
 }
 
 void onLongClick() {}
@@ -82,7 +102,10 @@ void setup() {
     buttonInc.setup(detectsButtonInc);
     buttonDec.setup(detectsButtonDec);
     dimmer.setup(detectsNull);
+    client.setup(onValueReceived, FIREBASE_HOST, API_KEY);
     softAp.setup(handleRoot, handleCredentials, handleNotFound);
+    client.begin();
+    
 }
 
 void loop() {
@@ -92,4 +115,5 @@ void loop() {
     dimmer.watch();
     photo.watch();
     softAp.watch();
+    client.watch();
 };

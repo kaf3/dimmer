@@ -1,13 +1,12 @@
 #include <softAp.h>
 #include <Arduino.h>
 #include <ESP8266WiFi.h>
-#include <WiFiClient.h>
 #include <ESP8266WebServer.h>
+#include <credentials.h>
 
-SoftAp::SoftAp(ESP8266WebServer &inServer) {
+SoftAp::SoftAp(ESP8266WebServer &inServer, Credentials &inCredentials) {
     server = &inServer;
-    ssid = "";
-    pwd = "";
+    credentials = &inCredentials;
     _state = false;
     _startMillis = 0;
 
@@ -18,15 +17,17 @@ void SoftAp::watch() {
         return;
     }
 
+    unsigned long currMillis = millis();
+
+    if (currMillis - _startMillis >= 1000) {
         server->handleClient();
+        _startMillis = currMillis;
+    }
+
 
 }
 
-bool SoftAp::needCredentials() {
-    return ssid == "" || pwd == "";
-}
-
-void SoftAp::setSoftAp() {
+void SoftAp::begin() {
     WiFi.mode(WIFI_AP);
     //WiFi.reconnect();
     WiFi.softAP("Dimmer Soft Ap");
@@ -46,7 +47,8 @@ void SoftAp::setSoftAp() {
     server->begin();
     Serial.println("HTTP server started");
 };
-void SoftAp::resetSoftAp() {
+
+void SoftAp::end() {
     WiFi.mode(WIFI_STA);
     Serial.print("reset ap and is soft ap");
     Serial.print(isSoftAp());
@@ -80,7 +82,15 @@ void SoftAp::handleRoot() {
         </div>\
         <div class=\"field\">\
             <label for=\"pwd\">Пароль сети</label>\
-            <input type=\"text\" name=\"pwd\">\
+            <input type=\"password\" name=\"pwd\">\
+        </div>\
+        <div class=\"field\">\
+            <label for=\"email\">Имя пользователя Smart Home</label>\
+            <input type=\"text\" name=\"email\">\
+        </div>\
+        <div class=\"field\">\
+            <label for=\"upwd\">Пароль пользователя Smart Home</label>\
+            <input type=\"password\" name=\"upwd\">\
         </div>\
         <button>Сохранить</button>\
     </form>";
@@ -89,15 +99,19 @@ void SoftAp::handleRoot() {
 }
 
 void SoftAp::handleCredentials() {
-    String ssidArg = server->arg("ssid");
-    String pwdArg = server->arg("pwd");
+    String ssid = server->arg("ssid");
+    String pwd = server->arg("pwd");
+    String email = server->arg("email");
+    String upwd = server->arg("upwd");
   
-    if (ssidArg.length() * pwdArg.length() == 0) {
+    if (ssid.length() * pwd.length() * email.length() * upwd.length() == 0) {
         return;
     }
 
-    ssid = ssidArg;
-    pwd = pwdArg;
+    credentials->ssid = ssid;
+    credentials->pwd = pwd;
+    credentials->email = email;
+    credentials->upwd = upwd;
 
     String body = "<div class=\"bar light\">\
         <span>Данные сохранены! </span>\
@@ -106,12 +120,15 @@ void SoftAp::handleCredentials() {
 
     Serial.print("имя сети ");
     Serial.println(ssid);
-    Serial.print("пароль сети");
+    Serial.print("пароль сети ");
     Serial.println(pwd);
 
-    server->send(200, "text/html", _makePage(body));
+    Serial.print("имя пользователя ");
+    Serial.println(email);
+    Serial.print("пароль пароль пользователя ");
+    Serial.println(upwd);
 
-    resetSoftAp();
+    server->send(200, "text/html", _makePage(body));
 }
 
 void SoftAp::handleNotFound() {

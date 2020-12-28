@@ -3,6 +3,7 @@ photo	KEYWORD1
 watch	KEYWORD2
 setAutoMode	KEYWORD2
 resetAutoMode	KEYWORD2
+isAutoMode	KEYWORD2
 
 
 

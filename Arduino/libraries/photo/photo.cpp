@@ -3,6 +3,7 @@
 
 Photo::Photo(int inPin, void (*inIncreaseLevel)(), void (*inDecreaseLevel)()) {
     pin = inPin;
+    _autoMode = false;
     _startMillis = 0;
     requiredValue = 0;
     _increaseLevel = *inIncreaseLevel;
@@ -78,6 +79,10 @@ void Photo::_adjustLevel(int readedFromBuffer) {
 
     _prevOffset = currOffset;
 
+}
+
+bool Photo::isAutoMode() {
+    return _autoMode;
 }
 
 void Photo::setAutoMode() {

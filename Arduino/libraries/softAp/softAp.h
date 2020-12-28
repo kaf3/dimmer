@@ -1,21 +1,19 @@
 #include <Arduino.h>
 #include <ESP8266WiFi.h>
-#include <WiFiClient.h>
 #include <ESP8266WebServer.h>
+#include <credentials.h>
 
 class SoftAp {
     public:
-        SoftAp(ESP8266WebServer &inServer);
+        SoftAp(ESP8266WebServer &inServer, Credentials &credentials);
         ESP8266WebServer *server;
-        String ssid;
-        String pwd;
+        Credentials *credentials;
         String mac;
-        void setSoftAp();
-        void resetSoftAp();
+        void begin();
+        void end();
         bool isSoftAp();
         void watch();
         void setup(void (*inHandleRoot)(), void (*inHandleCredentials)(), void (*inHandleNotFound)());
-        bool needCredentials();
         void handleCredentials();
         void handleRoot();
         void handleNotFound();

@@ -9,6 +9,7 @@ class Photo {
         void watch();
         void setAutoMode();
         void resetAutoMode();
+        bool isAutoMode();
 
     private:
         unsigned long _startMillis;
