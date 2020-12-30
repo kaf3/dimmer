@@ -20,5 +20,7 @@ class FbClient {
         unsigned long _startMillis;
         unsigned int _counter;
         void (*_onValueReceived)(String value);
+        bool _doesDataObjectExist;
+        void _createDataObject();
 
 };

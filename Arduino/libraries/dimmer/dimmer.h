@@ -1,4 +1,5 @@
 #include <Arduino.h>
+#include <ESP8266WiFi.h>
 
 class Dimmer {
     public:
@@ -17,6 +18,9 @@ class Dimmer {
         void setup(void (*dtct)());
         int getLevel();
         unsigned long getMicrosLevel();
+        void resume();
+        void pause();
+        bool paused;
     
     private:
         bool _nullDetected;
@@ -24,6 +28,9 @@ class Dimmer {
         unsigned long _microsLevel;
         int _level;
         unsigned long _startMicros;
-        static unsigned long _getMicrosByLevel(int level); 
+        void (*_detect)();
+        static unsigned long _getMicrosByLevel(int level);
+        bool _needPause(); 
+
         
 };

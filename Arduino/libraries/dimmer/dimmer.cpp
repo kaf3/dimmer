@@ -1,11 +1,13 @@
 #include <dimmer.h>
 #include <Arduino.h>
+#include <ESP8266WiFi.h>
 
 Dimmer::Dimmer(int inLoadPin, int inNullDetectedPin) {
         loadPin = inLoadPin;
         nullDetectedPin = inNullDetectedPin;
         _nullDetected = false;
         _startMicros = 0;
+        paused = false;
         setLevel(0);
         on();
 }
@@ -13,7 +15,24 @@ Dimmer::Dimmer(int inLoadPin, int inNullDetectedPin) {
 void Dimmer::setup(void (*dtct)()) {
     pinMode(loadPin, OUTPUT);
     pinMode(nullDetectedPin, INPUT_PULLUP);
-    attachInterrupt(digitalPinToInterrupt(nullDetectedPin), dtct, FALLING);
+    _detect = *dtct;
+    attachInterrupt(digitalPinToInterrupt(nullDetectedPin), *_detect, FALLING);
+}
+
+void Dimmer::resume() {
+    paused = false;
+    attachInterrupt(digitalPinToInterrupt(nullDetectedPin), *_detect, FALLING);
+}
+
+void Dimmer::pause() {
+    paused = true;
+    detachInterrupt(digitalPinToInterrupt(nullDetectedPin));
+}
+
+bool Dimmer::_needPause() {
+    int status = WiFi.status();
+    
+    return !(status == WL_CONNECTED || status == WL_IDLE_STATUS || status == WL_DISCONNECTED);
 }
 
 void Dimmer::interrupt() {
@@ -21,6 +40,18 @@ void Dimmer::interrupt() {
 }
 
 void Dimmer::watch() {
+    if (_needPause()) {
+        if (!paused) {
+            Serial.println("hot pause");
+            pause();
+        }
+    } else {
+        if (paused) {
+            Serial.println("how resume");
+            resume();
+        }
+    }
+
     int loadState = HIGH;
 
     if (!isOn()) {

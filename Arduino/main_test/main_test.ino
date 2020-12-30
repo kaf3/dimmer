@@ -12,11 +12,57 @@
 #define FIREBASE_HOST "https://home-for-u.firebaseio.com"
 #define API_KEY "AIzaSyDgXyRA4x6CWoNjpMY2wfxV6OX95QKWGK0"
 
+void handleRoot();
+void handleCredentials();
+void handleNotFound();
+void onToggle();
+void onIncrease();
+void onDecrease();
+void onIncreaseClick();
+void onDecreaseClick();
+void onIncreaseLongClick();
+void onDecreaseLongClick();
+void onValueReceived(String value);
+void onLongClick();
+void detectsButtonOn();
+void detectsButtonInc();
+void detectsButtonDec();
+void detectsNull();
+
+Button buttonOn(14, onToggle, onLongClick);
+Button buttonInc(12, onIncreaseClick, onIncreaseLongClick);
+Button buttonDec(13, onDecreaseClick, onDecreaseLongClick);
 Credentials credentials;
 Dimmer dimmer(16, 4);
 ESP8266WebServer server(80);
 FbClient client(credentials);
 SoftAp softAp(server, credentials);
+Photo photo(A0, onIncrease, onDecrease);
+
+void setup() {
+    Serial.begin(115200);
+
+    buttonOn.setup(detectsButtonOn);
+    buttonInc.setup(detectsButtonInc);
+    buttonDec.setup(detectsButtonDec);
+    dimmer.setup(detectsNull);
+    dimmer.pause();
+    client.setup(onValueReceived, FIREBASE_HOST, API_KEY);
+    softAp.setup(handleRoot, handleCredentials, handleNotFound);
+    client.begin();
+    dimmer.resume();
+}
+
+void loop() {
+    buttonOn.watch();
+    buttonInc.watch();
+    buttonDec.watch();
+    dimmer.watch();
+    photo.watch();
+    softAp.watch();
+    client.watch();
+};
+
 
 void handleRoot() {
     softAp.handleRoot();
@@ -50,12 +96,14 @@ void onDecrease() {
     Serial.println(String(dimmer.getMicrosLevel()));
 }
 
-Photo photo(A0, onIncrease, onDecrease);
+
 
 void onIncreaseClick() {
     if (softAp.isSoftAp()) {
+        dimmer.pause();
         softAp.end();
         client.begin();
+        dimmer.resume();
     } else {
         onIncrease();
     }
@@ -75,8 +123,10 @@ void onIncreaseLongClick() {
 }
 
 void onDecreaseLongClick() {
-    softAp.begin();
     Serial.println(" decrease long click");
+    dimmer.pause();
+    softAp.begin();
+    dimmer.resume();
 }
 
 void onValueReceived(String value) {
@@ -86,34 +136,9 @@ void onValueReceived(String value) {
 
 void onLongClick() {}
 
-Button buttonOn(14, onToggle, onLongClick);
-Button buttonInc(12, onIncreaseClick, onIncreaseLongClick);
-Button buttonDec(13, onDecreaseClick, onDecreaseLongClick);
+
 
 ICACHE_RAM_ATTR void detectsButtonOn() { buttonOn.interrupt();}
 ICACHE_RAM_ATTR void detectsButtonInc() { buttonInc.interrupt();}
 ICACHE_RAM_ATTR void detectsButtonDec() { buttonDec.interrupt(); }
 ICACHE_RAM_ATTR void detectsNull() { dimmer.interrupt(); }
-
-void setup() {
-    Serial.begin(115200);
-
-    buttonOn.setup(detectsButtonOn);
-    buttonInc.setup(detectsButtonInc);
-    buttonDec.setup(detectsButtonDec);
-    dimmer.setup(detectsNull);
-    client.setup(onValueReceived, FIREBASE_HOST, API_KEY);
-    softAp.setup(handleRoot, handleCredentials, handleNotFound);
-    client.begin();
-    
-}
-
-void loop() {
-    buttonOn.watch();
-    buttonInc.watch();
-    buttonDec.watch();
-    dimmer.watch();
-    photo.watch();
-    softAp.watch();
-    client.watch();
-};

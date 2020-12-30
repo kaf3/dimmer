@@ -8,6 +8,7 @@ FbClient::FbClient(Credentials &inCredentials) {
     credentials = &inCredentials;
     _startMillis = 0;
     _counter = 0;
+    _doesDataObjectExist = false;
     path = "/UsersData2/";
 }
 
@@ -27,9 +28,14 @@ void FbClient::watch() {
         }
 
         _counter = 0;
-        //code here 
+        //code here
+
+        //unsigned long m = millis(); 
 
         if (Firebase.getJSON(data, path)) {
+            //unsigned long t = millis() - m;
+            //Serial.print("time to get value" );
+            //Serial.println(t);
             if(data.dataType() == "json") {
                 Serial.println(data.jsonString());
                 (*_onValueReceived)(data.jsonString());
@@ -50,6 +56,12 @@ void FbClient::setup(void (*inValueReceived)(String value), String host, String 
 void FbClient::begin() {
     WiFi.mode(WIFI_STA);
     WiFi.begin(credentials->ssid, credentials->pwd);
+
+    while(WiFi.status() != WL_CONNECTED) {
+            Serial.print('wifi statuses = ');
+            Serial.println(WiFi.status());
+            delay(100);
+    }
 
     Serial.println();
     Serial.print("Connected with IP: ");
