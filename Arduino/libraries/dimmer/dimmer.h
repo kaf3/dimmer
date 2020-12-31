@@ -20,7 +20,6 @@ class Dimmer {
         unsigned long getMicrosLevel();
         void resume();
         void pause();
-        bool paused;
     
     private:
         bool _nullDetected;

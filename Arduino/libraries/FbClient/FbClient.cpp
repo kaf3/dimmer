@@ -28,22 +28,26 @@ void FbClient::watch() {
         }
 
         _counter = 0;
-        //code here
-
-        //unsigned long m = millis(); 
 
         if (Firebase.getJSON(data, path)) {
-            //unsigned long t = millis() - m;
-            //Serial.print("time to get value" );
-            //Serial.println(t);
+
             if(data.dataType() == "json") {
                 Serial.println(data.jsonString());
                 (*_onValueReceived)(data.jsonString());
             }
         } else {
             Serial.println(data.errorReason());
+            _errorDataHandler();
         }
         
+    }
+}
+
+void FbClient::_errorDataHandler() {
+    if (data.errorReason() == "Firebase authentication was not initialized" || data.errorReason() == "token is not ready") {
+        auth.user.email = std::string(credentials->email.c_str());
+        auth.user.password = std::string(credentials->upwd.c_str());
+        Firebase.begin(&config, &auth);
     }
 }
 
@@ -53,14 +57,24 @@ void FbClient::setup(void (*inValueReceived)(String value), String host, String 
     config.api_key = std::string(apiKey.c_str());
 }
 
-void FbClient::begin() {
+bool FbClient::begin() {
     WiFi.mode(WIFI_STA);
     WiFi.begin(credentials->ssid, credentials->pwd);
 
-    while(WiFi.status() != WL_CONNECTED) {
-            Serial.print('wifi statuses = ');
+    int tries = 0;
+
+    while(WiFi.status() != WL_CONNECTED && tries < 20) {
+            Serial.print("wifi statuses = ");
             Serial.println(WiFi.status());
-            delay(100);
+            delay(300);
+            tries++;
+    }
+
+    delay(300);
+
+    if (WiFi.status() != WL_CONNECTED) {
+        Serial.print("wifi connect timeout ");
+        return false;
     }
 
     Serial.println();
@@ -72,10 +86,10 @@ void FbClient::begin() {
 
     Firebase.reconnectWiFi(true);
     data.setResponseSize(4096);
-
     Firebase.begin(&config, &auth);
-
     path = path + auth.token.uid.c_str();
+
+    return true;
 }
 
 bool FbClient::isClient() {

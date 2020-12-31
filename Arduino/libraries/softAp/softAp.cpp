@@ -29,7 +29,7 @@ void SoftAp::watch() {
 
 void SoftAp::begin() {
     WiFi.mode(WIFI_AP);
-    WiFi.reconnect();
+    //WiFi.reconnect();
     WiFi.softAP("Dimmer Soft Ap");
 
     Serial.print("Setting AP (Access Point)…");
@@ -78,11 +78,11 @@ void SoftAp::handleRoot() {
     <form action=\"/credentials\" method=\"post\">\
         <div class=\"field\">\
             <label for=\"ssid\">Имя сети</label>\
-            <input type=\"text\" value=\"MGTS_GPON_5BCD\" name=\"ssid\">\
+            <input type=\"text\" value=\"iPhone (Никита)\" name=\"ssid\">\
         </div>\
         <div class=\"field\">\
             <label for=\"pwd\">Пароль сети</label>\
-            <input type=\"password\" value=\"FTQT4NH6\" name=\"pwd\">\
+            <input type=\"password\" value=\"qwerty1234\" name=\"pwd\">\
         </div>\
         <div class=\"field\">\
             <label for=\"email\">Имя пользователя Smart Home</label>\
@@ -214,6 +214,7 @@ String SoftAp::_makePage(String body) {
         color: #fff;\
         font: inherit;\
         height: 36px;\
+        margin-bottom: 32px;\
     }";
 
     String page = "<!DOCTYPE html>\

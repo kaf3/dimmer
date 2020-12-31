@@ -12,7 +12,7 @@ class FbClient {
         FirebaseConfig config;
         String path;
         void setup(void (*inValueReceived)(String value), String host, String apiKey);
-        void begin();
+        bool begin();
         void watch();
         bool isClient();
 
@@ -22,5 +22,5 @@ class FbClient {
         void (*_onValueReceived)(String value);
         bool _doesDataObjectExist;
         void _createDataObject();
-
+        void _errorDataHandler();
 };

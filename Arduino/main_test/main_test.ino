@@ -28,7 +28,14 @@ void detectsButtonOn();
 void detectsButtonInc();
 void detectsButtonDec();
 void detectsNull();
+void onConnected(const WiFiEventStationModeGotIP& event);
+void onDisconnected(const WiFiEventStationModeDisconnected& event);
+void onModeChanged(const WiFiEventModeChange& event);
+void onDisconnectedFromAP(const WiFiEventSoftAPModeStationDisconnected&);
 
+
+WiFiEventHandler staConnected, staDisconnected, modeChanged, apDisconnected;
+ 
 Button buttonOn(14, onToggle, onLongClick);
 Button buttonInc(12, onIncreaseClick, onIncreaseLongClick);
 Button buttonDec(13, onDecreaseClick, onDecreaseLongClick);
@@ -39,18 +46,31 @@ FbClient client(credentials);
 SoftAp softAp(server, credentials);
 Photo photo(A0, onIncrease, onDecrease);
 
+
+
 void setup() {
     Serial.begin(115200);
+
+    staConnected = WiFi.onStationModeGotIP(&onConnected);
+    staDisconnected = WiFi.onStationModeDisconnected(&onDisconnected);
+    modeChanged = WiFi.onWiFiModeChange(&onModeChanged);
+    apDisconnected = WiFi.onSoftAPModeStationDisconnected(&onDisconnectedFromAP);
 
     buttonOn.setup(detectsButtonOn);
     buttonInc.setup(detectsButtonInc);
     buttonDec.setup(detectsButtonDec);
-    dimmer.setup(detectsNull);
-    dimmer.pause();
+
+    WiFi.setAutoReconnect(true);
+    
     client.setup(onValueReceived, FIREBASE_HOST, API_KEY);
     softAp.setup(handleRoot, handleCredentials, handleNotFound);
-    client.begin();
-    dimmer.resume();
+
+    
+    if(!client.begin()) {
+        softAp.begin();
+    }
+
+    dimmer.setup(detectsNull);
 }
 
 void loop() {
@@ -62,6 +82,33 @@ void loop() {
     softAp.watch();
     client.watch();
 };
+
+void onConnected(const WiFiEventStationModeGotIP& event) {
+    Serial.println("on connected");
+    dimmer.resume();
+}
+
+void onDisconnected(const WiFiEventStationModeDisconnected& event) {
+    Serial.println("on disconnected");
+    dimmer.pause();
+}
+
+void onModeChanged(const WiFiEventModeChange& event) {
+    if (event.newMode == WIFI_AP) {
+        Serial.println("on ap mode changed!!!");
+    }
+    /*if (event.newMode == WIFI_OFF) {
+        dimmer.resume();
+        Serial.println("wifi off dimmer resume");
+    } else {
+        dimmer.pause();
+    }
+    */
+}
+
+void onDisconnectedFromAP(const WiFiEventSoftAPModeStationDisconnected&) {
+    //dimmer.pause();
+}
 
 
 void handleRoot() {

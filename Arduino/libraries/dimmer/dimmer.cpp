@@ -7,7 +7,6 @@ Dimmer::Dimmer(int inLoadPin, int inNullDetectedPin) {
         nullDetectedPin = inNullDetectedPin;
         _nullDetected = false;
         _startMicros = 0;
-        paused = false;
         setLevel(0);
         on();
 }
@@ -20,12 +19,10 @@ void Dimmer::setup(void (*dtct)()) {
 }
 
 void Dimmer::resume() {
-    paused = false;
     attachInterrupt(digitalPinToInterrupt(nullDetectedPin), *_detect, FALLING);
 }
 
 void Dimmer::pause() {
-    paused = true;
     detachInterrupt(digitalPinToInterrupt(nullDetectedPin));
 }
 
@@ -40,18 +37,6 @@ void Dimmer::interrupt() {
 }
 
 void Dimmer::watch() {
-    if (_needPause()) {
-        if (!paused) {
-            Serial.println("hot pause");
-            pause();
-        }
-    } else {
-        if (paused) {
-            Serial.println("how resume");
-            resume();
-        }
-    }
-
     int loadState = HIGH;
 
     if (!isOn()) {
