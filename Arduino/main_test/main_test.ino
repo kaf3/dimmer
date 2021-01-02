@@ -31,10 +31,9 @@ void detectsNull();
 void onConnected(const WiFiEventStationModeGotIP& event);
 void onDisconnected(const WiFiEventStationModeDisconnected& event);
 void onModeChanged(const WiFiEventModeChange& event);
-void onDisconnectedFromAP(const WiFiEventSoftAPModeStationDisconnected&);
 
 
-WiFiEventHandler staConnected, staDisconnected, modeChanged, apDisconnected;
+WiFiEventHandler staConnected, staDisconnected, modeChanged;
  
 Button buttonOn(14, onToggle, onLongClick);
 Button buttonInc(12, onIncreaseClick, onIncreaseLongClick);
@@ -46,6 +45,8 @@ FbClient client(credentials);
 SoftAp softAp(server, credentials);
 Photo photo(A0, onIncrease, onDecrease);
 
+unsigned int connectTryCounter = 0;
+
 
 
 void setup() {
@@ -54,18 +55,16 @@ void setup() {
     staConnected = WiFi.onStationModeGotIP(&onConnected);
     staDisconnected = WiFi.onStationModeDisconnected(&onDisconnected);
     modeChanged = WiFi.onWiFiModeChange(&onModeChanged);
-    apDisconnected = WiFi.onSoftAPModeStationDisconnected(&onDisconnectedFromAP);
 
     buttonOn.setup(detectsButtonOn);
     buttonInc.setup(detectsButtonInc);
     buttonDec.setup(detectsButtonDec);
 
-    WiFi.setAutoReconnect(true);
+    WiFi.setAutoReconnect(false);
     
     client.setup(onValueReceived, FIREBASE_HOST, API_KEY);
     softAp.setup(handleRoot, handleCredentials, handleNotFound);
 
-    
     if(!client.begin()) {
         softAp.begin();
     }
@@ -89,25 +88,37 @@ void onConnected(const WiFiEventStationModeGotIP& event) {
 }
 
 void onDisconnected(const WiFiEventStationModeDisconnected& event) {
-    Serial.println("on disconnected");
+    Serial.println("on disconnected, reason ");
+    Serial.println(event.reason);
     dimmer.pause();
-}
 
-void onModeChanged(const WiFiEventModeChange& event) {
-    if (event.newMode == WIFI_AP) {
-        Serial.println("on ap mode changed!!!");
-    }
-    /*if (event.newMode == WIFI_OFF) {
-        dimmer.resume();
-        Serial.println("wifi off dimmer resume");
-    } else {
-        dimmer.pause();
+    /*if(!client.begin()) {
+        softAp.begin();
     }
     */
+    
+
+   if (connectTryCounter < 10) {
+        connectTryCounter++;
+        Serial.println("try reconnect after 1s");
+        delay(1000);
+        WiFi.reconnect();
+    } else {
+        connectTryCounter = 0;
+        if (WiFi.status() != WL_CONNECTED) {
+            softAp.begin();
+            Serial.println("soft ap begin"); 
+        }
+    }
+    
+    
 }
 
-void onDisconnectedFromAP(const WiFiEventSoftAPModeStationDisconnected&) {
-    //dimmer.pause();
+void onModeChanged(const WiFiEventModeChange& event) {    
+    if (softAp.isSoftAp()) {
+        Serial.println("on ap mode changed!!!");
+        dimmer.resume();
+    }
 }
 
 
@@ -146,11 +157,8 @@ void onDecrease() {
 
 
 void onIncreaseClick() {
-    if (softAp.isSoftAp()) {
-        dimmer.pause();
-        softAp.end();
-        client.begin();
-        dimmer.resume();
+    if (photo.isAutoMode()) {
+        photo.resetAutoMode();
     } else {
         onIncrease();
     }
@@ -172,8 +180,15 @@ void onIncreaseLongClick() {
 void onDecreaseLongClick() {
     Serial.println(" decrease long click");
     dimmer.pause();
-    softAp.begin();
-    dimmer.resume();
+    
+    if (softAp.isSoftAp()) {
+        softAp.end();
+        client.begin();
+    } else {
+        softAp.begin(); 
+    }
+    
+    //dimmer.resume();
 }
 
 void onValueReceived(String value) {

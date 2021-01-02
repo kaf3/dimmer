@@ -29,7 +29,7 @@ void SoftAp::watch() {
 
 void SoftAp::begin() {
     WiFi.mode(WIFI_AP);
-    //WiFi.reconnect();
+
     WiFi.softAP("Dimmer Soft Ap");
 
     Serial.print("Setting AP (Access Point)…");

@@ -23,13 +23,21 @@ void FbClient::watch() {
         _startMillis = currentMillis;
         _counter++;
 
-        if (WiFi.status() != WL_CONNECTED || _counter < 10) {
+
+
+        if ( _counter < 10) {
             return;
         }
 
         _counter = 0;
 
+        Serial.print("http connected status of data ");
+        Serial.println(data.httpConnected());
+
         if (Firebase.getJSON(data, path)) {
+
+            Serial.println(data.dataType());
+            Serial.println(path);
 
             if(data.dataType() == "json") {
                 Serial.println(data.jsonString());
@@ -55,27 +63,24 @@ void FbClient::setup(void (*inValueReceived)(String value), String host, String 
     _onValueReceived = *inValueReceived;
     config.host = std::string(host.c_str());
     config.api_key = std::string(apiKey.c_str());
+
+    data.setResponseSize(4096);
 }
 
 bool FbClient::begin() {
-    WiFi.mode(WIFI_STA);
+    //WiFi.mode(WIFI_STA);
     WiFi.begin(credentials->ssid, credentials->pwd);
 
     int tries = 0;
 
-    while(WiFi.status() != WL_CONNECTED && tries < 20) {
+    delay(1000);
+
+/*     while(WiFi.status() != WL_CONNECTED && tries < 10) {
             Serial.print("wifi statuses = ");
             Serial.println(WiFi.status());
-            delay(300);
+            delay(1000);
             tries++;
-    }
-
-    delay(300);
-
-    if (WiFi.status() != WL_CONNECTED) {
-        Serial.print("wifi connect timeout ");
-        return false;
-    }
+    } */
 
     Serial.println();
     Serial.print("Connected with IP: ");
@@ -84,12 +89,12 @@ bool FbClient::begin() {
     auth.user.email = std::string(credentials->email.c_str());
     auth.user.password = std::string(credentials->upwd.c_str());
 
-    Firebase.reconnectWiFi(true);
-    data.setResponseSize(4096);
+    //Firebase.setMaxRetry(data, 5);
+    //Firebase.reconnectWiFi(true);
     Firebase.begin(&config, &auth);
-    path = path + auth.token.uid.c_str();
+    path = String("/UsersData2/") + auth.token.uid.c_str();
 
-    return true;
+    return WiFi.status() == WL_CONNECTED;
 }
 
 bool FbClient::isClient() {
