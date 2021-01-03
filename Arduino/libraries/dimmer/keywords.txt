@@ -11,5 +11,6 @@ toggle	KEYWORD2
 getLevel	KEYWORD2
 getMicrosLevel	KEYWORD2
 setLevel	KEYWORD2
+resume	KEYWORD2
 
 

@@ -22,7 +22,7 @@ void onIncreaseClick();
 void onDecreaseClick();
 void onIncreaseLongClick();
 void onDecreaseLongClick();
-void onValueReceived(String value);
+void onValueReceived(StreamData data);
 void onLongClick();
 void detectsButtonOn();
 void detectsButtonInc();
@@ -45,12 +45,14 @@ FbClient client(credentials);
 SoftAp softAp(server, credentials);
 Photo photo(A0, onIncrease, onDecrease);
 
-unsigned int connectTryCounter = 0;
-
-
 
 void setup() {
     Serial.begin(115200);
+
+    //credentials.ssid = "iPhone (Никита)";
+    //credentials.pwd = "qwerty1234";
+    //credentials.email = "nekit.97@bk.ru";
+    //credentials.upwd = "123456";
 
     staConnected = WiFi.onStationModeGotIP(&onConnected);
     staDisconnected = WiFi.onStationModeDisconnected(&onDisconnected);
@@ -61,15 +63,17 @@ void setup() {
     buttonDec.setup(detectsButtonDec);
 
     WiFi.setAutoReconnect(false);
-    
+
+    dimmer.setup(detectsNull);
+    dimmer.pause();
     client.setup(onValueReceived, FIREBASE_HOST, API_KEY);
     softAp.setup(handleRoot, handleCredentials, handleNotFound);
 
-    if(!client.begin()) {
+    WiFi.begin();
+    delay(5000);
+    if (WiFi.status() != WL_CONNECTED) {
         softAp.begin();
-    }
-
-    dimmer.setup(detectsNull);
+    } 
 }
 
 void loop() {
@@ -84,6 +88,7 @@ void loop() {
 
 void onConnected(const WiFiEventStationModeGotIP& event) {
     Serial.println("on connected");
+    client.begin();
     dimmer.resume();
 }
 
@@ -92,26 +97,9 @@ void onDisconnected(const WiFiEventStationModeDisconnected& event) {
     Serial.println(event.reason);
     dimmer.pause();
 
-    /*if(!client.begin()) {
-        softAp.begin();
+    if(!client.reconnect()) {
+       softAp.begin(); 
     }
-    */
-    
-
-   if (connectTryCounter < 10) {
-        connectTryCounter++;
-        Serial.println("try reconnect after 1s");
-        delay(1000);
-        WiFi.reconnect();
-    } else {
-        connectTryCounter = 0;
-        if (WiFi.status() != WL_CONNECTED) {
-            softAp.begin();
-            Serial.println("soft ap begin"); 
-        }
-    }
-    
-    
 }
 
 void onModeChanged(const WiFiEventModeChange& event) {    
@@ -183,7 +171,7 @@ void onDecreaseLongClick() {
     
     if (softAp.isSoftAp()) {
         softAp.end();
-        client.begin();
+        WiFi.begin(credentials.ssid, credentials.pwd);
     } else {
         softAp.begin(); 
     }
@@ -191,9 +179,14 @@ void onDecreaseLongClick() {
     //dimmer.resume();
 }
 
-void onValueReceived(String value) {
-    Serial.print("on value received callback, value = ");
-    Serial.println(value);
+void onValueReceived(StreamData data) {
+  Serial.println("Stream Data1 available...");
+  Serial.println("STREAM PATH: " + data.streamPath());
+  Serial.println("EVENT PATH: " + data.dataPath());
+  Serial.println("DATA TYPE: " + data.dataType());
+  Serial.println("EVENT TYPE: " + data.eventType());
+  Serial.println("VALUE: " + data.intData());
+  Serial.println();
 }
 
 void onLongClick() {}

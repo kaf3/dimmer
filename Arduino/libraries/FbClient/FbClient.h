@@ -11,16 +11,21 @@ class FbClient {
         FirebaseAuth auth;
         FirebaseConfig config;
         String path;
-        void setup(void (*inValueReceived)(String value), String host, String apiKey);
-        bool begin();
+        void setup(void (*inValueReceived)(StreamData data), String host, String apiKey);
+        void begin();
         void watch();
         bool isClient();
+        bool reconnect();
 
     private:
         unsigned long _startMillis;
         unsigned int _counter;
-        void (*_onValueReceived)(String value);
-        bool _doesDataObjectExist;
+        void (*_onValueReceived)(StreamData data);
         void _createDataObject();
         void _errorDataHandler();
+        void _createPath();
+        void _createDevice();
+        unsigned int _connectTryCounter;
+        bool _initializing;
+        void _beginStream();
 };

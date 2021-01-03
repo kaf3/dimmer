@@ -8,8 +8,9 @@ FbClient::FbClient(Credentials &inCredentials) {
     credentials = &inCredentials;
     _startMillis = 0;
     _counter = 0;
-    _doesDataObjectExist = false;
-    path = "/UsersData2/";
+    _connectTryCounter = 0;
+    path = "";
+    _initializing = false;
 }
 
 void FbClient::watch() {
@@ -23,21 +24,36 @@ void FbClient::watch() {
         _startMillis = currentMillis;
         _counter++;
 
-
-
         if ( _counter < 10) {
             return;
         }
 
         _counter = 0;
 
-        Serial.print("http connected status of data ");
-        Serial.println(data.httpConnected());
+        if (auth.token.uid.length() == 0) {
+            Firebase.getShallowData(data, "/UsersData2/");
+            return;
+        } 
 
-        if (Firebase.getJSON(data, path)) {
+        if (_initializing) {
+            _createPath();
+            _createDevice();
+            _beginStream();
+            _initializing = false;
+            return;
+        }
+
+        if (path.length() == 0) {
+            Serial.println("Empty path");
+            return;
+        }
+
+        Serial.print(" path = ");
+        Serial.println(path);
+
+/*          if (Firebase.getShallowData(data, path)) {
 
             Serial.println(data.dataType());
-            Serial.println(path);
 
             if(data.dataType() == "json") {
                 Serial.println(data.jsonString());
@@ -46,9 +62,84 @@ void FbClient::watch() {
         } else {
             Serial.println(data.errorReason());
             _errorDataHandler();
-        }
+        }  */
         
     }
+}
+
+void FbClient::_beginStream() {
+    if (!Firebase.beginStream(data, path)) {
+    Serial.println("------------------------------------");
+    Serial.println("Can't begin stream connection...");
+    Serial.println("REASON: " + data.errorReason());
+    Serial.println("------------------------------------");
+    Serial.println();
+  }
+
+  Firebase.setStreamCallback(data, _onValueReceived);
+}
+
+void FbClient::_createPath() {
+    path = "";
+    String _path = String("/users/") + auth.token.uid.c_str() + String("/rooms");
+
+    if (Firebase.getShallowData(data, _path)) {
+        if(data.dataType() == "json") {
+            FirebaseJson &json = data.jsonObject();
+            String key, value = "";
+            int type = 0;
+            size_t index = 0;
+            json.iteratorBegin();
+            json.iteratorGet(index, type, key, value);
+            json.iteratorEnd();
+            path = _path + String('/') + key + String("/hardwareCollection/") + WiFi.macAddress();
+        }
+    } else {
+            Serial.println(data.errorReason());
+            _errorDataHandler();
+        } 
+}
+
+void FbClient::_createDevice() {
+    if (Firebase.getShallowData(data, path + String("/mac"))) {
+        if (data.dataType() == "null") {
+            Serial.println("Start to create new object");
+            FirebaseJson equip;
+            equip.add("group", "device");
+            equip.add("name", "Плавный регулятор");
+            equip.add("status", true);
+            equip.add("type", "brightness");
+            equip.add("value", 50);
+
+            FirebaseJson hardware;
+            hardware.add("mac", WiFi.macAddress());
+            hardware.add("name", "Ваш новый диммер");
+            hardware.add("type", "dimmer");
+            hardware.add("numberOfEquip", 1);
+            hardware.add("equipmentCollection/brightness", equip);
+            Serial.print("created json ");
+            String jsonString;
+            hardware.toString(jsonString, true);
+            Serial.println(jsonString);
+           if (!Firebase.patch(data, path, hardware)) {
+                Serial.println(data.errorReason());
+           }
+
+        }
+    }
+}
+
+bool FbClient::reconnect() {
+    if (_connectTryCounter < 10) {
+        _connectTryCounter++;
+        Serial.println("try reconnect after 1s");
+        delay(1000);
+        WiFi.reconnect();
+        return true;
+    }
+    _connectTryCounter = 0;
+
+    return WiFi.status() == WL_CONNECTED;
 }
 
 void FbClient::_errorDataHandler() {
@@ -59,42 +150,22 @@ void FbClient::_errorDataHandler() {
     }
 }
 
-void FbClient::setup(void (*inValueReceived)(String value), String host, String apiKey) {
+void FbClient::setup(void (*inValueReceived)(StreamData _data), String host, String apiKey) {
     _onValueReceived = *inValueReceived;
     config.host = std::string(host.c_str());
     config.api_key = std::string(apiKey.c_str());
 
+    //Set the size of WiFi rx/tx buffers in the case where we want to work with large data.
+    data.setBSSLBufferSize(1024, 1024);
     data.setResponseSize(4096);
 }
 
-bool FbClient::begin() {
-    //WiFi.mode(WIFI_STA);
-    WiFi.begin(credentials->ssid, credentials->pwd);
-
-    int tries = 0;
-
-    delay(1000);
-
-/*     while(WiFi.status() != WL_CONNECTED && tries < 10) {
-            Serial.print("wifi statuses = ");
-            Serial.println(WiFi.status());
-            delay(1000);
-            tries++;
-    } */
-
-    Serial.println();
-    Serial.print("Connected with IP: ");
-    Serial.println(WiFi.localIP());
-
+void FbClient::begin() {
     auth.user.email = std::string(credentials->email.c_str());
     auth.user.password = std::string(credentials->upwd.c_str());
 
-    //Firebase.setMaxRetry(data, 5);
-    //Firebase.reconnectWiFi(true);
     Firebase.begin(&config, &auth);
-    path = String("/UsersData2/") + auth.token.uid.c_str();
-
-    return WiFi.status() == WL_CONNECTED;
+    _initializing = true;
 }
 
 bool FbClient::isClient() {
