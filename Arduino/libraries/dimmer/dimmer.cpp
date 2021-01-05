@@ -26,12 +26,6 @@ void Dimmer::pause() {
     detachInterrupt(digitalPinToInterrupt(nullDetectedPin));
 }
 
-bool Dimmer::_needPause() {
-    int status = WiFi.status();
-    
-    return !(status == WL_CONNECTED || status == WL_IDLE_STATUS || status == WL_DISCONNECTED);
-}
-
 void Dimmer::interrupt() {
     _nullDetected = true;
 }
@@ -86,7 +80,28 @@ void Dimmer::setLevel(int inLevel) {
 
 unsigned long Dimmer::_getMicrosByLevel(int level) {
     short convertedLevel = level / 5;
-    short micros[] = {0, 1436, 2048, 2532, 2952, 3333, 3690, 4030, 4359, 4681, 5000, 5319, 5641, 5970, 6310, 6667, 7048, 7468, 7952, 8564, 10000};
+    short micros[] = {
+        0,
+        1436,
+        2048, 
+        2532, 
+        2952, 
+        3333, 
+        3690, 
+        4030, 
+        4359, 
+        4681, 
+        5000, 
+        5319, 
+        5641, 
+        5970, 
+        6310, 
+        6667, 
+        7048, 
+        7468, 
+        7952, 
+        8564, 
+        10000};
     short result = micros[convertedLevel];
     return (unsigned long)result;
 }

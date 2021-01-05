@@ -7,7 +7,6 @@
 FbClient::FbClient(Credentials &inCredentials) {
     credentials = &inCredentials;
     _startMillis = 0;
-    _counter = 0;
     _connectTryCounter = 0;
     path = "";
     _initializing = false;
@@ -20,15 +19,9 @@ void FbClient::watch() {
 
     unsigned long currentMillis = millis();
 
-    if (currentMillis - _startMillis >= 300) {
+    if (currentMillis - _startMillis >= 3000) {
         _startMillis = currentMillis;
-        _counter++;
 
-        if ( _counter < 10) {
-            return;
-        }
-
-        _counter = 0;
 
         if (auth.token.uid.length() == 0) {
             Firebase.getShallowData(data, "/UsersData2/");

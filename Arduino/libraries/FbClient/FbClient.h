@@ -19,7 +19,6 @@ class FbClient {
 
     private:
         unsigned long _startMillis;
-        unsigned int _counter;
         void (*_onValueReceived)(StreamData data);
         void _createDataObject();
         void _errorDataHandler();

@@ -7,7 +7,6 @@
 SoftAp::SoftAp(ESP8266WebServer &inServer, Credentials &inCredentials) {
     server = &inServer;
     credentials = &inCredentials;
-    _state = false;
     _startMillis = 0;
 
 }
@@ -103,30 +102,25 @@ void SoftAp::handleCredentials() {
     String pwd = server->arg("pwd");
     String email = server->arg("email");
     String upwd = server->arg("upwd");
-  
-    if (ssid.length() * pwd.length() * email.length() * upwd.length() == 0) {
-        return;
-    }
-
-    credentials->ssid = ssid;
-    credentials->pwd = pwd;
-    credentials->email = email;
-    credentials->upwd = upwd;
 
     String body = "<div class=\"bar light\">\
         <span>Данные сохранены! </span>\
         <a href=\"/\"> Назад</a>\
     </div>";
+  
+    if (ssid.length() * pwd.length() * email.length() * upwd.length() == 0) {
 
-    Serial.print("имя сети ");
-    Serial.println(ssid);
-    Serial.print("пароль сети ");
-    Serial.println(pwd);
+        body = "<div class=\"bar light\">\
+            <span>Данные введены некорректно :( </span>\
+            <a href=\"/\"> Назад</a>\
+        </div>";
 
-    Serial.print("имя пользователя ");
-    Serial.println(email);
-    Serial.print("пароль пароль пользователя ");
-    Serial.println(upwd);
+    } else {
+        credentials->ssid = ssid;
+        credentials->pwd = pwd;
+        credentials->email = email;
+        credentials->upwd = upwd;
+    }
 
     server->send(200, "text/html", _makePage(body));
 }

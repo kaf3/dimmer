@@ -59,26 +59,11 @@ void Photo::_adjustLevel(int readedFromBuffer) {
 
     int currOffset = readedFromBuffer - requiredValue;
 
-    Serial.println();
-    Serial.print("required value = ");
-    Serial.println(requiredValue);
-
-    Serial.print("read = ");
-    Serial.println(currOffset + requiredValue);
-
-    Serial.print("curr offset = ");
-    Serial.println(currOffset);
-
-    Serial.print("old offset = ");
-    Serial.println(_prevOffset);
-
     if (_needToAdjust(currOffset)) {
-
         _adjustByOffset(currOffset);
     }
 
     _prevOffset = currOffset;
-
 }
 
 bool Photo::isAutoMode() {

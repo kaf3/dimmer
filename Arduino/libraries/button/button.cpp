@@ -41,12 +41,11 @@ void Button::_process() {
     const bool longClick = (currMillis - _startMillis >= interval);
 
     if (longClick) {
-        _startMillis = currMillis;
         (*_onLongClick)();
-        return;
+    } else {
+        (*_onClick)();
     }
     
-    (*_onClick)();
     _startMillis = currMillis;
     return;
 }
