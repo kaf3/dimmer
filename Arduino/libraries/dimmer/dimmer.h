@@ -17,19 +17,18 @@ class Dimmer {
         bool isOn();                    //проверка включен ли диммер
         void setup(void (*dtct)());     //конфиграция диммера 
         int getLevel();                 //получение уровня диммера
-        unsigned long getMicrosLevel(); //получение времени удержания 
-                                        //высокого уровня сигнала на выходе
+        unsigned long getMicrosLevel(); //получение времени обрезания синусоиды
         void resume();                  //возобновить детекцию нуля
         void pause();                   //приостановить детекцию нуля
     
     private:
         bool _nullDetected;             //флаг перехода через ноль
         bool _state;                    //состояние диммера (вкл/выкл)
-        unsigned long _microsLevel;     //время удержания высоко уровня сигнала выходе
+        unsigned long _microsLevel;     //время обрезания синусоиды
         int _level;                     //уровень диммирования 0 - 100
         unsigned long _startMicros;     //время перехода через ноль
-        void (*_detect)();              //преррывание при переходе через ноль
-        static unsigned long _getMicrosByLevel(int level); //вычисление времени удержания
-                                                            //высокого уровня сигнала
+        void (*_detect)();              //прерывание при переходе через ноль
+        static unsigned long _getMicrosByLevel(int level); //вычисление времени 
+                                                            //обрезания синусоиды
                                                             //по уровню диммирования
 };                                                           
