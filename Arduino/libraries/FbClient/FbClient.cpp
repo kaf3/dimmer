@@ -40,28 +40,13 @@ void FbClient::watch() {
             Serial.println("Empty path");
             return;
         }
-
-        Serial.print(" path = ");
-        Serial.println(path);
-
-/*          if (Firebase.getShallowData(data, path)) {
-
-            Serial.println(data.dataType());
-
-            if(data.dataType() == "json") {
-                Serial.println(data.jsonString());
-                (*_onValueReceived)(data.jsonString());
-            }
-        } else {
-            Serial.println(data.errorReason());
-            _errorDataHandler();
-        }  */
-        
     }
 }
 
 void FbClient::_beginStream() {
-    if (!Firebase.beginStream(data, path)) {
+    String childPath[3] = {"/switcher","/photoDetector", "/brightness"};
+    size_t length = 3;
+    if (!Firebase.beginMultiPathStream(data, path + "/equipmentCollection", childPath, length)) {
     Serial.println("------------------------------------");
     Serial.println("Can't begin stream connection...");
     Serial.println("REASON: " + data.errorReason());
@@ -69,7 +54,7 @@ void FbClient::_beginStream() {
     Serial.println();
   }
 
-  Firebase.setStreamCallback(data, _onValueReceived);
+  Firebase.setMultiPathStreamCallback(data, _onValueReceived);
 }
 
 void FbClient::_createPath() {
@@ -88,7 +73,7 @@ void FbClient::_createPath() {
             path = _path + String('/') + key + String("/hardwareCollection/") + WiFi.macAddress();
         }
     } else {
-            Serial.println(data.errorReason());
+            
             _errorDataHandler();
         } 
 }
@@ -96,28 +81,18 @@ void FbClient::_createPath() {
 void FbClient::_createDevice() {
     if (Firebase.getShallowData(data, path + String("/mac"))) {
         if (data.dataType() == "null") {
-            Serial.println("Start to create new object");
-            FirebaseJson equip;
-            equip.add("group", "device");
-            equip.add("name", "Плавный регулятор");
-            equip.add("status", true);
-            equip.add("type", "brightness");
-            equip.add("value", 50);
 
             FirebaseJson hardware;
-            hardware.add("mac", WiFi.macAddress());
-            hardware.add("name", "Ваш новый диммер");
-            hardware.add("type", "dimmer");
-            hardware.add("numberOfEquip", 1);
-            hardware.add("equipmentCollection/brightness", equip);
+            (*_populateDeviceJson)(hardware);
+
             Serial.print("created json ");
             String jsonString;
             hardware.toString(jsonString, true);
             Serial.println(jsonString);
-           if (!Firebase.patch(data, path, hardware)) {
-                Serial.println(data.errorReason());
-           }
 
+            if (!Firebase.updateNode(data, path, hardware)) {
+                Serial.println(data.errorReason());
+            }
         }
     }
 }
@@ -135,22 +110,40 @@ bool FbClient::reconnect() {
     return WiFi.status() == WL_CONNECTED;
 }
 
+void FbClient::postBool(String childPath, bool value) {
+    if (!Firebase.setBool(postData, path + "/equipmentCollection/"+ childPath, value)) {
+        _errorDataHandler();
+    }
+}
+
+void FbClient::postInt(String childPath, int value) {
+    if (!Firebase.setInt(postData, path + "/equipmentCollection/"+ childPath, value)) {
+        _errorDataHandler();
+    }
+}
+
 void FbClient::_errorDataHandler() {
+    Serial.println(data.errorReason());
     if (data.errorReason() == "Firebase authentication was not initialized" || data.errorReason() == "token is not ready") {
         auth.user.email = std::string(credentials->email.c_str());
         auth.user.password = std::string(credentials->upwd.c_str());
         Firebase.begin(&config, &auth);
     }
+    Serial.println(postData.errorReason());
 }
 
-void FbClient::setup(void (*inValueReceived)(StreamData _data), String host, String apiKey) {
+void FbClient::setup(void (*inValueReceived)(MultiPathStreamData _data), void (*inDeviceJson)(FirebaseJson &json), String host, String apiKey) {
     _onValueReceived = *inValueReceived;
+    _populateDeviceJson = *inDeviceJson;
     config.host = std::string(host.c_str());
     config.api_key = std::string(apiKey.c_str());
 
     //Set the size of WiFi rx/tx buffers in the case where we want to work with large data.
     data.setBSSLBufferSize(1024, 1024);
     data.setResponseSize(4096);
+
+    postData.setBSSLBufferSize(1024, 1024);
+    postData.setResponseSize(4096);
 }
 
 void FbClient::begin() {

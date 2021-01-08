@@ -8,4 +8,6 @@ class Credentials {
         String pwd;
         String email;
         String upwd;
+        bool store();
+        bool load();
 };

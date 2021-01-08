@@ -1,12 +1,10 @@
-/*
- * Google's Firebase Realtime Database Arduino Library for ESP8266, version 3.0.4
+/**
+ * Google's Firebase Realtime Database Arduino Library for ESP8266, version 3.0.7
  * 
- * December 24, 2020
+ * January 7, 2021
  * 
  *   Updates:
- * - Add support for more authentication methods.
- * - Remove the domain name checking for the host name parsing.
- * - Update examples and documents for new authentication support
+ * - Remove BearSSL' s Arduino ported sources that may cause conflicts with the compiled BearSSL version library.
  * 
  * 
  * This library provides ESP8266 to perform REST API by GET PUT, POST, PATCH, DELETE data from/to with Google's Firebase database using get, set, update
@@ -15,7 +13,7 @@
  * The library was tested and work well with ESP8266 based module and add support for multiple stream event paths.
  * 
  * The MIT License (MIT)
- * Copyright (c) 2019 K. Suwatchai (Mobizt)
+ * Copyright (c) 2021 K. Suwatchai (Mobizt)
  * 
  * 
  * Permission is hereby granted, free of charge, to any person returning a copy of
@@ -1739,10 +1737,10 @@ bool FirebaseESP8266::setPriority(FirebaseData &fbdo, const String &path, float 
 {
     char *num = floatStr(priority);
     trimDigits(num);
-    char *tmp = strP(fb_esp_pgm_str_156);
-    bool ret = processRequest(fbdo, fb_esp_method::m_set_priority, fb_esp_data_type::d_float, tmp, num, false, "", "");
+    std::string _path = path.c_str();
+    appendP(_path, fb_esp_pgm_str_156);
+    bool ret = processRequest(fbdo, fb_esp_method::m_set_priority, fb_esp_data_type::d_float, _path.c_str(), num, false, "", "");
     delS(num);
-    delS(tmp);
     return ret;
 }
 
@@ -3143,7 +3141,7 @@ bool FirebaseESP8266::getArray(FirebaseData &fbdo, const String &path, FirebaseJ
 
     for (int i = 0; i < maxAttempt; i++)
     {
-        ret = handleRequest(fbdo, 0, path.c_str(), fb_esp_method::m_get, fb_esp_data_type::d_json, "", "", "");
+        ret = handleRequest(fbdo, 0, path.c_str(), fb_esp_method::m_get, fb_esp_data_type::d_array, "", "", "");
         target = fbdo.jsonArrayPtr();
         if (ret)
             break;
@@ -3154,9 +3152,9 @@ bool FirebaseESP8266::getArray(FirebaseData &fbdo, const String &path, FirebaseJ
     }
 
     if (!ret && errCount == maxAttempt && fbdo._qMan._maxQueue > 0)
-        fbdo.addQueue(fb_esp_method::m_get, 0, fb_esp_data_type::d_json, path.c_str(), "", "", false, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, target);
+        fbdo.addQueue(fb_esp_method::m_get, 0, fb_esp_data_type::d_array, path.c_str(), "", "", false, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, target);
 
-    if (ret && fbdo.resp_dataType != fb_esp_data_type::d_json && fbdo.resp_dataType != fb_esp_data_type::d_null)
+    if (ret && fbdo.resp_dataType != fb_esp_data_type::d_array && fbdo.resp_dataType != fb_esp_data_type::d_null)
         ret = false;
 
     return ret;
@@ -3168,8 +3166,8 @@ bool FirebaseESP8266::getArray(FirebaseData &fbdo, const String &path, QueryFilt
     if (query._orderBy != "")
         fbdo.setQuery(query);
 
-    bool ret = handleRequest(fbdo, 0, path.c_str(), fb_esp_method::m_get, fb_esp_data_type::d_json, "", "", "");
-    if (fbdo.resp_dataType != fb_esp_data_type::d_json && fbdo.resp_dataType != fb_esp_data_type::d_null)
+    bool ret = handleRequest(fbdo, 0, path.c_str(), fb_esp_method::m_get, fb_esp_data_type::d_array, "", "", "");
+    if (fbdo.resp_dataType != fb_esp_data_type::d_array && fbdo.resp_dataType != fb_esp_data_type::d_null)
         ret = false;
     return ret;
 }
@@ -3189,7 +3187,7 @@ bool FirebaseESP8266::getArray(FirebaseData &fbdo, const String &path, QueryFilt
 
     for (int i = 0; i < maxAttempt; i++)
     {
-        ret = handleRequest(fbdo, 0, path.c_str(), fb_esp_method::m_get, fb_esp_data_type::d_json, "", "", "");
+        ret = handleRequest(fbdo, 0, path.c_str(), fb_esp_method::m_get, fb_esp_data_type::d_array, "", "", "");
         target = fbdo.jsonArrayPtr();
         if (ret)
             break;
@@ -3200,9 +3198,9 @@ bool FirebaseESP8266::getArray(FirebaseData &fbdo, const String &path, QueryFilt
     }
 
     if (!ret && errCount == maxAttempt && fbdo._qMan._maxQueue > 0)
-        fbdo.addQueue(fb_esp_method::m_get, 0, fb_esp_data_type::d_json, path.c_str(), "", "", true, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, target);
+        fbdo.addQueue(fb_esp_method::m_get, 0, fb_esp_data_type::d_array, path.c_str(), "", "", true, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, target);
 
-    if (ret && fbdo.resp_dataType != fb_esp_data_type::d_json && fbdo.resp_dataType != fb_esp_data_type::d_null)
+    if (ret && fbdo.resp_dataType != fb_esp_data_type::d_array && fbdo.resp_dataType != fb_esp_data_type::d_null)
         ret = false;
 
     return ret;
@@ -3617,6 +3615,9 @@ int FirebaseESP8266::sendRequest(FirebaseData &fbdo, const std::string &path, fb
 
     if (dataType == fb_esp_data_type::d_blob)
         std::vector<uint8_t>().swap(fbdo._blob);
+
+    if (!reconnect(fbdo))
+        return FIREBASE_ERROR_HTTPC_ERROR_CONNECTION_LOST;
 
     //Send request
     ret = fbdo.httpClient.send(header.c_str(), payloadBuf.c_str());
@@ -4353,15 +4354,15 @@ bool FirebaseESP8266::handleResponse(FirebaseData &fbdo)
     if (!reconnect(fbdo))
         return false;
 
-    if (!fbdo._httpConnected)
+    WiFiClient *stream = fbdo.httpClient.stream();
+
+    if (!fbdo._httpConnected || stream == nullptr)
     {
         fbdo._httpCode = FIREBASE_ERROR_HTTPC_ERROR_NOT_CONNECTED;
         return false;
     }
 
     unsigned long dataTime = millis();
-
-    WiFiClient *stream = fbdo.httpClient.stream();
 
     char *pChunk = nullptr;
     char *tmp = nullptr;
@@ -4399,8 +4400,11 @@ bool FirebaseESP8266::handleResponse(FirebaseData &fbdo)
     {
         while (fbdo.httpClient.connected() && chunkBufSize <= 0)
         {
-            if (!reconnect(fbdo, dataTime))
+            if (!reconnect(fbdo, dataTime) || stream == nullptr)
+            {
+                fbdo._httpCode = FIREBASE_ERROR_HTTPC_ERROR_NOT_CONNECTED;
                 return false;
+            }
             chunkBufSize = stream->available();
             delay(0);
         }
@@ -4412,8 +4416,11 @@ bool FirebaseESP8266::handleResponse(FirebaseData &fbdo)
     {
         while (chunkBufSize > 0)
         {
-            if (!reconnect(fbdo, dataTime))
+            if (!reconnect(fbdo, dataTime) || stream == nullptr)
+            {
+                fbdo._httpCode = FIREBASE_ERROR_HTTPC_ERROR_NOT_CONNECTED;
                 return false;
+            }
 
             chunkBufSize = stream->available();
 
@@ -4422,15 +4429,23 @@ bool FirebaseESP8266::handleResponse(FirebaseData &fbdo)
 
             if (chunkBufSize > 0)
             {
-                if (pChunkIdx == 0)
+
+                if (!fbdo._isFCM)
                 {
-                    if (chunkBufSize > defaultChunkSize + (int)strlen_P(fb_esp_pgm_str_93))
-                        chunkBufSize = defaultChunkSize + strlen_P(fb_esp_pgm_str_93); //plus file header length for later base64 decoding
+                    if (pChunkIdx == 0)
+                    {
+                        if (chunkBufSize > defaultChunkSize + (int)strlen_P(fb_esp_pgm_str_93))
+                            chunkBufSize = defaultChunkSize + strlen_P(fb_esp_pgm_str_93); //plus file header length for later base64 decoding
+                    }
+                    else
+                    {
+                        if (chunkBufSize > defaultChunkSize)
+                            chunkBufSize = defaultChunkSize;
+                    }
                 }
                 else
                 {
-                    if (chunkBufSize > defaultChunkSize)
-                        chunkBufSize = defaultChunkSize;
+                    chunkBufSize = defaultChunkSize;
                 }
 
                 if (chunkIdx == 0)
@@ -7357,7 +7372,7 @@ void FirebaseData::setResponseSize(uint16_t len)
         _responseBufSize = 4 * (1 + (len / 4));
 }
 
-SSL_CLIENT *FirebaseData::getWiFiClient()
+FB_ESP8266_SSL_CLIENT *FirebaseData::getWiFiClient()
 {
     return httpClient._wcs.get();
 }

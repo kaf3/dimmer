@@ -4,6 +4,7 @@
 #include <ESP8266WebServer.h>
 #include <credentials.h>
 
+
 SoftAp::SoftAp(ESP8266WebServer &inServer, Credentials &inCredentials) {
     server = &inServer;
     credentials = &inCredentials;
@@ -12,7 +13,7 @@ SoftAp::SoftAp(ESP8266WebServer &inServer, Credentials &inCredentials) {
 }
 
 void SoftAp::watch() {
-    if (!isSoftAp()) {
+    if (!isSoftAp() && (WiFi.getMode() != WIFI_AP_STA)) {
         return;
     }
 
@@ -51,6 +52,7 @@ void SoftAp::end() {
     WiFi.mode(WIFI_STA);
     Serial.print("reset ap and is soft ap");
     Serial.print(isSoftAp());
+
 };
 
 bool SoftAp::isSoftAp() {
