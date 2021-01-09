@@ -3,8 +3,6 @@
 #include <ESP8266WiFi.h>
 #include <ESP8266WebServer.h>
 #include <credentials.h>
-#include <FS.h>
-
 
 SoftAp::SoftAp(ESP8266WebServer &inServer, Credentials &inCredentials) {
     server = &inServer;
@@ -61,13 +59,7 @@ bool SoftAp::isSoftAp() {
 };
 
 void SoftAp::setup(void (*inHandleRoot)(), void (*inHandleCredentials)(), void (*inHandleNotFound)()) {
-    if(!SPIFFS.begin()){
-        Serial.println("An Error has occurred while mounting SPIFFS");
-    }
-
-    //server->on("/", inHandleRoot);
-    server->serveStatic("/", SPIFFS, "/root.html");
-    server->serveStatic("/style.css", SPIFFS, "/style.css");
+    server->on("/", inHandleRoot);
     server->on("/credentials", inHandleCredentials);
     server->onNotFound(inHandleNotFound);
 }
@@ -112,27 +104,16 @@ void SoftAp::handleCredentials() {
     String email = server->arg("email");
     String upwd = server->arg("upwd");
 
-/*     String body = "<div class=\"bar light\">\
+     String body = "<div class=\"bar light\">\
         <span>Данные сохранены! </span>\
         <a href=\"/\"> Назад</a>\
-    </div>"; */
+    </div>";
   
     if (ssid.length() * pwd.length() * email.length() * upwd.length() == 0) {
-
-        /* body = "<div class=\"bar light\">\
+         body = "<div class=\"bar light\">\
             <span>Данные введены некорректно :( </span>\
             <a href=\"/\"> Назад</a>\
-        </div>"; */
-
-        if (SPIFFS.exists("/credentials.html")) {
-            File file = SPIFFS.open("/credentials.html", "r");
-            size_t send = server->streamFile(file, "text/html");
-            file.close(); 
-        } else {
-            handleNotFound();
-        }
-        
-
+        </div>";
     } else {
         credentials->ssid = ssid;
         credentials->pwd = pwd;
