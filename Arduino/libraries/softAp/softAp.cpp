@@ -3,6 +3,7 @@
 #include <ESP8266WiFi.h>
 #include <ESP8266WebServer.h>
 #include <credentials.h>
+#include <FS.h>
 
 
 SoftAp::SoftAp(ESP8266WebServer &inServer, Credentials &inCredentials) {
@@ -60,7 +61,13 @@ bool SoftAp::isSoftAp() {
 };
 
 void SoftAp::setup(void (*inHandleRoot)(), void (*inHandleCredentials)(), void (*inHandleNotFound)()) {
-    server->on("/", inHandleRoot);
+    if(!SPIFFS.begin()){
+        Serial.println("An Error has occurred while mounting SPIFFS");
+    }
+
+    //server->on("/", inHandleRoot);
+    server->serveStatic("/", SPIFFS, "/root.html");
+    server->serveStatic("/style.css", SPIFFS, "/style.css");
     server->on("/credentials", inHandleCredentials);
     server->onNotFound(inHandleNotFound);
 }
@@ -105,17 +112,26 @@ void SoftAp::handleCredentials() {
     String email = server->arg("email");
     String upwd = server->arg("upwd");
 
-    String body = "<div class=\"bar light\">\
+/*     String body = "<div class=\"bar light\">\
         <span>Данные сохранены! </span>\
         <a href=\"/\"> Назад</a>\
-    </div>";
+    </div>"; */
   
     if (ssid.length() * pwd.length() * email.length() * upwd.length() == 0) {
 
-        body = "<div class=\"bar light\">\
+        /* body = "<div class=\"bar light\">\
             <span>Данные введены некорректно :( </span>\
             <a href=\"/\"> Назад</a>\
-        </div>";
+        </div>"; */
+
+        if (SPIFFS.exists("/credentials.html")) {
+            File file = SPIFFS.open("/credentials.html", "r");
+            size_t send = server->streamFile(file, "text/html");
+            file.close(); 
+        } else {
+            handleNotFound();
+        }
+        
 
     } else {
         credentials->ssid = ssid;
@@ -128,20 +144,7 @@ void SoftAp::handleCredentials() {
 }
 
 void SoftAp::handleNotFound() {
-    String message = "File Not Found\n\n";
-    message += "URI: ";
-    message += server->uri();
-    message += "\nMethod: ";
-    message += (server->method() == HTTP_GET) ? "GET" : "POST";
-    message += "\nArguments: ";
-    message += server->args();
-    message += "\n";
-
-    for (uint8_t i = 0; i < server->args(); i++) {
-        message += " " + server->argName(i) + ": " + server->arg(i) + "\n";
-    }
-
-    server->send(404, "text/plain", message);
+    server->send(404, "text/plain", "404 Not Found");
 }
 
 String SoftAp::_makePage(String body) {

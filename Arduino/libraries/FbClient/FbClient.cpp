@@ -19,28 +19,24 @@ void FbClient::watch() {
 
     unsigned long currentMillis = millis();
 
-    if (currentMillis - _startMillis >= 3000) {
-        _startMillis = currentMillis;
-
-
-        if (auth.token.uid.length() == 0) {
-            Firebase.getShallowData(data, "/UsersData2/");
-            return;
-        } 
-
-        if (_initializing) {
-            _createPath();
-            _createDevice();
-            _beginStream();
-            _initializing = false;
-            return;
-        }
-
-        if (path.length() == 0) {
-            Serial.println("Empty path");
-            return;
-        }
+    if (currentMillis - _startMillis < 3000) {
+        return;
     }
+    _startMillis = currentMillis;
+
+    if (auth.token.uid.length() == 0) {
+        Firebase.getShallowData(data, "/UsersData2/");
+        return;
+    } 
+
+    if (_initializing) {
+        _createPath();
+        _createDevice();
+        _beginStream();
+        _initializing = false;
+        return;
+    }
+    
 }
 
 void FbClient::_beginStream() {
@@ -147,6 +143,7 @@ void FbClient::setup(void (*inValueReceived)(MultiPathStreamData _data), void (*
 }
 
 void FbClient::begin() {
+    _connectTryCounter = 0;
     auth.user.email = std::string(credentials->email.c_str());
     auth.user.password = std::string(credentials->upwd.c_str());
 
