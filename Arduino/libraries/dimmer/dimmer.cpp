@@ -15,11 +15,11 @@ void Dimmer::setup(void (*dtct)()) {
     pinMode(loadPin, OUTPUT);
     pinMode(nullDetectedPin, INPUT_PULLUP);
     _detect = *dtct;
-    attachInterrupt(digitalPinToInterrupt(nullDetectedPin), *_detect, FALLING);
+    //attachInterrupt(digitalPinToInterrupt(nullDetectedPin), *_detect, FALLING);
 }
 
 void Dimmer::resume() {
-    attachInterrupt(digitalPinToInterrupt(nullDetectedPin), *_detect, FALLING);
+    //attachInterrupt(digitalPinToInterrupt(nullDetectedPin), *_detect, FALLING);
 }
 
 void Dimmer::pause() {
@@ -31,15 +31,25 @@ void Dimmer::interrupt() {
 }
 
 void Dimmer::watch() {
-    int loadState = HIGH;
+/*     int loadState = HIGH;
 
     if (!isOn()) {
         digitalWrite(loadPin, LOW);
         _nullDetected = false;
         return;
-    }
+    } */
 
-    if (_nullDetected) {
+    int loadState = LOW;
+
+    if (isOn()) {
+        loadState = HIGH;
+    } else
+    {
+        loadState = LOW;
+    }
+    
+
+/*     if (_nullDetected) {
         _startMicros = micros();
         _nullDetected = false;
     }
@@ -48,7 +58,7 @@ void Dimmer::watch() {
     
     if (currMicros - _startMicros >= _microsLevel) {
         loadState = LOW;
-    }
+    } */
 
     digitalWrite(loadPin, loadState);
 }

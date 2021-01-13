@@ -53,6 +53,9 @@ void setup() {
 
     EEPROM.begin(128);
     credentials.load();
+
+    Serial.println("email :" + credentials.email);
+    Serial.println("password :" + credentials.upwd);
     
     staConnected = WiFi.onStationModeGotIP(&onConnected);
     staDisconnected = WiFi.onStationModeDisconnected(&onDisconnected);
@@ -72,6 +75,8 @@ void setup() {
     WiFi.begin();
 
     dimmer.setup(detectsNull);
+
+    Serial.println("boot by uart!!!!!!!!3");
 }
 
 void loop() {
