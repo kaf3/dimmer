@@ -38,7 +38,7 @@ void populateDeviceJson(FirebaseJson &hardware);
 WiFiEventHandler staConnected, staDisconnected, modeChanged;
  
 Button buttonOn(14, onToggle, onLongClick);
-Button buttonInc(12, onIncreaseClick, onIncreaseLongClick);
+Button buttonInc(12, onIncreaseClick, onIncreaseLongClick);  
 Button buttonDec(13, onDecreaseClick, onDecreaseLongClick);
 Credentials credentials;
 Dimmer dimmer(16, 4);
