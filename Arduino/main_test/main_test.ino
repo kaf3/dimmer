@@ -10,8 +10,8 @@
 #include <button.h>
 #include <softAp.h>
 
-#define FIREBASE_HOST "https://home-for-u.firebaseio.com"
-#define API_KEY "AIzaSyDgXyRA4x6CWoNjpMY2wfxV6OX95QKWGK0"
+#define FIREBASE_HOST "https://smart-home-kaf3.firebaseio.com"
+#define API_KEY "AIzaSyA7FgOgGkq_v0tLuZSGA12ORmKuKloPtx4"
 
 void handleRoot();
 void handleCredentials();

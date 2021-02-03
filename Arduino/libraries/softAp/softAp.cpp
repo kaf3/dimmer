@@ -78,19 +78,19 @@ void SoftAp::handleRoot() {
     <form action=\"/credentials\" method=\"post\">\
         <div class=\"field\">\
             <label for=\"ssid\">Имя сети</label>\
-            <input type=\"text\" value=\"iPhone (Никита)\" name=\"ssid\">\
+            <input type=\"text\" name=\"ssid\">\
         </div>\
         <div class=\"field\">\
             <label for=\"pwd\">Пароль сети</label>\
-            <input type=\"password\" value=\"qwerty1234\" name=\"pwd\">\
+            <input type=\"password\" name=\"pwd\">\
         </div>\
         <div class=\"field\">\
             <label for=\"email\">Имя пользователя Smart Home</label>\
-            <input type=\"text\" value=\"nekit.97@bk.ru\" name=\"email\">\
+            <input type=\"text\" name=\"email\">\
         </div>\
         <div class=\"field\">\
             <label for=\"upwd\">Пароль пользователя Smart Home</label>\
-            <input type=\"password\" value=\"123456\" name=\"upwd\">\
+            <input type=\"password\" name=\"upwd\">\
         </div>\
         <button>Сохранить</button>\
     </form>";
